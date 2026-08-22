@@ -2,800 +2,562 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no,
-      viewport-fit=cover">
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0,user-scalable=no">
 
 <title>Pride Connect</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body {
-    margin: 0;
-    width: 100%;
-    min-height: 100%;
-    overflow-x: hidden;
+html,body{
+    margin:0;
+    padding:0;
+    background:#f5f5f8;
+    color:#17171c;
+    font-family:Arial,sans-serif;
 }
 
-body {
-    background: #f8f8fc;
-    color: #15151d;
-    font-family: Arial, Helvetica, sans-serif;
+body{
+    max-width:500px;
+    margin:auto;
+    min-height:100vh;
 }
 
-/* =========================
-   APP
-========================= */
-
-.app {
-    width: 100%;
-    min-height: 100vh;
-    padding-bottom: 78px;
+button,input,textarea{
+    font:inherit;
 }
 
-
-/* =========================
-   HEADER
-========================= */
-
-.header {
-    height: 65px;
-
-    background: #ffffff;
-
-    border-bottom: 1px solid #e5e5ea;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding:
-        0 12px;
-
-    position: sticky;
-    top: 0;
-
-    z-index: 50;
+button{
+    border:0;
+    cursor:pointer;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
+/* HEADER */
 
-    font-size: 20px;
-    font-weight: 800;
+.header{
+    height:62px;
+    background:white;
+    border-bottom:1px solid #e5e5e8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 14px;
+    position:sticky;
+    top:0;
+    z-index:20;
+}
 
+.logo{
+    font-size:20px;
+    font-weight:800;
+    background:linear-gradient(
+        90deg,
+        #ed1680,
+        #6618dc
+    );
+    color:transparent;
+    background-clip:text;
+}
+
+.logo span{
+    font-size:25px;
+}
+
+.header-buttons{
+    display:flex;
+    gap:6px;
+}
+
+.header-buttons button{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#f1f1f5;
+}
+
+/* SCREENS */
+
+.screen{
+    display:none;
+    padding:10px;
+    padding-bottom:90px;
+}
+
+.screen.active{
+    display:block;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    border:1px solid #e7e7eb;
+    border-radius:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+/* COMPOSER */
+
+.composer{
+    padding:12px;
+    display:flex;
+    gap:10px;
+}
+
+.avatar{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+    background:#ddd;
+}
+
+.compose-box{
+    flex:1;
+    border:2px solid #e5e5e9;
+    border-radius:12px;
+    padding:10px;
+}
+
+.compose-box textarea{
+    width:100%;
+    height:55px;
+    resize:none;
+    border:0;
+    outline:0;
+}
+
+.compose-tools{
+    display:flex;
+    align-items:center;
+}
+
+.compose-tools button{
+    background:transparent;
+    font-size:20px;
+}
+
+.post-button{
+    margin-left:auto;
+    background:#6419d9!important;
+    color:white;
+    padding:8px 17px;
+    border-radius:9px;
+    font-size:14px!important;
+    font-weight:bold;
+}
+
+/* POST */
+
+.feed{
+    margin-top:10px;
+}
+
+.post{
+    padding:14px;
+    margin-bottom:10px;
+}
+
+.post-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.post-header .avatar{
+    width:52px;
+    height:52px;
+}
+
+.name{
+    font-size:17px;
+    font-weight:800;
+}
+
+.time{
+    color:#777;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.more{
+    margin-left:auto;
+    background:transparent;
+    font-size:22px;
+}
+
+.post-text{
+    margin:17px 0;
+    font-size:16px;
+    line-height:1.5;
+}
+
+.post-actions{
+    border-top:1px solid #eee;
+    padding-top:8px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+}
+
+.action{
+    background:transparent;
+    color:#555;
+    min-height:40px;
+    font-size:12px;
+}
+
+/* NICE */
+
+.clover{
+    color:#555;
+    font-size:20px;
+}
+
+.nice.active .clover{
+    color:#6919d9;
+}
+
+/* FOLLOW */
+
+.follow{
+    margin-left:auto;
+    background:#6419d9;
+    color:white;
+    border-radius:8px;
+    padding:8px 12px;
+    font-weight:bold;
+}
+
+.follow.following{
+    background:#eee;
+    color:#555;
+}
+
+/* TITLES */
+
+.title{
+    font-size:24px;
+    font-weight:800;
+    margin:4px 2px 14px;
+}
+
+/* DATING */
+
+.dating-image{
+    width:100%;
+    height:330px;
+    object-fit:cover;
+    border-radius:15px 15px 0 0;
+}
+
+.dating-content{
+    padding:17px;
+}
+
+.dating-name{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.dating-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.dating-buttons button{
+    flex:1;
+    height:48px;
+    border-radius:10px;
+}
+
+.pass{
+    background:#eee;
+}
+
+.like{
+    background:#6419d9;
+    color:white;
+}
+
+/* WALLET */
+
+.wallet{
+    padding:20px;
+    color:white;
     background:
         linear-gradient(
-            90deg,
-            #ed1680,
-            #641ddd
+            135deg,
+            #5e14d4,
+            #8a27e8
         );
-
-    color: transparent;
-
-    background-clip: text;
 }
 
-.logo span {
-    font-size: 29px;
-    margin-right: 5px;
+.balance{
+    font-size:36px;
+    font-weight:800;
+    margin-top:8px;
 }
 
-.header-buttons {
-    display: flex;
-    gap: 6px;
+.wallet button{
+    margin-top:18px;
+    background:white;
+    color:#6419d9;
+    padding:10px 17px;
+    border-radius:9px;
+    font-weight:bold;
 }
 
-.header-button {
-    width: 42px;
-    height: 42px;
+/* SHOP */
 
-    border: none;
-
-    border-radius: 11px;
-
-    background: #f5f5f8;
-
-    font-size: 20px;
+.shop-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.header-button.active {
-    background: #ff7900;
-    color: white;
+.product{
+    overflow:hidden;
 }
 
-
-/* =========================
-   SCREEN
-========================= */
-
-.screen {
-    display: none;
-
-    width: 100%;
-
-    padding: 10px;
+.product img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
 }
 
-.screen.active {
-    display: block;
+.product-content{
+    padding:11px;
 }
 
-
-/* =========================
-   CARD
-========================= */
-
-.card {
-    background: white;
-
-    border: 1px solid #e9e9ef;
-
-    border-radius: 15px;
-
-    box-shadow:
-        0 2px 8px rgba(0,0,0,.04);
+.price{
+    color:#6419d9;
+    font-weight:bold;
+    margin-top:5px;
 }
 
-
-/* =========================
-   CREATE POST
-========================= */
-
-.create-post {
-    padding: 12px;
-
-    display: flex;
-
-    gap: 10px;
+.buy{
+    width:100%;
+    margin-top:9px;
+    padding:9px;
+    border-radius:8px;
+    background:#6419d9;
+    color:white;
 }
 
-.avatar {
-    width: 50px;
-    height: 50px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    flex-shrink: 0;
-}
-
-.post-input {
-    flex: 1;
-
-    min-width: 0;
-
-    height: 120px;
-
-    border: 2px solid #e6e6ec;
-
-    border-radius: 12px;
-
-    padding: 13px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: space-between;
-}
-
-.placeholder {
-    color: #666b79;
-
-    font-size: 16px;
-}
-
-.post-tools {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-}
-
-.post-tools button {
-    border: none;
-
-    background: none;
-
-    font-size: 24px;
-}
-
-.photo {
-    color: #52aa2d;
-}
-
-.emoji {
-    color: #e8a40d;
-}
-
-.post-button {
-    margin-left: auto;
-
-    background:
-        linear-gradient(
-            90deg,
-            #5b10d9,
-            #7623e7
-        ) !important;
-
-    color: white;
-
-    border-radius: 9px !important;
-
-    padding: 9px 18px;
-
-    font-size: 15px !important;
-}
-
-
-/* =========================
-   FEED
-========================= */
-
-.feed {
-    margin-top: 10px;
-}
-
-.post {
-    padding: 14px;
-
-    margin-bottom: 10px;
-}
-
-.post-header {
-    display: flex;
-
-    align-items: center;
-
-    gap: 11px;
-}
-
-.post-header .avatar {
-    width: 54px;
-    height: 54px;
-}
-
-.post-name {
-    font-size: 18px;
-
-    font-weight: 800;
-}
-
-.post-time {
-    font-size: 13px;
-
-    color: #6a6d78;
-
-    margin-top: 4px;
-}
-
-.more {
-    margin-left: auto;
-
-    border: none;
-
-    background: none;
-
-    font-size: 25px;
-}
-
-.post-text {
-    font-size: 17px;
-
-    line-height: 1.5;
-
-    margin:
-        20px 0;
-}
-
-.post-actions {
-    border-top: 1px solid #eeeeF2;
-
-    padding-top: 13px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-}
-
-.action {
-    min-height: 40px;
-
-    border: none;
-
-    background: none;
-
-    color: #444753;
-
-    font-size: 12px;
-}
-
-.nice {
-    font-weight: 700;
-}
-
-.nice .clover {
-    color: #444753;
-
-    transition:
-        color .2s ease;
-}
-
-.nice.active .clover {
-    color: #6d20d9;
-}
-
-
-/* =========================
-   PROFILE
-========================= */
-
-.profile-banner {
-    height: 80px;
-
-    border-radius:
-        15px 15px 0 0;
+/* PROFILE */
+
+.profile-cover{
+    height:90px;
+    border-radius:15px 15px 0 0;
 
     background:
         linear-gradient(
             110deg,
-            #4e00e8,
-            #8d00e5,
-            #ff7900
+            #4d00e8,
+            #8b00e8,
+            #ff7800
         );
 }
 
-.profile-content {
-    padding: 18px;
+.profile-content{
+    padding:18px;
 }
 
-.profile-top {
-    display: flex;
-
-    gap: 14px;
+.profile-top{
+    display:flex;
+    gap:14px;
 }
 
-.profile-photo {
-    width: 85px;
-    height: 85px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
+.profile-picture{
+    width:86px;
+    height:86px;
+    position:relative;
+    flex-shrink:0;
 }
 
-.profile-name {
-    font-size: 24px;
-
-    font-weight: 800;
+.profile-picture img{
+    width:86px;
+    height:86px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid white;
 }
 
-.profile-handle {
-    color: #5e16d7;
+.camera{
+    position:absolute;
+    right:-3px;
+    bottom:-3px;
 
-    font-weight: 700;
+    width:32px;
+    height:32px;
 
-    margin-top: 5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    background:#6419d9;
+    color:white;
+
+    border:3px solid white;
 }
 
-.profile-info {
-    font-size: 15px;
-
-    margin-top: 8px;
+.profile-name{
+    font-size:23px;
+    font-weight:800;
 }
 
-.profile-bio {
-    font-size: 14px;
-
-    line-height: 1.4;
-
-    margin-top: 6px;
+.profile-handle{
+    color:#6419d9;
+    font-weight:bold;
+    margin-top:4px;
 }
 
-.edit-profile {
-    width: 100%;
-
-    height: 50px;
-
-    margin-top: 18px;
-
-    border: 2px solid #6b1bd8;
-
-    border-radius: 10px;
-
-    background: white;
-
-    color: #6015d0;
-
-    font-weight: 700;
+.profile-meta{
+    font-size:13px;
+    margin-top:7px;
 }
 
-.social {
-    display: flex;
-
-    justify-content: space-around;
-
-    font-size: 28px;
-
-    margin-top: 18px;
+.profile-bio{
+    font-size:14px;
+    line-height:1.4;
+    margin-top:5px;
 }
 
+.upload-button{
+    width:100%;
+    height:48px;
+    margin-top:17px;
 
-/* =========================
-   DATING
-========================= */
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-.screen-title {
-    font-size: 24px;
+    border:2px solid #6419d9;
+    border-radius:10px;
 
-    font-weight: 800;
-
-    margin:
-        5px 2px 14px;
+    color:#6419d9;
+    background:white;
+    font-weight:bold;
 }
 
-.dating-card {
-    overflow: hidden;
+.edit-button{
+    width:100%;
+    height:48px;
+    margin-top:9px;
+
+    background:#6419d9;
+    color:white;
+
+    border-radius:10px;
+    font-weight:bold;
 }
 
-.dating-photo {
-    width: 100%;
-
-    height: 330px;
-
-    object-fit: cover;
-
-    background: #ddd;
+.status{
+    text-align:center;
+    font-size:12px;
+    color:#777;
+    margin-top:9px;
 }
 
-.dating-info {
-    padding: 18px;
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:0;
+
+    transform:translateX(-50%);
+
+    width:100%;
+    max-width:500px;
+
+    height:72px;
+
+    background:white;
+    border-top:1px solid #ddd;
+
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+
+    z-index:30;
 }
 
-.dating-name {
-    font-size: 25px;
-
-    font-weight: 800;
+.nav-button{
+    background:white;
+    color:#555;
+    font-size:11px;
+    position:relative;
 }
 
-.dating-actions {
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 15px;
+.nav-button span{
+    display:block;
+    font-size:23px;
+    line-height:28px;
 }
 
-.dating-actions button {
-    flex: 1;
-
-    height: 48px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    font-size: 18px;
+.nav-button.active{
+    color:#6419d9;
 }
 
-.pass {
-    background: #f1f1f5;
+.nav-button.active::after{
+    content:"";
+
+    position:absolute;
+    bottom:3px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:38px;
+    height:3px;
+
+    border-radius:4px;
+
+    background:#6419d9;
 }
 
-.like {
-    background: #6a18dc;
+/* TOAST */
 
-    color: white;
+#toast{
+    position:fixed;
+
+    left:50%;
+    bottom:85px;
+
+    transform:translate(-50%,20px);
+
+    background:#222;
+    color:white;
+
+    padding:10px 16px;
+
+    border-radius:9px;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.2s;
+
+    z-index:100;
 }
 
-
-/* =========================
-   WALLET
-========================= */
-
-.wallet-card {
-    padding: 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5d12d8,
-            #8a26e9
-        );
-
-    color: white;
+#toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
 }
-
-.wallet-label {
-    opacity: .8;
-}
-
-.wallet-balance {
-    font-size: 36px;
-
-    font-weight: 800;
-
-    margin-top: 8px;
-}
-
-.wallet-button {
-    margin-top: 18px;
-
-    border: none;
-
-    background: white;
-
-    color: #6417d2;
-
-    padding: 11px 18px;
-
-    border-radius: 9px;
-
-    font-weight: 700;
-}
-
-
-/* =========================
-   SHOP
-========================= */
-
-.shop-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 10px;
-}
-
-.product {
-    background: white;
-
-    border: 1px solid #e8e8ee;
-
-    border-radius: 13px;
-
-    overflow: hidden;
-}
-
-.product-image {
-    width: 100%;
-
-    height: 150px;
-
-    object-fit: cover;
-
-    background: #eee;
-}
-
-.product-info {
-    padding: 12px;
-}
-
-.product-name {
-    font-weight: 700;
-}
-
-.product-price {
-    color: #6519d6;
-
-    font-weight: 800;
-
-    margin-top: 6px;
-}
-
-.buy {
-    width: 100%;
-
-    margin-top: 10px;
-
-    border: none;
-
-    background: #6519d6;
-
-    color: white;
-
-    padding: 9px;
-
-    border-radius: 8px;
-}
-
-
-/* =========================
-   BOTTOM NAV
-========================= */
-
-.bottom-nav {
-    position: fixed;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 72px;
-
-    padding-bottom:
-        env(safe-area-inset-bottom);
-
-    background:
-        rgba(255,255,255,.97);
-
-    backdrop-filter: blur(12px);
-
-    border-top: 1px solid #ddd;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    z-index: 100;
-}
-
-.nav {
-    border: none;
-
-    background: transparent;
-
-    font-size: 11px;
-
-    color: #444753;
-
-    position: relative;
-}
-
-.nav-icon {
-    display: block;
-
-    font-size: 24px;
-
-    line-height: 27px;
-}
-
-.nav.active {
-    color: #6318d7;
-}
-
-.nav.active::after {
-    content: "";
-
-    position: absolute;
-
-    bottom: 2px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    width: 42px;
-
-    height: 3px;
-
-    border-radius: 4px;
-
-    background: #6b1cda;
-}
-
-
-/* =========================
-   TOAST
-========================= */
-
-.toast {
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 90px;
-
-    transform:
-        translate(-50%,20px);
-
-    background: #222;
-
-    color: white;
-
-    padding: 11px 18px;
-
-    border-radius: 9px;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: .25s;
-
-    z-index: 200;
-}
-
-.toast.show {
-    opacity: 1;
-
-    transform:
-        translate(-50%,0);
-}
-
-
-/* =========================
-   SMALL ANDROID
-========================= */
-
-@media(max-width:360px) {
-
-    .logo {
-        font-size: 18px;
-    }
-
-    .logo span {
-        font-size: 25px;
-    }
-
-    .header-button {
-        width: 38px;
-        height: 38px;
-        font-size: 17px;
-    }
-
-    .screen {
-        padding: 7px;
-    }
-
-    .post-text {
-        font-size: 16px;
-    }
-
-    .action {
-        font-size: 11px;
-    }
-
-}
-
-
-/* =========================
-   LARGER ANDROID
-========================= */
-
-@media(min-width:390px) {
-
-    .screen {
-        padding: 11px;
-    }
-
-    .post-text {
-        font-size: 18px;
-    }
-
-}
-
 </style>
 </head>
 
-
 <body>
-
-
-<div class="app">
-
-
-<!-- =========================
-     HEADER
-========================= -->
 
 <header class="header">
 
@@ -805,68 +567,49 @@ body {
     </div>
 
     <div class="header-buttons">
-
-        <button
-            class="header-button"
-            onclick="toast('Notifications')">
-            ♧
-        </button>
-
-        <button
-            class="header-button active"
-            onclick="toast('Messages')">
-            💬
-        </button>
-
-        <button
-            class="header-button"
-            onclick="toast('Explore')">
-            🌐
-        </button>
-
+        <button onclick="toast('Notifications')">♧</button>
+        <button onclick="toast('Messages')">💬</button>
+        <button onclick="toast('Explore')">🌐</button>
     </div>
 
 </header>
 
 
-<!-- =========================
-     HOME
-========================= -->
+<!-- ================= HOME ================= -->
 
-<section
-    id="home"
-    class="screen active">
+<section id="home" class="screen active">
 
-    <div class="card create-post">
+    <div class="card composer">
 
         <img
-            src="reference.png"
-            class="avatar">
+            id="homeAvatar"
+            class="avatar"
+            src=""
+            alt="Profile">
 
-        <div class="post-input">
+        <div class="compose-box">
 
-            <div class="placeholder">
-                What's on your mind?
-            </div>
+            <textarea
+                id="postText"
+                placeholder="What's on your mind?">
+            </textarea>
 
-            <div class="post-tools">
+            <div class="compose-tools">
 
-                <button
-                    class="photo"
-                    onclick="toast('Add photo')">
+                <button onclick="toast('Photo picker')">
                     ▧
                 </button>
 
-                <button
-                    class="emoji"
-                    onclick="toast('Add emoji')">
+                <button onclick="toast('Emoji picker')">
                     ☺
                 </button>
 
                 <button
                     class="post-button"
                     onclick="publishPost()">
+
                     Post
+
                 </button>
 
             </div>
@@ -876,25 +619,25 @@ body {
     </div>
 
 
-    <div class="feed">
-
-        <!-- POST -->
+    <div id="feed" class="feed">
 
         <article class="card post">
 
             <div class="post-header">
 
                 <img
-                    src="reference.png"
-                    class="avatar">
+                    class="avatar"
+                    id="postAvatar1"
+                    src=""
+                    alt="">
 
                 <div>
 
-                    <div class="post-name">
+                    <div class="name">
                         YUSHI018 🌈
                     </div>
 
-                    <div class="post-time">
+                    <div class="time">
                         Just now • 🌐
                     </div>
 
@@ -903,17 +646,16 @@ body {
                 <button
                     class="more"
                     onclick="toast('Post menu')">
+
                     ⋮
+
                 </button>
 
             </div>
 
 
             <div class="post-text">
-
-                Good morning!
-                Have a great day everyone! 🌈
-
+                Good morning! Have a great day everyone! 🌈
             </div>
 
 
@@ -926,7 +668,6 @@ body {
                     <span class="clover">
                         ☘
                     </span>
-
                     Nice
 
                 </button>
@@ -943,7 +684,7 @@ body {
                     class="action"
                     onclick="toast('Shared')">
 
-                    ⌁ Share
+                    ⤴ Share
 
                 </button>
 
@@ -956,42 +697,40 @@ body {
         </article>
 
 
-        <!-- SECOND POST -->
-
         <article class="card post">
 
             <div class="post-header">
 
                 <img
-                    src="reference.png"
-                    class="avatar">
+                    class="avatar"
+                    src=""
+                    alt="">
 
                 <div>
 
-                    <div class="post-name">
+                    <div class="name">
                         Alex
                     </div>
 
-                    <div class="post-time">
-                        1 hour ago 🖤 • 🌐
+                    <div class="time">
+                        1 hour ago • 🌐
                     </div>
 
                 </div>
 
                 <button
-                    class="more"
-                    onclick="toast('Post menu')">
-                    ⋮
+                    class="follow"
+                    onclick="toggleFollow(this)">
+
+                    Follow
+
                 </button>
 
             </div>
 
 
             <div class="post-text">
-
-                Life is better when
-                you're being yourself. 💜
-
+                Life is better when you're being yourself. 💜
             </div>
 
 
@@ -1004,7 +743,6 @@ body {
                     <span class="clover">
                         ☘
                     </span>
-
                     Nice
 
                 </button>
@@ -1021,7 +759,7 @@ body {
                     class="action"
                     onclick="toast('Shared')">
 
-                    ⌁ Share
+                    ⤴ Share
 
                 </button>
 
@@ -1038,36 +776,32 @@ body {
 </section>
 
 
-<!-- =========================
-     DATING
-========================= -->
+<!-- ================= DATING ================= -->
 
-<section
-    id="dating"
-    class="screen">
+<section id="dating" class="screen">
 
-    <div class="screen-title">
+    <div class="title">
         Dating ❤️
     </div>
 
-    <div class="card dating-card">
+    <div class="card">
 
         <img
-            src="reference.png"
-            class="dating-photo">
+            class="dating-image"
+            src=""
+            alt="Dating profile">
 
-        <div class="dating-info">
+        <div class="dating-content">
 
             <div class="dating-name">
                 James, 25 💙
             </div>
 
             <p>
-                Looking for someone
-                genuine and fun.
+                Looking for someone genuine and fun.
             </p>
 
-            <div class="dating-actions">
+            <div class="dating-buttons">
 
                 <button
                     class="pass"
@@ -1094,30 +828,25 @@ body {
 </section>
 
 
-<!-- =========================
-     WALLET
-========================= -->
+<!-- ================= WALLET ================= -->
 
-<section
-    id="wallet"
-    class="screen">
+<section id="wallet" class="screen">
 
-    <div class="screen-title">
+    <div class="title">
         Wallet
     </div>
 
-    <div class="card wallet-card">
+    <div class="card wallet">
 
-        <div class="wallet-label">
+        <div>
             Current Balance
         </div>
 
-        <div class="wallet-balance">
+        <div class="balance">
             ₱1,250.00
         </div>
 
         <button
-            class="wallet-button"
             onclick="toast('Add money')">
 
             + Add Money
@@ -1129,33 +858,25 @@ body {
 </section>
 
 
-<!-- =========================
-     SHOP
-========================= -->
+<!-- ================= SHOP ================= -->
 
-<section
-    id="shop"
-    class="screen">
+<section id="shop" class="screen">
 
-    <div class="screen-title">
+    <div class="title">
         Pride Shop 🛍️
     </div>
 
     <div class="shop-grid">
 
-        <div class="product">
+        <div class="card product">
 
-            <img
-                src="reference.png"
-                class="product-image">
+            <img src="" alt="Pride shirt">
 
-            <div class="product-info">
+            <div class="product-content">
 
-                <div class="product-name">
-                    Pride Shirt
-                </div>
+                <b>Pride Shirt</b>
 
-                <div class="product-price">
+                <div class="price">
                     ₱599
                 </div>
 
@@ -1172,19 +893,15 @@ body {
         </div>
 
 
-        <div class="product">
+        <div class="card product">
 
-            <img
-                src="reference.png"
-                class="product-image">
+            <img src="" alt="Rainbow cap">
 
-            <div class="product-info">
+            <div class="product-content">
 
-                <div class="product-name">
-                    Rainbow Cap
-                </div>
+                <b>Rainbow Cap</b>
 
-                <div class="product-price">
+                <div class="price">
                     ₱399
                 </div>
 
@@ -1205,45 +922,66 @@ body {
 </section>
 
 
-<!-- =========================
-     PROFILE
-========================= -->
+<!-- ================= PROFILE ================= -->
 
-<section
-    id="profile"
-    class="screen">
+<section id="profile" class="screen">
 
     <div class="card">
 
-        <div class="profile-banner"></div>
+        <div class="profile-cover"></div>
 
         <div class="profile-content">
 
             <div class="profile-top">
 
-                <img
-                    src="reference.png"
-                    class="profile-photo">
+                <div class="profile-picture">
+
+                    <img
+                        id="profileImage"
+                        src=""
+                        alt="Profile picture">
+
+                    <label
+                        class="camera"
+                        for="profileUpload">
+
+                        📷
+
+                    </label>
+
+                </div>
+
 
                 <div>
 
-                    <div class="profile-name">
+                    <div
+                        id="profileName"
+                        class="profile-name">
+
                         YUSHI018
+
                     </div>
 
-                    <div class="profile-handle">
+                    <div
+                        id="profileHandle"
+                        class="profile-handle">
+
                         @yushi018
+
                     </div>
 
-                    <div class="profile-info">
+                    <div class="profile-meta">
+
                         28 • SINGLE
+
                     </div>
 
-                    <div class="profile-bio">
+                    <div
+                        id="profileBio"
+                        class="profile-bio">
 
-                        Be yourself,
-                        everyone else is
-                        already taken.
+                        Be yourself, everyone else
+                        is already taken.
 
                     </div>
 
@@ -1252,8 +990,24 @@ body {
             </div>
 
 
+            <input
+                id="profileUpload"
+                type="file"
+                accept="image/*"
+                hidden>
+
+
+            <label
+                class="upload-button"
+                for="profileUpload">
+
+                📷 Upload Profile Picture
+
+            </label>
+
+
             <button
-                class="edit-profile"
+                class="edit-button"
                 onclick="toast('Edit Profile')">
 
                 ✎ Edit Profile
@@ -1261,13 +1015,9 @@ body {
             </button>
 
 
-            <div class="social">
-
-                <span>🔵</span>
-                <span>📷</span>
-                <span>🎵</span>
-                <span>🟣</span>
-
+            <div
+                id="uploadStatus"
+                class="status">
             </div>
 
         </div>
@@ -1277,75 +1027,55 @@ body {
 </section>
 
 
-</div>
-
-
-<!-- =========================
-     BOTTOM NAVIGATION
-========================= -->
+<!-- ================= NAVIGATION ================= -->
 
 <nav class="bottom-nav">
 
     <button
-        class="nav active"
+        class="nav-button active"
         onclick="openScreen('home',this)">
 
-        <span class="nav-icon">
-            ⌂
-        </span>
-
+        <span>⌂</span>
         Home
 
     </button>
 
 
     <button
-        class="nav"
+        class="nav-button"
         onclick="openScreen('dating',this)">
 
-        <span class="nav-icon">
-            ♥
-        </span>
-
+        <span>♥</span>
         Dating
 
     </button>
 
 
     <button
-        class="nav"
+        class="nav-button"
         onclick="openScreen('wallet',this)">
 
-        <span class="nav-icon">
-            ▣
-        </span>
-
+        <span>▣</span>
         Wallet
 
     </button>
 
 
     <button
-        class="nav"
+        class="nav-button"
         onclick="openScreen('shop',this)">
 
-        <span class="nav-icon">
-            ♧
-        </span>
-
+        <span>♧</span>
         Shop
 
     </button>
 
 
     <button
-        class="nav"
+        class="nav-button"
         onclick="openScreen('profile',this)">
 
-        <span class="nav-icon">
-            ●
-        </span>
-
+        <span>●</span>
         Profile
 
     </button>
@@ -1353,19 +1083,115 @@ body {
 </nav>
 
 
-<!-- TOAST -->
-
-<div
-    id="toast"
-    class="toast">
-</div>
+<div id="toast"></div>
 
 
 <script>
 
-/* =========================
-   SCREEN NAVIGATION
-========================= */
+/* =====================================================
+   SUPABASE
+   ===================================================== */
+
+const SUPABASE_URL =
+    "https://uupofonanisdjmmawlml.supabase.co";
+
+
+/*
+  PALITAN ITO NG SUPABASE PUBLISHABLE/ANON KEY.
+
+  HUWAG ilagay ang service_role key.
+*/
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "PASTE_YOUR_PUBLISHABLE_OR_ANON_KEY_HERE";
+
+
+let supabaseClient = null;
+
+
+if (
+    SUPABASE_PUBLISHABLE_KEY &&
+    !SUPABASE_PUBLISHABLE_KEY.includes("PASTE_")
+) {
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+}
+
+
+/* =====================================================
+   FALLBACK PROFILE IMAGE
+   ===================================================== */
+
+const fallbackImage =
+    "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(`
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="200"
+            height="200">
+
+            <rect
+                width="200"
+                height="200"
+                fill="#6919d9"/>
+
+            <text
+                x="100"
+                y="120"
+                text-anchor="middle"
+                fill="white"
+                font-size="70">
+
+                🌈
+
+            </text>
+
+        </svg>
+    `);
+
+
+document
+    .querySelectorAll("img")
+    .forEach(image => {
+
+        image.src = fallbackImage;
+
+    });
+
+
+/* =====================================================
+   TOAST
+   ===================================================== */
+
+function toast(message) {
+
+    const box =
+        document.getElementById("toast");
+
+    box.textContent = message;
+
+    box.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer =
+        setTimeout(() => {
+
+            box.classList.remove("show");
+
+        },1600);
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
 
 function openScreen(
     screenId,
@@ -1376,9 +1202,7 @@ function openScreen(
         .querySelectorAll(".screen")
         .forEach(screen => {
 
-            screen.classList.remove(
-                "active"
-            );
+            screen.classList.remove("active");
 
         });
 
@@ -1389,12 +1213,10 @@ function openScreen(
 
 
     document
-        .querySelectorAll(".nav")
+        .querySelectorAll(".nav-button")
         .forEach(nav => {
 
-            nav.classList.remove(
-                "active"
-            );
+            nav.classList.remove("active");
 
         });
 
@@ -1403,16 +1225,16 @@ function openScreen(
 
 
     window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+        top:0,
+        behavior:"smooth"
     });
 
 }
 
 
-/* =========================
+/* =====================================================
    NICE
-========================= */
+   ===================================================== */
 
 function toggleNice(button) {
 
@@ -1433,45 +1255,539 @@ function toggleNice(button) {
 }
 
 
-/* =========================
-   POST
-========================= */
+/* =====================================================
+   FOLLOW
+   ===================================================== */
+
+function toggleFollow(button) {
+
+    button.classList.toggle("following");
+
+    if (
+        button.classList.contains("following")
+    ) {
+
+        button.textContent =
+            "Following";
+
+        toast("Following");
+
+    } else {
+
+        button.textContent =
+            "Follow";
+
+        toast("Unfollowed");
+
+    }
+
+}
+
+
+/* =====================================================
+   CREATE POST
+   ===================================================== */
 
 function publishPost() {
+
+    const textarea =
+        document.getElementById("postText");
+
+    const text =
+        textarea.value.trim();
+
+
+    if (!text) {
+
+        toast("Write something first.");
+
+        return;
+
+    }
+
+
+    const post =
+        document.createElement("article");
+
+    post.className =
+        "card post";
+
+
+    const avatar =
+        document.getElementById(
+            "profileImage"
+        ).src;
+
+
+    post.innerHTML = `
+
+        <div class="post-header">
+
+            <img
+                class="avatar"
+                src="${avatar}">
+
+            <div>
+
+                <div class="name">
+                    YUSHI018 🌈
+                </div>
+
+                <div class="time">
+                    Just now • 🌐
+                </div>
+
+            </div>
+
+            <button
+                class="more"
+                onclick="toast('Post menu')">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+
+        <div class="post-text"></div>
+
+
+        <div class="post-actions">
+
+            <button
+                class="action nice"
+                onclick="toggleNice(this)">
+
+                <span class="clover">
+                    ☘
+                </span>
+
+                Nice
+
+            </button>
+
+            <button
+                class="action"
+                onclick="toast('Comment')">
+
+                ◯ Comment
+
+            </button>
+
+            <button
+                class="action"
+                onclick="toast('Shared')">
+
+                ⤴ Share
+
+            </button>
+
+            <button class="action">
+                ◉ 0
+            </button>
+
+        </div>
+
+    `;
+
+
+    post
+        .querySelector(".post-text")
+        .textContent = text;
+
+
+    document
+        .getElementById("feed")
+        .prepend(post);
+
+
+    textarea.value = "";
 
     toast("Post published!");
 
 }
 
 
-/* =========================
-   TOAST
-========================= */
+/* =====================================================
+   SET PROFILE IMAGE
+   ===================================================== */
 
-let toastTimer;
+function setProfileImage(url) {
 
-function toast(message) {
+    document
+        .getElementById("profileImage")
+        .src = url;
 
-    const element =
-        document.getElementById("toast");
 
-    element.textContent =
-        message;
+    document
+        .getElementById("homeAvatar")
+        .src = url;
 
-    element.classList.add("show");
 
-    clearTimeout(toastTimer);
+    document
+        .querySelectorAll(".post-header .avatar")
+        .forEach(image => {
 
-    toastTimer =
-        setTimeout(() => {
+            image.src = url;
 
-            element.classList.remove(
-                "show"
-            );
-
-        }, 1500);
+        });
 
 }
+
+
+/* =====================================================
+   LOAD SUPABASE PROFILE
+   ===================================================== */
+
+async function loadProfile() {
+
+    if (!supabaseClient) {
+
+        document
+            .getElementById("uploadStatus")
+            .textContent =
+                "Add your Supabase publishable key.";
+
+        return;
+
+    }
+
+
+    const {
+        data: {
+            user
+        },
+        error
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (
+        error ||
+        !user
+    ) {
+
+        document
+            .getElementById("uploadStatus")
+            .textContent =
+                "Please sign in to use cloud profile pictures.";
+
+        return;
+
+    }
+
+
+    const {
+        data,
+        error: profileError
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "display_name,username,bio,avatar_url"
+            )
+            .eq(
+                "id",
+                user.id
+            )
+            .single();
+
+
+    if (profileError) {
+
+        console.error(
+            profileError
+        );
+
+        return;
+
+    }
+
+
+    if (data.display_name) {
+
+        document
+            .getElementById("profileName")
+            .textContent =
+                data.display_name;
+
+    }
+
+
+    if (data.username) {
+
+        document
+            .getElementById("profileHandle")
+            .textContent =
+                "@" + data.username;
+
+    }
+
+
+    if (data.bio) {
+
+        document
+            .getElementById("profileBio")
+            .textContent =
+                data.bio;
+
+    }
+
+
+    if (data.avatar_url) {
+
+        setProfileImage(
+            data.avatar_url
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PROFILE IMAGE UPLOAD
+   ===================================================== */
+
+document
+    .getElementById("profileUpload")
+    .addEventListener(
+        "change",
+        uploadProfilePicture
+    );
+
+
+async function uploadProfilePicture(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) {
+
+        return;
+
+    }
+
+
+    if (
+        !file.type.startsWith(
+            "image/"
+        )
+    ) {
+
+        toast(
+            "Please select an image."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       5 MB limit
+    */
+
+    if (
+        file.size >
+        5 * 1024 * 1024
+    ) {
+
+        toast(
+            "Maximum size is 5 MB."
+        );
+
+        return;
+
+    }
+
+
+    if (!supabaseClient) {
+
+        toast(
+            "Add your Supabase key first."
+        );
+
+        return;
+
+    }
+
+
+    const {
+        data: {
+            user
+        },
+        error: authError
+    } =
+        await supabaseClient.auth.getUser();
+
+
+    if (
+        authError ||
+        !user
+    ) {
+
+        toast(
+            "Please sign in first."
+        );
+
+        return;
+
+    }
+
+
+    const status =
+        document.getElementById(
+            "uploadStatus"
+        );
+
+
+    status.textContent =
+        "Uploading...";
+
+
+    /*
+       File path:
+       USER_ID/avatar.extension
+    */
+
+    const extension =
+        (
+            file.name
+            .split(".")
+            .pop() ||
+            "jpg"
+        ).toLowerCase();
+
+
+    const filePath =
+        user.id +
+        "/avatar." +
+        extension;
+
+
+    const {
+        error: uploadError
+    } =
+        await supabaseClient
+            .storage
+            .from("avatars")
+            .upload(
+                filePath,
+                file,
+                {
+                    upsert:true,
+                    contentType:
+                        file.type,
+                    cacheControl:
+                        "3600"
+                }
+            );
+
+
+    if (uploadError) {
+
+        console.error(
+            uploadError
+        );
+
+        status.textContent =
+            "Upload failed.";
+
+        toast(
+            uploadError.message ||
+            "Upload failed."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Get public image URL
+    */
+
+    const {
+        data: publicData
+    } =
+        supabaseClient
+            .storage
+            .from("avatars")
+            .getPublicUrl(
+                filePath
+            );
+
+
+    const avatarUrl =
+        publicData.publicUrl +
+        "?v=" +
+        Date.now();
+
+
+    /*
+       Save URL to profiles table
+    */
+
+    const {
+        error: updateError
+    } =
+        await supabaseClient
+            .from("profiles")
+            .update({
+                avatar_url:
+                    avatarUrl
+            })
+            .eq(
+                "id",
+                user.id
+            );
+
+
+    if (updateError) {
+
+        console.error(
+            updateError
+        );
+
+        status.textContent =
+            "Image uploaded, but profile was not updated.";
+
+        toast(
+            "Profile update failed."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Update UI immediately
+    */
+
+    setProfileImage(
+        avatarUrl
+    );
+
+
+    status.textContent =
+        "Profile picture saved!";
+
+    toast(
+        "Profile picture updated!"
+    );
+
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+loadProfile();
 
 </script>
 
