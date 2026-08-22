@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#7c3aed">
+<title>Pride Connect V3</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f7f4fa;
+  color:#241d2b;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+header{
+  height:64px;
+  background:white;
+  border-bottom:1px solid #e5dfea;
+  display:flex;
+  align-items:center;
+  padding:0 18px;
+  gap:15px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.logo{
+  font-size:22px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.gradient{
+  background:linear-gradient(90deg,#f03876,#7c3aed);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.search{flex:1;max-width:500px}
+.search input{
+  width:100%;
+  padding:11px 14px;
+  border:1px solid #ddd5e5;
+  border-radius:12px;
+  outline:none;
+}
+.header-actions{
+  margin-left:auto;
+  display:flex;
+  gap:8px;
+}
+.icon{
+  border:0;
+  background:#f2eef6;
+  border-radius:10px;
+  padding:9px 12px;
+}
+
+.layout{
+  max-width:1400px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:210px minmax(0,1fr) 250px;
+  gap:16px;
+  padding:16px;
+}
+.sidebar{
+  position:sticky;
+  top:80px;
+  height:max-content;
+}
+.menu button{
+  width:100%;
+  border:0;
+  background:transparent;
+  padding:12px;
+  border-radius:10px;
+  text-align:left;
+  font-weight:700;
+}
+.menu button:hover,
+.menu button.active{
+  background:#eee7fb;
+  color:#7037df;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e5dfea;
+  border-radius:17px;
+  padding:16px;
+  margin-bottom:14px;
+}
+.page{display:none}
+.page.active{display:block}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#eee;
+}
+.muted{
+  color:#756d7d;
+  font-size:14px;
+}
+.primary{
+  border:0;
+  border-radius:11px;
+  padding:10px 17px;
+  color:white;
+  font-weight:700;
+  background:linear-gradient(90deg,#7438ed,#a44df0);
+}
+.secondary{
+  border:1px solid #ddd5e5;
+  border-radius:11px;
+  padding:10px 17px;
+  background:white;
+  font-weight:700;
+}
+.error{
+  padding:10px;
+  margin:10px 0;
+  border-radius:10px;
+  background:#fff0ef;
+  color:#b42318;
+  border:1px solid #ffc9c4;
+}
+.success{
+  padding:10px;
+  margin:10px 0;
+  border-radius:10px;
+  background:#eefbf1;
+  color:#16733a;
+  border:1px solid #b9e3c5;
+}
+
+textarea{
+  width:100%;
+  min-height:100px;
+  resize:vertical;
+  border:1px solid #ddd5e5;
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+}
+
+.auth{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+.auth-box{
+  width:min(430px,100%);
+  background:#fff;
+  border:1px solid #e2dce6;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 10px 35px rgba(50,20,70,.08);
+}
+.auth-box h1{font-size:32px}
+.auth-box input{
+  width:100%;
+  padding:13px;
+  margin:5px 0;
+  border:1px solid #ddd5e5;
+  border-radius:12px;
+  outline:none;
+}
+.auth-box button{
+  width:100%;
+  margin-top:8px;
+}
+
+.composer-actions{
+  text-align:right;
+  margin-top:9px;
+}
+
+.post-actions{
+  border-top:1px solid #eee8f0;
+  margin-top:12px;
+  padding-top:10px;
+  display:flex;
+  justify-content:space-around;
+}
+.post-actions button{
+  border:0;
+  background:transparent;
+  color:#68606e;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.product{
+  border:1px solid #e5dfea;
+  border-radius:12px;
+  padding:10px;
+}
+.product img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  border-radius:9px;
+}
+
+/* CHAT */
+.chat-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.chat-layout{
+  display:grid;
+  grid-template-columns:260px minmax(0,1fr);
+  min-height:520px;
+  gap:15px;
+}
+.chat-list{
+  border-right:1px solid #eee7f1;
+  padding-right:12px;
+  overflow:auto;
+}
+.chat-item{
+  display:flex;
+  gap:10px;
+  padding:10px;
+  border-radius:12px;
+  cursor:pointer;
+}
+.chat-item:hover,
+.chat-item.active{
+  background:#f0eafa;
+}
+.chat-window{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.chat-header{
+  border-bottom:1px solid #eee7f1;
+  padding-bottom:12px;
+}
+.messages{
+  flex:1;
+  min-height:320px;
+  max-height:430px;
+  overflow:auto;
+  padding:12px 4px;
+}
+.bubble-row{
+  display:flex;
+  margin:7px 0;
+}
+.bubble-row.mine{
+  justify-content:flex-end;
+}
+.bubble{
+  max-width:75%;
+  background:#eeeaf3;
+  padding:10px 13px;
+  border-radius:16px;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.mine .bubble{
+  background:#7438ed;
+  color:white;
+}
+.chat-compose{
+  display:flex;
+  gap:8px;
+  border-top:1px solid #eee7f1;
+  padding-top:10px;
+}
+.chat-compose textarea{
+  min-height:45px;
+  max-height:120px;
+}
+.chat-compose button{
+  align-self:flex-end;
+}
+
+.empty{
+  min-height:250px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(20,10,30,.5);
+  padding:20px;
+  overflow:auto;
+}
+.modal-box{
+  max-width:600px;
+  margin:40px auto;
+  background:white;
+  border-radius:18px;
+  padding:18px;
+}
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.people-picker{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+}
+.person{
+  border:1px solid #e5dfea;
+  background:white;
+  border-radius:12px;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  text-align:left;
+}
+.person:hover{background:#f3eef9}
+
+.mobile-nav{display:none}
+
+/* MOBILE */
+@media(max-width:1050px){
+  .layout{grid-template-columns:190px 1fr}
+  .rightbar{display:none}
+}
+@media(max-width:700px){
+  header{padding:0 10px}
+  .logo{font-size:18px}
+  .search{display:none}
+  .layout{
+    display:block;
+    padding:10px 10px 75px;
+  }
+  .sidebar{display:none}
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:50;
+    background:white;
+    border-top:1px solid #e5dfea;
+    justify-content:space-around;
+    padding:6px;
+  }
+  .mobile-nav button{
+    border:0;
+    background:transparent;
+    font-size:12px;
+  }
+  .mobile-nav button.active{
+    color:#7037df;
+    font-weight:800;
+  }
+  .chat-layout{grid-template-columns:1fr}
+  .chat-list{
+    border-right:0;
+    border-bottom:1px solid #eee7f1;
+    padding:0 0 10px;
+    max-height:170px;
+  }
+  .people-picker{grid-template-columns:1fr}
+  .header-actions .icon:first-child{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN / REGISTER -->
+<div id="authScreen" class="auth">
+  <div class="auth-box">
+    <h1>🌈 <span class="gradient">Pride Connect</span></h1>
+    <p class="muted">Dating • Social • Messenger • Shop • Live</p>
+
+    <div id="authMessage"></div>
+
+    <input id="email" type="email" placeholder="Email" autocomplete="email">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <input id="displayName" type="text" placeholder="Display name" autocomplete="name">
+
+    <button id="loginBtn" class="primary">Login</button>
+    <button id="registerBtn" class="secondary">Create Account</button>
+  </div>
+</div>
+
+<!-- APPLICATION -->
+<div id="appScreen" class="hidden">
+
+<header>
+  <div class="logo">
+    🌈 <span class="gradient">Pride Connect</span>
+  </div>
+
+  <div class="search">
+    <input id="searchInput" placeholder="Search people, posts, products...">
+  </div>
+
+  <div class="header-actions">
+    <button class="icon">🔔</button>
+    <button class="icon" onclick="navigate('chat')">💬</button>
+    <button class="icon" id="logoutBtn">↪</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="menu">
+    <button class="active" data-page="home">🏠 Home</button>
+    <button data-page="dating">❤️ Dating</button>
+    <button data-page="chat">💬 Chat</button>
+    <button data-page="shop">🛍️ Shop</button>
+    <button data-page="live">📡 Live</button>
+    <button data-page="wallet">💳 Wallet</button>
+    <button data-page="profile">👤 Profile</button>
+    <button data-page="settings">⚙️ Settings</button>
+  </div>
+</aside>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+  <div class="card row">
+    <img id="myAvatar" class="avatar" src="https://placehold.co/80">
+    <div>
+      <div class="muted">Good to see you,</div>
+      <h2 id="welcomeName" style="margin:3px 0">User! 🌈</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Create a Post</h3>
+    <textarea id="postBody" placeholder="What's on your mind?"></textarea>
+    <div class="composer-actions">
+      <button id="postBtn" class="primary">Post</button>
+    </div>
+    <div id="postMessage"></div>
+  </div>
+
+  <div id="feed"></div>
+
+</section>
+
+<!-- DATING -->
+<section id="dating" class="page">
+  <div class="card">
+    <h2>❤️ Discover</h2>
+    <div id="peopleList"></div>
+  </div>
+</section>
+
+<!-- CHAT -->
+<section id="chat" class="page">
+
+  <div class="card">
+    <div class="chat-top">
+      <div>
+        <h2 style="margin:0">💬 Messages</h2>
+        <div class="muted">Write a message or start a new chat.</div>
+      </div>
+
+      <button id="startChatBtn" class="primary">
+        ✍️ Start a Chat
+      </button>
+    </div>
+  </div>
+
+  <div class="card chat-layout">
+
+    <div id="chatList" class="chat-list">
+      <div class="muted">Loading chats...</div>
+    </div>
+
+    <div class="chat-window">
+
+      <div id="chatHeader" class="chat-header">
+        <b>Select a conversation</b>
+        <div class="muted">Choose a chat or tap Start a Chat.</div>
+      </div>
+
+      <div id="messages" class="messages">
+        <div class="empty muted">
+          <div>
+            <div style="font-size:42px">💬</div>
+            <h3>No chat selected</h3>
+            <p>Start a chat to send a message.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="chatCompose" class="chat-compose hidden">
+        <textarea
+          id="messageInput"
+          placeholder="Write a message..."
+        ></textarea>
+        <button id="sendMessageBtn" class="primary">Send</button>
+      </div>
+
+      <div id="chatMessage"></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop" class="page">
+  <div class="card">
+    <h2>🛍️ Shop</h2>
+    <div id="products" class="grid"></div>
+  </div>
+</section>
+
+<!-- LIVE -->
+<section id="live" class="page">
+  <div class="card">
+    <h2>📡 Live</h2>
+    <div id="liveList"></div>
+  </div>
+</section>
+
+<!-- WALLET -->
+<section id="wallet" class="page">
+  <div class="card">
+    <h2>💳 Wallet</h2>
+    <h1>₱0.00</h1>
+    <p class="muted">Your wallet balance will appear here.</p>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+  <div class="card">
+    <h2>👤 Profile</h2>
+    <div id="profileInfo"></div>
+  </div>
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="page">
+  <div class="card">
+    <h2>⚙️ Settings</h2>
+    <p class="muted">Account and security settings.</p>
+    <hr>
+    <button class="secondary" onclick="logout()">🚪 Logout</button>
+  </div>
+</section>
+
+</main>
+
+<aside class="rightbar">
+  <div class="card">
+    <h3>Stories</h3>
+    <p class="muted">Stories will appear here.</p>
+  </div>
+
+  <div class="card">
+    <h3>Online People</h3>
+    <div id="onlinePeople"></div>
+  </div>
+</aside>
+
+</div>
+
+<nav class="mobile-nav">
+  <button class="active" data-page="home">🏠<br>Home</button>
+  <button data-page="dating">❤️<br>Dating</button>
+  <button data-page="chat">💬<br>Chat</button>
+  <button data-page="shop">🛍️<br>Shop</button>
+  <button data-page="live">📡<br>Live</button>
+</nav>
+
+</div>
+
+<!-- START CHAT MODAL -->
+<div id="chatModal" class="modal hidden">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <div>
+        <h2 style="margin:0">✍️ Start a Chat</h2>
+        <p class="muted">Choose someone to message.</p>
+      </div>
+
+      <button
+        id="closeChatModal"
+        style="border:0;background:none;font-size:22px"
+      >✕</button>
+    </div>
+
+    <div id="pickerMessage"></div>
+
+    <div id="peoplePicker" class="people-picker"></div>
+
+  </div>
+
+</div>
+
+<script>
+/* =========================================================
+   PRIDE CONNECT V3
+   ========================================================= */
+
+const SUPABASE_URL =
+  "https://uupofonanisdjmmawlml.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_DpZ1Fzh9A6GjblSnRHrAPw__OFGaML_";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+let currentUser = null;
+let currentConversation = null;
+let currentChatUser = null;
+let messageTimer = null;
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function showAuthMessage(text,type="error"){
+  $("authMessage").className =
+    type === "success" ? "success" : "error";
+
+  $("authMessage").textContent = text;
+}
+
+function showChatMessage(text,type="error"){
+  $("chatMessage").className =
+    type === "success" ? "success" : "error";
+
+  $("chatMessage").textContent = text;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function navigate(page){
+
+  document.querySelectorAll(".page")
+    .forEach(x =>
+      x.classList.toggle("active",x.id === page)
+    );
+
+  document.querySelectorAll("[data-page]")
+    .forEach(x =>
+      x.classList.toggle("active",x.dataset.page === page)
+    );
+
+  if(page === "chat"){
+    loadConversations();
+  }
+}
+
+document.querySelectorAll("[data-page]")
+.forEach(button=>{
+  button.addEventListener("click",()=>{
+    navigate(button.dataset.page);
+  });
+});
+
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+async function register(){
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  const displayName =
+    $("displayName").value.trim() || "New User";
+
+  if(!email){
+    showAuthMessage("Please enter your email.");
+    return;
+  }
+
+  if(password.length < 6){
+    showAuthMessage(
+      "Password must be at least 6 characters."
+    );
+    return;
+  }
+
+  const button = $("registerBtn");
+  button.disabled = true;
+  button.textContent = "Creating account...";
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.auth.signUp({
+        email,
+        password,
+        options:{
+          data:{
+            display_name:displayName
+          }
+        }
+      });
+
+    if(error){
+      showAuthMessage(error.message);
+      return;
+    }
+
+    /*
+      If email confirmation is disabled,
+      Supabase returns a session and user can enter immediately.
+    */
+    if(data.session){
+
+      showAuthMessage(
+        "Account created! Logging you in...",
+        "success"
+      );
+
+      return;
+    }
+
+    /*
+      If confirmation is enabled.
+    */
+    showAuthMessage(
+      "Account created. Please check your email to confirm your account.",
+      "success"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showAuthMessage(
+      error.message || "Registration failed."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Create Account";
+  }
+}
+
+
+async function login(){
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+
+  if(!email || !password){
+
+    showAuthMessage(
+      "Please enter your email and password."
+    );
+
+    return;
+  }
+
+  const button = $("loginBtn");
+
+  button.disabled = true;
+  button.textContent = "Logging in...";
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if(error){
+
+      showAuthMessage(error.message);
+      return;
+    }
+
+    if(!data.session){
+
+      showAuthMessage(
+        "Login succeeded but no session was returned."
+      );
+
+      return;
+    }
+
+    showAuthMessage(
+      "Login successful!",
+      "success"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showAuthMessage(
+      error.message || "Login failed."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Login";
+  }
+}
+
+
+/* =========================================================
+   FIXED LOGOUT
+   ========================================================= */
+
+async function logout(){
+
+  if(messageTimer){
+    clearInterval(messageTimer);
+    messageTimer = null;
+  }
+
+  currentUser = null;
+  currentConversation = null;
+  currentChatUser = null;
+
+  /*
+    Hide the application immediately.
+    This prevents the user from staying inside V3
+    while signOut is processing.
+  */
+  $("appScreen").classList.add("hidden");
+  $("authScreen").classList.remove("hidden");
+
+  $("email").value = "";
+  $("password").value = "";
+  $("displayName").value = "";
+
+  try{
+
+    const {error} =
+      await supabaseClient.auth.signOut();
+
+    if(error){
+      console.error("Logout:",error);
+
+      showAuthMessage(
+        "Logged out locally. Please login again.",
+        "success"
+      );
+
+      return;
+    }
+
+    showAuthMessage(
+      "You have been logged out.",
+      "success"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showAuthMessage(
+      "You have been logged out.",
+      "success"
+    );
+  }
+}
+
+$("logoutBtn").addEventListener("click",logout);
+
+
+/* =========================================================
+   AUTH STATE
+   ========================================================= */
+
+async function checkSession(){
+
+  const {data,error} =
+    await supabaseClient.auth.getSession();
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  if(data.session){
+
+    currentUser = data.session.user;
+
+    $("authScreen").classList.add("hidden");
+    $("appScreen").classList.remove("hidden");
+
+    loadApplication();
+
+  }else{
+
+    $("authScreen").classList.remove("hidden");
+    $("appScreen").classList.add("hidden");
+  }
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+  (event,session)=>{
+
+    if(session){
+
+      currentUser = session.user;
+
+      $("authScreen").classList.add("hidden");
+      $("appScreen").classList.remove("hidden");
+
+      loadApplication();
+
+    }else{
+
+      currentUser = null;
+
+      $("authScreen").classList.remove("hidden");
+      $("appScreen").classList.add("hidden");
+    }
+  }
+);
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+async function loadProfile(){
+
+  if(!currentUser)return;
+
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id",currentUser.id)
+      .maybeSingle();
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  const name =
+    data?.display_name ||
+    data?.username ||
+    currentUser.email?.split("@")[0] ||
+    "User";
+
+  $("welcomeName").textContent =
+    name + "! 🌈";
+
+  if(data?.avatar_url){
+    $("myAvatar").src = data.avatar_url;
+  }
+
+  $("profileInfo").innerHTML = `
+    <div class="row">
+      <img
+        class="avatar"
+        style="width:80px;height:80px"
+        src="${escapeHTML(
+          data?.avatar_url || "https://placehold.co/100"
+        )}"
+      >
+
+      <div>
+        <h3>${escapeHTML(name)}</h3>
+        <div class="muted">
+          @${escapeHTML(data?.username || "user")}
+        </div>
+
+        <p>
+          ${escapeHTML(
+            data?.bio || "Welcome to Pride Connect!"
+          )}
+        </p>
+
+        <div class="muted">
+          ${escapeHTML(currentUser.email || "")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   FEED
+   ========================================================= */
+
+async function loadFeed(){
+
+  const feed = $("feed");
+
+  const {data,error} =
+    await supabaseClient
+      .from("posts")
+      .select("*")
+      .order("created_at",{ascending:false})
+      .limit(30);
+
+  if(error){
+
+    feed.innerHTML =
+      `<div class="error">${escapeHTML(error.message)}</div>`;
+
+    return;
+  }
+
+  if(!data?.length){
+
+    feed.innerHTML =
+      `<div class="card muted">
+        No posts yet. Be the first to post! 🌈
+      </div>`;
+
+    return;
+  }
+
+  feed.innerHTML = data.map(post=>`
+
+    <article class="card">
+
+      <div class="row">
+
+        <img
+          class="avatar"
+          src="https://placehold.co/80"
+        >
+
+        <div>
+          <b>User</b>
+          <div class="muted">
+            ${post.created_at
+              ? new Date(post.created_at).toLocaleString()
+              : ""}
+          </div>
+        </div>
+
+      </div>
+
+      <p>${escapeHTML(post.body)}</p>
+
+      <div class="post-actions">
+        <button>♡ Like</button>
+        <button>💬 Comment</button>
+        <button>↗ Share</button>
+      </div>
+
+    </article>
+
+  `).join("");
+}
+
+
+$("postBtn").addEventListener("click",async()=>{
+
+  const body = $("postBody").value.trim();
+
+  if(!body)return;
+
+  const {error} =
+    await supabaseClient
+      .from("posts")
+      .insert({
+        user_id:currentUser.id,
+        body
+      });
+
+  if(error){
+
+    $("postMessage").className="error";
+    $("postMessage").textContent=error.message;
+
+    return;
+  }
+
+  $("postBody").value="";
+
+  $("postMessage").className="success";
+  $("postMessage").textContent="Post published!";
+
+  loadFeed();
+});
+
+
+/* =========================================================
+   DATING
+   ========================================================= */
+
+async function loadDating(){
+
+  const list = $("peopleList");
+
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .neq("id",currentUser.id)
+      .limit(30);
+
+  if(error){
+
+    list.innerHTML =
+      `<div class="error">${escapeHTML(error.message)}</div>`;
+
+    return;
+  }
+
+  if(!data?.length){
+
+    list.innerHTML =
+      `<p class="muted">No other profiles yet.</p>`;
+
+    return;
+  }
+
+  list.innerHTML = data.map(person=>`
+
+    <div class="card row">
+
+      <img
+        class="avatar"
+        src="${escapeHTML(
+          person.avatar_url || "https://placehold.co/80"
+        )}"
+      >
+
+      <div style="flex:1">
+
+        <b>
+          ${escapeHTML(
+            person.display_name ||
+            person.username ||
+            "User"
+          )}
+        </b>
+
+        <div class="muted">
+          @${escapeHTML(person.username || "user")}
+        </div>
+
+        <p>
+          ${escapeHTML(person.bio || "")}
+        </p>
+
+        <button
+          class="primary"
+          onclick="startChatWith(
+            '${escapeHTML(person.id)}',
+            '${escapeHTML(
+              person.display_name ||
+              person.username ||
+              "User"
+            )}'
+          )"
+        >
+          💬 Chat
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================================================
+   CHAT - CONVERSATIONS
+   ========================================================= */
+
+async function loadConversations(){
+
+  const list = $("chatList");
+
+  const {data,error} =
+    await supabaseClient
+      .from("conversations")
+      .select("*")
+      .order("created_at",{ascending:false});
+
+  if(error){
+
+    list.innerHTML =
+      `<div class="error">
+        ${escapeHTML(error.message)}
+      </div>`;
+
+    return;
+  }
+
+  if(!data?.length){
+
+    list.innerHTML = `
+      <div class="empty muted">
+        <div>
+          <div style="font-size:35px">💬</div>
+          <b>No conversations yet.</b>
+          <p>Tap Start a Chat.</p>
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML = data.map(chat=>`
+
+    <div
+      class="chat-item ${
+        currentConversation === chat.id
+          ? "active"
+          : ""
+      }"
+      onclick="openConversation(
+        '${escapeHTML(chat.id)}',
+        '${escapeHTML(chat.match_id || "")}'
+      )"
+    >
+
+      <img
+        class="avatar"
+        src="https://placehold.co/70"
+      >
+
+      <div>
+        <b>Conversation</b>
+        <div class="muted">
+          Open chat
+        </div>
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================================================
+   START CHAT
+   ========================================================= */
+
+$("startChatBtn").addEventListener(
+  "click",
+  openChatModal
+);
+
+$("closeChatModal").addEventListener(
+  "click",
+  ()=>$("chatModal").classList.add("hidden")
+);
+
+
+async function openChatModal(){
+
+  $("chatModal").classList.remove("hidden");
+
+  const picker = $("peoplePicker");
+
+  picker.innerHTML =
+    `<div class="muted">Loading people...</div>`;
+
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .neq("id",currentUser.id)
+      .limit(50);
+
+  if(error){
+
+    picker.innerHTML =
+      `<div class="error">${escapeHTML(error.message)}</div>`;
+
+    return;
+  }
+
+  if(!data?.length){
+
+    picker.innerHTML =
+      `<p class="muted">
+        No other users are available yet.
+      </p>`;
+
+    return;
+  }
+
+  picker.innerHTML = data.map(person=>`
+
+    <button
+      class="person"
+      onclick="startChatWith(
+        '${escapeHTML(person.id)}',
+        '${escapeHTML(
+          person.display_name ||
+          person.username ||
+          "User"
+        )}'
+      )"
+    >
+
+      <img
+        class="avatar"
+        src="${escapeHTML(
+          person.avatar_url ||
+          "https://placehold.co/70"
+        )}"
+      >
+
+      <span>
+        <b>
+          ${escapeHTML(
+            person.display_name ||
+            person.username ||
+            "User"
+          )}
+        </b>
+
+        <br>
+
+        <span class="muted">
+          @${escapeHTML(
+            person.username || "user"
+          )}
+        </span>
+      </span>
+
+    </button>
+
+  `).join("");
+}
+
+
+async function startChatWith(userId,userName){
+
+  $("chatModal").classList.add("hidden");
+
+  navigate("chat");
+
+  /*
+    Try to find an existing V2 conversation.
+  */
+
+  let {data,error} =
+    await supabaseClient
+      .from("conversations")
+      .select("*")
+      .eq("match_id",userId)
+      .limit(1);
+
+  if(error){
+
+    showChatMessage(
+      "Unable to access conversations: " +
+      error.message
+    );
+
+    return;
+  }
+
+  let conversation =
+    data?.[0];
+
+  /*
+    Create conversation if it doesn't exist.
+  */
+
+  if(!conversation){
+
+    const result =
+      await supabaseClient
+        .from("conversations")
+        .insert({
+          match_id:userId
+        })
+        .select("*")
+        .single();
+
+    if(result.error){
+
+      showChatMessage(
+        "Unable to start chat: " +
+        result.error.message
+      );
+
+      return;
+    }
+
+    conversation=result.data;
+  }
+
+  await loadConversations();
+
+  await openConversation(
+    conversation.id,
+    userId,
+    userName
+  );
+}
+
+
+/* =========================================================
+   OPEN CONVERSATION
+   ========================================================= */
+
+async function openConversation(
+  conversationId,
+  otherUserId,
+  userName="Conversation"
+){
+
+  currentConversation=conversationId;
+  currentChatUser=otherUserId;
+
+  $("chatHeader").innerHTML=`
+    <b>💬 ${escapeHTML(userName)}</b>
+    <div class="muted">
+      Write a message below.
+    </div>
+  `;
+
+  $("chatCompose").classList.remove("hidden");
+
+  await loadMessages();
+
+  startMessageRefresh();
+}
+
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+async function loadMessages(){
+
+  if(!currentConversation)return;
+
+  const box=$("messages");
+
+  const {data,error} =
+    await supabaseClient
+      .from("messages")
+      .select("*")
+      .eq(
+        "conversation_id",
+        currentConversation
+      )
+      .order(
+        "created_at",
+        {ascending:true}
+      );
+
+  if(error){
+
+    box.innerHTML=`
+      <div class="empty muted">
+        <div>
+          <div style="font-size:38px">💬</div>
+          <h3>Messages unavailable</h3>
+          <small>
+            ${escapeHTML(error.message)}
+          </small>
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  if(!data?.length){
+
+    box.innerHTML=`
+      <div class="empty muted">
+        <div>
+          <div style="font-size:38px">👋</div>
+          <h3>Start the conversation</h3>
+          <p>Write your first message below.</p>
+        </div>
+      </div>
+    `;
+
+    return;
+  }
+
+  box.innerHTML=data.map(message=>{
+
+    const mine =
+      String(message.sender_id) ===
+      String(currentUser.id);
+
+    return `
+      <div class="bubble-row ${
+        mine ? "mine" : ""
+      }">
+
+        <div class="bubble">
+          ${escapeHTML(message.body)}
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+
+  box.scrollTop=box.scrollHeight;
+}
+
+
+function startMessageRefresh(){
+
+  if(messageTimer){
+    clearInterval(messageTimer);
+  }
+
+  messageTimer=setInterval(()=>{
+
+    if(currentConversation){
+      loadMessages();
+    }
+
+  },5000);
+}
+
+
+/* =========================================================
+   SEND MESSAGE
+   ========================================================= */
+
+$("sendMessageBtn").addEventListener(
+  "click",
+  sendMessage
+);
+
+$("messageInput").addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      event.key==="Enter" &&
+      !event.shiftKey
+    ){
+
+      event.preventDefault();
+
+      sendMessage();
+    }
+  }
+);
+
+
+async function sendMessage(){
+
+  if(!currentConversation){
+
+    showChatMessage(
+      "Please select a conversation."
+    );
+
+    return;
+  }
+
+  const input=$("messageInput");
+  const body=input.value.trim();
+
+  if(!body)return;
+
+  const button=$("sendMessageBtn");
+
+  button.disabled=true;
+  button.textContent="Sending...";
+
+  try{
+
+    const {error} =
+      await supabaseClient
+        .from("messages")
+        .insert({
+          conversation_id:
+            currentConversation,
+          sender_id:
+            currentUser.id,
+          body
+        });
+
+    if(error){
+
+      showChatMessage(
+        "Message failed: " +
+        error.message
+      );
+
+      return;
+    }
+
+    input.value="";
+
+    showChatMessage(
+      "Message sent.",
+      "success"
+    );
+
+    await loadMessages();
+
+  }finally{
+
+    button.disabled=false;
+    button.textContent="Send";
+  }
+}
+
+
+/* =========================================================
+   SHOP
+   ========================================================= */
+
+async function loadShop(){
+
+  const box=$("products");
+
+  const {data,error} =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .limit(30);
+
+  if(error){
+
+    box.innerHTML=
+      `<div class="error">
+        ${escapeHTML(error.message)}
+      </div>`;
+
+    return;
+  }
+
+  if(!data?.length){
+
+    box.innerHTML=
+      `<p class="muted">
+        No products yet.
+      </p>`;
+
+    return;
+  }
+
+  box.innerHTML=data.map(product=>`
+
+    <div class="product">
+
+      <img
+        src="${escapeHTML(
+          product.image_url ||
+          "https://placehold.co/300"
+        )}"
+      >
+
+      <b>
+        ${escapeHTML(
+          product.name || "Product"
+        )}
+      </b>
+
+      <div style="
+        color:#7037df;
+        font-weight:800;
+        margin-top:5px
+      ">
+        ₱${Number(
+          product.price || 0
+        ).toLocaleString()}
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================================================
+   LIVE
+   ========================================================= */
+
+async function loadLive(){
+
+  const box=$("liveList");
+
+  const {data,error} =
+    await supabaseClient
+      .from("live_streams")
+      .select("*")
+      .limit(20);
+
+  if(error){
+
+    box.innerHTML=
+      `<div class="error">
+        ${escapeHTML(error.message)}
+      </div>`;
+
+    return;
+  }
+
+  if(!data?.length){
+
+    box.innerHTML=
+      `<p class="muted">
+        No live streams right now.
+      </p>`;
+
+    return;
+  }
+
+  box.innerHTML=data.map(live=>`
+
+    <div class="card">
+
+      <h3>
+        🔴 ${escapeHTML(
+          live.title || "Live Stream"
+        )}
+      </h3>
+
+      <div class="muted">
+        ${escapeHTML(
+          live.status || "live"
+        )}
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================================================
+   APPLICATION LOAD
+   ========================================================= */
+
+async function loadApplication(){
+
+  await Promise.allSettled([
+    loadProfile(),
+    loadFeed(),
+    loadDating(),
+    loadConversations(),
+    loadShop(),
+    loadLive()
+  ]);
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+$("loginBtn").addEventListener(
+  "click",
+  login
+);
+
+$("registerBtn").addEventListener(
+  "click",
+  register
+);
+
+$("password").addEventListener(
+  "keydown",
+  event=>{
+    if(event.key==="Enter"){
+      login();
+    }
+  }
+);
+
+checkSession();
+
+</script>
+
+</body>
+</html>
