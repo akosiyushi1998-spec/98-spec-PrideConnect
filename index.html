@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pride Connect</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #fafafd;
+    color: #111827;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+/* =========================
+   TOP NAVIGATION
+========================= */
+
+.topbar {
+    height: 104px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 28px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    font-size: 32px;
+    font-weight: 800;
+
+    background: linear-gradient(
+        90deg,
+        #ed1680,
+        #6020dc
+    );
+
+    color: transparent;
+    background-clip: text;
+}
+
+.logo-rainbow {
+    font-size: 45px;
+    margin-right: 10px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 18px;
+}
+
+.top-button {
+    width: 70px;
+    height: 64px;
+
+    border: 0;
+    border-radius: 14px;
+
+    background: #f7f7f9;
+
+    font-size: 29px;
+
+    transition: .2s;
+}
+
+.top-button:hover {
+    transform: translateY(-2px);
+}
+
+.top-button.active {
+    background: #ff7800;
+    color: white;
+}
+
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+.page {
+    max-width: 1320px;
+
+    margin: 18px auto 110px;
+
+    padding: 0 22px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.75fr)
+        minmax(330px, 1fr);
+
+    gap: 25px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    background: white;
+
+    border: 1px solid #ececf2;
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.04);
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+.composer {
+    padding: 14px 24px 20px;
+
+    display: grid;
+
+    grid-template-columns: 110px 1fr;
+
+    gap: 15px;
+}
+
+.avatar {
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: #ddd;
+}
+
+.composer .avatar {
+    width: 104px;
+    height: 104px;
+}
+
+.compose-box {
+    height: 168px;
+
+    border: 2px solid #e7e7ed;
+
+    border-radius: 13px;
+
+    padding: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+.placeholder {
+    color: #62677a;
+
+    font-size: 26px;
+}
+
+.compose-tools {
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+.compose-tools button {
+    border: 0;
+
+    background: transparent;
+
+    font-size: 31px;
+}
+
+.photo-button {
+    color: #55ae2d;
+}
+
+.emoji-button {
+    color: #eca817;
+}
+
+.post-button {
+    margin-left: auto;
+
+    background: linear-gradient(
+        90deg,
+        #5d10dc,
+        #7423e8
+    ) !important;
+
+    color: white;
+
+    border-radius: 10px !important;
+
+    padding: 14px 28px;
+
+    font-size: 21px !important;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   FEED
+========================= */
+
+.feed {
+    margin-top: 16px;
+}
+
+.post {
+    padding: 18px 27px 20px;
+
+    margin-bottom: 16px;
+}
+
+.post-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.post-header .avatar {
+    width: 86px;
+    height: 86px;
+}
+
+.name {
+    font-size: 26px;
+
+    font-weight: 800;
+}
+
+.time {
+    color: #666;
+
+    font-size: 18px;
+
+    margin-top: 8px;
+}
+
+.more-button {
+    margin-left: auto;
+
+    border: 0;
+
+    background: transparent;
+
+    font-size: 32px;
+}
+
+.post-text {
+    font-size: 26px;
+
+    margin: 34px 0 36px;
+}
+
+.post-actions {
+    border-top: 1px solid #eee;
+
+    padding-top: 26px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1.2fr
+        1fr
+        90px;
+}
+
+.action-button {
+    border: 0;
+
+    background: transparent;
+
+    color: #41465a;
+
+    font-size: 20px;
+
+    transition: .2s;
+}
+
+.action-button:hover {
+    color: #5a15d9;
+}
+
+.nice-button {
+    color: #5117d5;
+
+    font-weight: 700;
+}
+
+.nice-button.liked {
+    color: #e5237b;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-card {
+    overflow: hidden;
+}
+
+.profile-banner {
+    height: 77px;
+
+    background:
+        linear-gradient(
+            110deg,
+            #4d00e8,
+            #8d00e5,
+            #ff7900
+        );
+}
+
+.profile-body {
+    padding: 22px 28px 27px;
+}
+
+.profile-header {
+    display: flex;
+
+    gap: 18px;
+}
+
+.profile-header .avatar {
+    width: 120px;
+    height: 120px;
+}
+
+.profile-name {
+    font-size: 30px;
+
+    font-weight: 800;
+}
+
+.profile-handle {
+    color: #5d16dc;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    margin-top: 8px;
+}
+
+.profile-meta {
+    font-size: 21px;
+
+    margin-top: 13px;
+}
+
+.profile-bio {
+    font-size: 19px;
+
+    line-height: 1.55;
+
+    margin-top: 7px;
+}
+
+.edit-profile {
+    width: 100%;
+
+    height: 62px;
+
+    margin-top: 22px;
+
+    border: 2px solid #7220df;
+
+    background: white;
+
+    color: #5d13d9;
+
+    border-radius: 11px;
+
+    font-weight: 800;
+
+    font-size: 22px;
+
+    transition: .2s;
+}
+
+.edit-profile:hover {
+    background: #f5efff;
+}
+
+.social-links {
+    display: flex;
+
+    justify-content: space-around;
+
+    font-size: 37px;
+
+    margin-top: 22px;
+}
+
+
+/* =========================
+   PEOPLE YOU MAY LIKE
+========================= */
+
+.people-card {
+    padding: 20px 22px;
+
+    margin-top: 16px;
+}
+
+.people-card h2 {
+    margin: 0 0 12px;
+}
+
+.person {
+    display: grid;
+
+    grid-template-columns:
+        58px
+        1fr
+        auto;
+
+    gap: 12px;
+
+    align-items: center;
+
+    margin: 14px 0;
+}
+
+.person img {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+
+.person-name {
+    font-weight: 800;
+
+    font-size: 19px;
+}
+
+.person-handle {
+    color: #555;
+
+    font-size: 16px;
+
+    margin-top: 4px;
+}
+
+.follow-button {
+    border: 2px solid #7120dc;
+
+    background: white;
+
+    color: #5d12d4;
+
+    border-radius: 9px;
+
+    padding: 9px 17px;
+
+    font-weight: 700;
+
+    transition: .2s;
+}
+
+.follow-button:hover {
+    background: #f2eaff;
+}
+
+.follow-button.following {
+    background: #5d12d4;
+
+    color: white;
+}
+
+.see-more {
+    text-align: center;
+
+    color: #5d12d4;
+
+    font-weight: 800;
+
+    margin-top: 13px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
+
+.bottom-nav {
+    position: fixed;
+
+    bottom: 0;
+
+    left: 0;
+
+    right: 0;
+
+    height: 92px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    z-index: 200;
+}
+
+.nav-button {
+    border: 0;
+
+    background: white;
+
+    font-size: 17px;
+
+    color: #151722;
+
+    position: relative;
+}
+
+.nav-button .nav-icon {
+    display: block;
+
+    font-size: 31px;
+
+    margin-bottom: 3px;
+}
+
+.nav-button.active {
+    color: #5a11df;
+}
+
+.nav-button.active::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 92px;
+
+    height: 5px;
+
+    border-radius: 5px;
+
+    background: #6c18e4;
+}
+
+.nav-dating .nav-icon {
+    color: #ef3151;
+}
+
+.nav-wallet .nav-icon {
+    color: #ef9912;
+}
+
+.nav-shop .nav-icon {
+    color: #13ba73;
+}
+
+.nav-profile .nav-icon {
+    color: #1674df;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    right: 24px;
+
+    bottom: 110px;
+
+    background: #222;
+
+    color: white;
+
+    padding: 13px 18px;
+
+    border-radius: 9px;
+
+    opacity: 0;
+
+    transform: translateY(10px);
+
+    transition: .25s;
+
+    z-index: 300;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px) {
+
+    .page {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media(max-width:650px) {
+
+    .topbar {
+        height: 72px;
+
+        padding: 0 10px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .logo-rainbow {
+        font-size: 31px;
+    }
+
+    .top-actions {
+        gap: 5px;
+    }
+
+    .top-button {
+        width: 45px;
+
+        height: 45px;
+
+        font-size: 20px;
+    }
+
+    .page {
+        padding: 0 8px;
+
+        margin-top: 9px;
+    }
+
+    .composer {
+        grid-template-columns: 55px 1fr;
+
+        padding: 10px;
+    }
+
+    .composer .avatar {
+        width: 52px;
+
+        height: 52px;
+    }
+
+    .compose-box {
+        height: 135px;
+
+        padding: 15px;
+    }
+
+    .placeholder {
+        font-size: 18px;
+    }
+
+    .post-button {
+        font-size: 16px !important;
+
+        padding: 9px 16px;
+    }
+
+    .post-header .avatar {
+        width: 58px;
+
+        height: 58px;
+    }
+
+    .name {
+        font-size: 20px;
+    }
+
+    .time {
+        font-size: 14px;
+    }
+
+    .post-text {
+        font-size: 19px;
+
+        margin: 22px 0;
+    }
+
+    .post-actions {
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .action-button {
+        font-size: 13px;
+    }
+
+    .profile-header .avatar {
+        width: 88px;
+
+        height: 88px;
+    }
+
+    .profile-name {
+        font-size: 23px;
+    }
+
+    .profile-handle {
+        font-size: 17px;
+    }
+
+    .profile-bio {
+        font-size: 15px;
+    }
+
+    .profile-meta {
+        font-size: 16px;
+    }
+
+    .bottom-nav {
+        height: 72px;
+    }
+
+    .nav-button {
+        font-size: 13px;
+    }
+
+    .nav-button .nav-icon {
+        font-size: 24px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+
+        <span class="logo-rainbow">
+            🌈
+        </span>
+
+        Pride Connect
+
+    </div>
+
+
+    <div class="top-actions">
+
+        <button
+            class="top-button"
+            onclick="showToast('Notifications')">
+
+            ♧
+
+        </button>
+
+
+        <button
+            class="top-button active"
+            onclick="showToast('Messages')">
+
+            💬
+
+        </button>
+
+
+        <button
+            class="top-button"
+            onclick="showToast('Explore')">
+
+            🌐
+
+        </button>
+
+
+        <button
+            class="top-button"
+            onclick="showToast('More options')">
+
+            ⋮
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="page">
+
+
+<!-- =========================
+     LEFT COLUMN
+========================= -->
+
+<section>
+
+
+<!-- CREATE POST -->
+
+<div class="card composer">
+
+    <img
+        class="avatar"
+        src="reference.png"
+        alt="Profile">
+
+
+    <div class="compose-box">
+
+        <div class="placeholder">
+            What's on your mind?
+        </div>
+
+
+        <div class="compose-tools">
+
+            <button
+                class="photo-button"
+                onclick="showToast('Add photo')">
+
+                ▧
+
+            </button>
+
+
+            <button
+                class="emoji-button"
+                onclick="showToast('Add emoji')">
+
+                ☺
+
+            </button>
+
+
+            <button
+                class="post-button"
+                onclick="createPost()">
+
+                Post
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- FEED -->
+
+<div class="feed">
+
+
+<!-- POST 1 -->
+
+<article class="card post">
+
+    <div class="post-header">
+
+        <img
+            class="avatar"
+            src="reference.png"
+            alt="YUSHI018">
+
+
+        <div>
+
+            <div class="name">
+                YUSHI018 🌈
+            </div>
+
+            <div class="time">
+                Just now • 🌐
+            </div>
+
+        </div>
+
+
+        <button
+            class="more-button"
+            onclick="showToast('Post menu')">
+
+            ⋮
+
+        </button>
+
+    </div>
+
+
+    <div class="post-text">
+
+        Good morning!
+        Have a great day everyone! 🌈
+
+    </div>
+
+
+    <div class="post-actions">
+
+        <button
+            class="action-button nice-button"
+            onclick="toggleNice(this)">
+
+            ☘ Nice
+
+        </button>
+
+
+        <button
+            class="action-button"
+            onclick="showToast('Comment')">
+
+            ◯ Comment
+
+        </button>
+
+
+        <button
+            class="action-button"
+            onclick="showToast('Post shared')">
+
+            ⌁ Share
+
+        </button>
+
+
+        <div class="action-button">
+
+            ◉ 126
+
+        </div>
+
+    </div>
+
+</article>
+
+
+
+<!-- POST 2 -->
+
+<article class="card post">
+
+    <div class="post-header">
+
+        <img
+            class="avatar"
+            src="reference.png"
+            alt="Alex">
+
+
+        <div>
+
+            <div class="name">
+                Alex
+            </div>
+
+            <div class="time">
+                1 hour ago 🖤 • 🌐
+            </div>
+
+        </div>
+
+
+        <button
+            class="more-button"
+            onclick="showToast('Post menu')">
+
+            ⋮
+
+        </button>
+
+    </div>
+
+
+    <div class="post-text">
+
+        Life is better when you're
+        being yourself. 💜
+
+    </div>
+
+
+    <div class="post-actions">
+
+        <button
+            class="action-button nice-button"
+            onclick="toggleNice(this)">
+
+            ☘ Nice
+
+        </button>
+
+
+        <button
+            class="action-button"
+            onclick="showToast('Comment')">
+
+            ◯ Comment
+
+        </button>
+
+
+        <button
+            class="action-button"
+            onclick="showToast('Post shared')">
+
+            ⌁ Share
+
+        </button>
+
+
+        <div class="action-button">
+
+            ◉ 89
+
+        </div>
+
+    </div>
+
+</article>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     RIGHT COLUMN
+========================= -->
+
+<aside>
+
+
+<!-- PROFILE -->
+
+<div class="card profile-card">
+
+    <div class="profile-banner"></div>
+
+
+    <div class="profile-body">
+
+        <div class="profile-header">
+
+            <img
+                class="avatar"
+                src="reference.png"
+                alt="YUSHI018">
+
+
+            <div>
+
+                <div class="profile-name">
+                    YUSHI018
+                </div>
+
+                <div class="profile-handle">
+                    @yushi018
+                </div>
+
+                <div class="profile-meta">
+                    28 SINGLE
+                </div>
+
+                <div class="profile-bio">
+
+                    Be yourself,
+                    everyone else is
+                    already taken.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="edit-profile"
+            onclick="showToast('Edit Profile')">
+
+            ✎ Edit Profile
+
+        </button>
+
+
+        <div class="social-links">
+
+            <span>🔵</span>
+
+            <span>📷</span>
+
+            <span>🎵</span>
+
+            <span>🟣</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- PEOPLE -->
+
+<div class="card people-card">
+
+    <h2>
+        People you may like
+    </h2>
+
+
+    <!-- JAMES -->
+
+    <div class="person">
+
+        <img
+            src="reference.png"
+            alt="James">
+
+
+        <div>
+
+            <div class="person-name">
+                James
+            </div>
+
+            <div class="person-handle">
+                @james25 💙
+            </div>
+
+        </div>
+
+
+        <button
+            class="follow-button"
+            onclick="toggleFollow(this)">
+
+            Follow
+
+        </button>
+
+    </div>
+
+
+
+    <!-- MIGUEL -->
+
+    <div class="person">
+
+        <img
+            src="reference.png"
+            alt="Miguel">
+
+
+        <div>
+
+            <div class="person-name">
+                Miguel
+            </div>
+
+            <div class="person-handle">
+                @migzz_ 💙
+            </div>
+
+        </div>
+
+
+        <button
+            class="follow-button"
+            onclick="toggleFollow(this)">
+
+            Follow
+
+        </button>
+
+    </div>
+
+
+
+    <!-- RYAN -->
+
+    <div class="person">
+
+        <img
+            src="reference.png"
+            alt="Ryan">
+
+
+        <div>
+
+            <div class="person-name">
+                Ryan
+            </div>
+
+            <div class="person-handle">
+                @ryan03 🖤
+            </div>
+
+        </div>
+
+
+        <button
+            class="follow-button"
+            onclick="toggleFollow(this)">
+
+            Follow
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="see-more"
+        onclick="showToast('Showing more people')">
+
+        See more
+
+    </div>
+
+</div>
+
+</aside>
+
+</main>
+
+
+
+<!-- =========================
+     BOTTOM NAVIGATION
+========================= -->
+
+<nav class="bottom-nav">
+
+
+<button
+    class="nav-button active"
+    onclick="changeNavigation(this,'Home')">
+
+    <span class="nav-icon">
+        ⌂
+    </span>
+
+    Home
+
+</button>
+
+
+<button
+    class="nav-button nav-dating"
+    onclick="changeNavigation(this,'Dating')">
+
+    <span class="nav-icon">
+        ♥
+    </span>
+
+    Dating
+
+</button>
+
+
+<button
+    class="nav-button nav-wallet"
+    onclick="changeNavigation(this,'Wallet')">
+
+    <span class="nav-icon">
+        ▣
+    </span>
+
+    Wallet
+
+</button>
+
+
+<button
+    class="nav-button nav-shop"
+    onclick="changeNavigation(this,'Shop')">
+
+    <span class="nav-icon">
+        ♧
+    </span>
+
+    Shop
+
+</button>
+
+
+<button
+    class="nav-button nav-profile"
+    onclick="changeNavigation(this,'Profile')">
+
+    <span class="nav-icon">
+        ●
+    </span>
+
+    Profile
+
+</button>
+
+</nav>
+
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+
+<script>
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 1500);
+
+}
+
+
+/* =========================
+   POST
+========================= */
+
+function createPost() {
+
+    showToast("Post published!");
+
+}
+
+
+/* =========================
+   NICE BUTTON
+========================= */
+
+function toggleNice(button) {
+
+    button.classList.toggle("liked");
+
+    if (
+        button.classList.contains("liked")
+    ) {
+
+        button.innerHTML =
+            "❤️ Nice";
+
+        showToast("Nice added!");
+
+    } else {
+
+        button.innerHTML =
+            "☘ Nice";
+
+        showToast("Nice removed!");
+
+    }
+
+}
+
+
+/* =========================
+   FOLLOW
+========================= */
+
+function toggleFollow(button) {
+
+    const following =
+        button.classList.contains("following");
+
+
+    if (following) {
+
+        button.classList.remove(
+            "following"
+        );
+
+        button.textContent =
+            "Follow";
+
+        showToast(
+            "Unfollowed"
+        );
+
+    } else {
+
+        button.classList.add(
+            "following"
+        );
+
+        button.textContent =
+            "Following";
+
+        showToast(
+            "Following!"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
+
+function changeNavigation(
+    button,
+    page
+) {
+
+    document
+        .querySelectorAll(".nav-button")
+        .forEach(nav => {
+
+            nav.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    showToast(page);
+
+}
+
+</script>
+
+</body>
+</html>
