@@ -20,18 +20,6 @@
     <div id="profile"></div>
   </div>
   <div class="card">
-    <h3>✏️ Edit Profile</h3>
-    <p class="muted">Update the information people see on your Pride Connect profile.</p>
-    <label class="muted">Display name</label>
-    <input id="editDisplayName" type="text" maxlength="60" placeholder="Your display name" style="width:100%;padding:12px;border:1px solid #ddd5e4;border-radius:11px;margin:5px 0 10px">
-    <label class="muted">Username</label>
-    <input id="editUsername" type="text" maxlength="30" placeholder="username" style="width:100%;padding:12px;border:1px solid #ddd5e4;border-radius:11px;margin:5px 0 10px">
-    <label class="muted">Bio</label>
-    <textarea id="editBio" maxlength="300" placeholder="Tell people a little about yourself..." style="width:100%;min-height:100px;border:1px solid #ddd5e4;border-radius:12px;padding:12px;margin:5px 0 10px"></textarea>
-    <div style="text-align:right"><button class="primary" id="saveProfile" type="button">💾 Save Profile</button></div>
-    <div id="profileMsg"></div>
-  </div>
-  <div class="card">
     <h3>🖼️ Profile Picture</h3>
     <p class="muted">Choose a photo from your phone and save it as your Pride Connect profile picture.</p>
     <div class="row" style="align-items:center;margin:14px 0">
@@ -109,9 +97,6 @@ async function load(){
   $('avatar').src=avatarUrl;
   $('profilePreview').src=avatarUrl;
   $('profile').innerHTML='<div class="row"><img class="avatar" src="'+esc(avatarUrl)+'"><div><h3>'+esc(p.display_name||'User')+'</h3><div class="muted">@'+esc(p.username||'user')+'</div><p>'+esc(p.bio||'Welcome to Pride Connect.')+'</p></div></div>';
-  $('editDisplayName').value=p.display_name||'';
-  $('editUsername').value=p.username||'';
-  $('editBio').value=p.bio||'';
   await Promise.allSettled([feed(),dating(),shop(),lives(),chats()])
 }
 async function feed(){let r=await db.from('posts').select('id,body,media_url,created_at,user_id').order('created_at',{ascending:false}).limit(30);if(r.error){$('feed').innerHTML='<div class="card error">'+esc(r.error.message)+'</div>';return}let ids=[...new Set((r.data||[]).map(x=>x.user_id).filter(Boolean))],q=ids.length?await db.from('profiles').select('id,display_name,username,avatar_url').in('id',ids):{data:[]},m=Object.fromEntries((q.data||[]).map(x=>[x.id,x]));$('feed').innerHTML=(r.data||[]).map(x=>{let p=m[x.user_id]||{};return '<article class="card"><div class="row"><img class="avatar" src="'+esc(p.avatar_url||'https://placehold.co/80')+'"><div><b>'+esc(p.display_name||'User')+'</b><div class="muted">@'+esc(p.username||'user')+' • '+new Date(x.created_at).toLocaleString()+'</div></div></div><p>'+esc(x.body)+'</p>'+(x.media_url?'<img style="width:100%;border-radius:12px" src="'+esc(x.media_url)+'">':'')+'<div class="post-actions"><button>♡ Like</button><button>💬 Comment</button><button>↗ Share</button></div></article>'}).join('')||'<div class="card muted">No posts yet.</div>'}
@@ -170,30 +155,6 @@ $('send').onclick=async()=>{
   await messages();
   $('send').disabled=false;$('send').textContent='Send';
 };$('message').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('send').click()}});
-
-$('saveProfile').onclick=async()=>{
-  const u=await user();
-  if(!u)return;
-  const btn=$('saveProfile');
-  const msg=$('profileMsg');
-  const displayName=$('editDisplayName').value.trim();
-  const username=$('editUsername').value.trim().replace(/^@/,'').toLowerCase();
-  const bio=$('editBio').value.trim();
-  if(displayName.length<2){msg.className='error';msg.textContent='Display name must be at least 2 characters.';return}
-  if(!/^[a-z0-9_]{3,30}$/.test(username)){msg.className='error';msg.textContent='Username must be 3–30 characters and use only letters, numbers, or underscore.';return}
-  btn.disabled=true;btn.textContent='Saving...';msg.textContent='';
-  try{
-    const existing=await db.from('profiles').select('id').eq('username',username).neq('id',u.id).maybeSingle();
-    if(existing.error){msg.className='error';msg.textContent='Could not check username: '+existing.error.message;return}
-    if(existing.data){msg.className='error';msg.textContent='That username is already taken.';return}
-    const r=await db.from('profiles').update({display_name:displayName,username,bio}).eq('id',u.id);
-    if(r.error){msg.className='error';msg.textContent='Could not save profile: '+r.error.message;return}
-    msg.className='success';msg.textContent='Profile updated! 🌈';
-    await load();
-  }catch(e){console.error(e);msg.className='error';msg.textContent='Profile update error: '+(e?.message||e)}
-  finally{btn.disabled=false;btn.textContent='💾 Save Profile'}
-};
-
 let selectedAvatarFile=null;
 
 function showAvatarMsg(text,type='error'){
