@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
-<head>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#6d00ff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Pride Connect</title>
@@ -160,7 +163,15 @@ button,input,textarea{font:inherit}
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
-<body>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('Pride Connect PWA ready'))
+      .catch(error => console.error('Service Worker error:', error));
+  });
+}
+    </script><body>
 
 <div id="auth" class="auth">
   <div class="authbox">
