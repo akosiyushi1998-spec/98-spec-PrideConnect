@@ -4,41 +4,1392 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Pride Connect</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}html,body{margin:0;background:#f7f7fb;color:#171827;font-family:Arial,sans-serif}button,input,textarea{font:inherit}.app{max-width:430px;min-height:100vh;margin:auto;background:#fafafd}.hide{display:none!important}.top{height:68px;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:0 10px;position:sticky;top:0;z-index:20}.logo{font-size:21px;font-weight:800;background:linear-gradient(90deg,#ef1680,#6420dc);color:transparent;background-clip:text}.icons{display:flex;gap:5px}.icon,.nav,.more{border:0;background:#fff;cursor:pointer}.icon{width:43px;height:42px;border-radius:11px;background:#f5f5f8;font-size:20px}.screen{display:none;min-height:calc(100vh - 136px);padding:10px 10px 90px}.screen.active{display:block}.card{background:#fff;border:1px solid #e8e8ef;border-radius:15px;box-shadow:0 2px 8px #0000000a}.composer{padding:12px;display:flex;gap:10px}.avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#ddd}.compose{flex:1;border:2px solid #e7e7ed;border-radius:11px;padding:12px}.hint{color:#65697a;font-size:17px;margin-bottom:12px}.compose textarea{width:100%;border:0;outline:0;resize:none;min-height:45px}.tools{display:flex;align-items:center;gap:10px}.tools button{border:0;background:none;font-size:22px;cursor:pointer}.post{margin-left:auto;background:#5d13dc!important;color:#fff;border-radius:9px!important;padding:9px 18px;font-weight:700}.feed{margin-top:10px}.feed .card{padding:14px;margin-bottom:10px}.head{display:flex;align-items:center;gap:10px}.name{font-size:18px;font-weight:800}.time{color:#666;font-size:13px;margin-top:4px}.more{margin-left:auto;font-size:25px;background:transparent}.msg{font-size:17px;line-height:1.45;margin:20px 0}.actions{border-top:1px solid #eee;padding-top:10px;display:grid;grid-template-columns:repeat(3,1fr)}.actions button{border:0;background:none;min-height:42px;cursor:pointer}.nice.liked{color:#6420dc;font-weight:700}.empty{text-align:center;padding:35px 15px;color:#686b7b}.hero{padding:18px;margin-bottom:10px;background:linear-gradient(135deg,#5d13dc,#8e21e8);color:#fff;border-radius:15px}.big{width:100%;height:48px;border:0;border-radius:10px;background:#5d13dc;color:#fff;font-weight:700;cursor:pointer}.profile-banner{height:72px;background:linear-gradient(110deg,#4d00e8,#9400e3,#ff7900);border-radius:15px 15px 0 0}.profile-body{padding:18px}.phead{display:flex;gap:14px}.profile-wrap{position:relative}.profile-wrap .avatar{width:82px;height:82px}.camera{position:absolute;right:-3px;bottom:-3px;width:31px;height:31px;border-radius:50%;background:#6420dc;color:#fff;border:3px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer}.upload{width:100%;height:50px;margin-top:17px;border:2px solid #6c18df;background:#fff;color:#5c13d6;border-radius:9px;font-weight:bold;display:flex;align-items:center;justify-content:center;cursor:pointer}.bottom{position:fixed;left:0;right:0;bottom:0;height:68px;background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:repeat(5,1fr);z-index:30;max-width:430px;margin:auto}.nav{font-size:11px;color:#151722;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}.nav b{font-size:23px;line-height:24px}.nav.active{color:#5d12d8}.auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#faf0ff,#fff)}.authbox{width:100%;max-width:390px;background:#fff;padding:24px;border-radius:20px;box-shadow:0 8px 30px #0001}.authbox h1{margin-top:0}.authbox input{width:100%;height:50px;margin:7px 0;padding:0 14px;border:1px solid #ddd;border-radius:10px}.primary,.secondary{width:100%;height:50px;margin-top:10px;border-radius:10px;font-weight:700;cursor:pointer}.primary{border:0;background:#6415df;color:#fff}.secondary{border:2px solid #6415df;background:#fff;color:#6415df}.msgbox{min-height:20px;color:#c33;font-size:13px;margin:6px 0}.toast{position:fixed;left:50%;bottom:88px;transform:translate(-50%,10px);background:#222;color:#fff;padding:11px 15px;border-radius:9px;opacity:0;pointer-events:none;transition:.2s;z-index:50}.toast.show{opacity:1;transform:translate(-50%,0)}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  background:#f7f7fb;
+  color:#171827;
+  font-family:Arial,sans-serif
+}
+button,input,textarea{font:inherit}
+button{touch-action:manipulation}
+
+.app{
+  max-width:430px;
+  min-height:100vh;
+  margin:auto;
+  background:#fafafd
+}
+
+.hide{display:none!important}
+
+.top{
+  height:68px;
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 10px;
+  position:sticky;
+  top:0;
+  z-index:20
+}
+
+.logo{
+  font-size:21px;
+  font-weight:800;
+  background:linear-gradient(90deg,#ef1680,#6420dc);
+  color:transparent;
+  background-clip:text;
+  -webkit-background-clip:text
+}
+
+.icons{
+  display:flex;
+  gap:5px
+}
+
+.icon,.nav,.more{
+  border:0;
+  background:#fff;
+  cursor:pointer
+}
+
+.icon{
+  width:43px;
+  height:42px;
+  border-radius:11px;
+  background:#f5f5f8;
+  font-size:20px
+}
+
+.screen{
+  display:none;
+  min-height:calc(100vh - 136px);
+  padding:10px 10px 90px
+}
+
+.screen.active{display:block}
+
+.card{
+  background:#fff;
+  border:1px solid #e8e8ef;
+  border-radius:15px;
+  box-shadow:0 2px 8px #0000000a
+}
+
+.composer{
+  padding:12px;
+  display:flex;
+  gap:10px
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#ddd
+}
+
+.compose{
+  flex:1;
+  border:2px solid #e7e7ed;
+  border-radius:11px;
+  padding:12px
+}
+
+.hint{
+  color:#65697a;
+  font-size:17px;
+  margin-bottom:12px
+}
+
+.compose textarea{
+  width:100%;
+  border:0;
+  outline:0;
+  resize:none;
+  min-height:45px
+}
+
+.tools{
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.tools button{
+  border:0;
+  background:none;
+  font-size:22px;
+  cursor:pointer
+}
+
+.post{
+  margin-left:auto;
+  background:#5d13dc!important;
+  color:#fff;
+  border-radius:9px!important;
+  padding:9px 18px;
+  font-weight:700
+}
+
+.feed{margin-top:10px}
+
+.feed .card{
+  padding:14px;
+  margin-bottom:10px
+}
+
+.head{
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.name{
+  font-size:18px;
+  font-weight:800
+}
+
+.time{
+  color:#666;
+  font-size:13px;
+  margin-top:4px
+}
+
+.more{
+  margin-left:auto;
+  font-size:25px;
+  background:transparent
+}
+
+.msg{
+  font-size:17px;
+  line-height:1.45;
+  margin:20px 0
+}
+
+.actions{
+  border-top:1px solid #eee;
+  padding-top:10px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr)
+}
+
+.actions button{
+  border:0;
+  background:none;
+  min-height:42px;
+  cursor:pointer
+}
+
+.nice.liked{
+  color:#6420dc;
+  font-weight:700
+}
+
+.empty{
+  text-align:center;
+  padding:35px 15px;
+  color:#686b7b
+}
+
+.hero{
+  padding:18px;
+  margin-bottom:10px;
+  background:linear-gradient(135deg,#5d13dc,#8e21e8);
+  color:#fff;
+  border-radius:15px
+}
+
+.big{
+  width:100%;
+  height:48px;
+  border:0;
+  border-radius:10px;
+  background:#5d13dc;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer
+}
+
+.profile-banner{
+  height:72px;
+  background:linear-gradient(110deg,#4d00e8,#9400e3,#ff7900);
+  border-radius:15px 15px 0 0
+}
+
+.profile-body{padding:18px}
+
+.phead{
+  display:flex;
+  gap:14px
+}
+
+.profile-wrap{position:relative}
+
+.profile-wrap .avatar{
+  width:82px;
+  height:82px
+}
+
+.camera{
+  position:absolute;
+  right:-3px;
+  bottom:-3px;
+  width:31px;
+  height:31px;
+  border-radius:50%;
+  background:#6420dc;
+  color:#fff;
+  border:3px solid #fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer
+}
+
+.upload{
+  width:100%;
+  height:50px;
+  margin-top:17px;
+  border:2px solid #6c18df;
+  background:#fff;
+  color:#5c13d6;
+  border-radius:9px;
+  font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer
+}
+
+.bottom{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:68px;
+  background:#fff;
+  border-top:1px solid #ddd;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:30;
+  max-width:430px;
+  margin:auto
+}
+
+.nav{
+  font-size:11px;
+  color:#151722;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer
+}
+
+.nav b{
+  font-size:23px;
+  line-height:24px
+}
+
+.nav.active{color:#5d12d8}
+
+.auth{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:linear-gradient(135deg,#faf0ff,#fff)
+}
+
+.authbox{
+  width:100%;
+  max-width:390px;
+  background:#fff;
+  padding:24px;
+  border-radius:20px;
+  box-shadow:0 8px 30px #0001
+}
+
+.authbox h1{margin-top:0}
+
+.authbox input{
+  width:100%;
+  height:50px;
+  margin:7px 0;
+  padding:0 14px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none
+}
+
+.authbox input:focus{
+  border-color:#6415df;
+  box-shadow:0 0 0 2px #6415df22
+}
+
+.primary,.secondary{
+  width:100%;
+  height:50px;
+  margin-top:10px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer
+}
+
+.primary{
+  border:0;
+  background:#6415df;
+  color:#fff
+}
+
+.secondary{
+  border:2px solid #6415df;
+  background:#fff;
+  color:#6415df
+}
+
+.msgbox{
+  min-height:20px;
+  color:#c33;
+  font-size:13px;
+  margin:6px 0
+}
+
+.msgbox.ok{color:#16803c}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:88px;
+  transform:translate(-50%,10px);
+  background:#222;
+  color:#fff;
+  padding:11px 15px;
+  border-radius:9px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  z-index:50;
+  max-width:90%;
+  text-align:center
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0)
+}
+
+.loading{
+  text-align:center;
+  padding:30px;
+  color:#666
+}
 </style>
 </head>
+
 <body>
-<div id="auth" class="auth"><div class="authbox"><h1>🌈 <span style="color:#6415df">Pride Connect</span></h1><p>Login or create your account.</p><div id="authMsg" class="msgbox"></div><input id="email" type="email" placeholder="Email"><input id="password" type="password" placeholder="Password"><input id="displayName" placeholder="Display name (for sign up)"><button id="login" class="primary">Login</button><button id="signup" class="secondary">Create Account</button></div></div>
+
+<!-- AUTH -->
+<div id="auth" class="auth">
+  <div class="authbox">
+
+    <h1>
+      🌈
+      <span style="color:#6415df">Pride Connect</span>
+    </h1>
+
+    <p>Login or create your account.</p>
+
+    <div id="authMsg" class="msgbox"></div>
+
+    <input
+      id="email"
+      type="email"
+      autocomplete="email"
+      placeholder="Email"
+    >
+
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Password"
+    >
+
+    <input
+      id="displayName"
+      autocomplete="name"
+      placeholder="Display name (for sign up)"
+    >
+
+    <button id="login" class="primary" type="button">
+      Login
+    </button>
+
+    <button id="signup" class="secondary" type="button">
+      Create Account
+    </button>
+
+  </div>
+</div>
+
+
+<!-- APP -->
 <div id="app" class="app hide">
-<header class="top"><div class="logo">🌈 Pride Connect</div><div class="icons"><button class="icon" onclick="toast('Notifications')">🔔</button><button class="icon" onclick="openScreen('chat')">💬</button><button class="icon" onclick="openScreen('profile')">👤</button></div></header>
-<section id="home" class="screen active"><div class="card composer"><img id="homeAvatar" class="avatar"><div class="compose"><div class="hint">What's on your mind?</div><textarea id="postText" placeholder="Write a post..."></textarea><div class="tools"><button onclick="toast('Photo upload can be added next')">🖼️</button><button onclick="toast('Emoji')">😊</button><button class="post" onclick="publish()">Post</button></div></div></div><div id="feed" class="feed"></div></section>
-<section id="dating" class="screen"><div class="hero"><h2>Dating 💜</h2><p>Discover people and make connections.</p></div><div class="card" style="padding:16px"><button class="big" onclick="toast('Dating module ready')">Discover people</button></div></section>
-<section id="wallet" class="screen"><div class="hero"><h2>Wallet 💰</h2><p>Your balance</p><h1>₱0.00</h1></div></section>
-<section id="shop" class="screen"><div class="hero"><h2>Shop 🛍️</h2><p>Shop module is ready for the next module.</p></div></section>
-<section id="profile" class="screen"><div class="card"><div class="profile-banner"></div><div class="profile-body"><div class="phead"><div class="profile-wrap"><img id="profileImage" class="avatar"><label for="profileUpload" class="camera">📷</label></div><div><div id="profileName" style="font-size:24px;font-weight:800">User</div><div id="profileUsername" style="color:#5e17da;font-weight:bold">@user</div><div class="meta">Pride Connect member 🌈</div></div></div><label for="profileUpload" class="upload">📷 Upload Profile Picture</label><input id="profileUpload" type="file" accept="image/*" hidden><button class="secondary" onclick="logout()">Log out</button></div></div></section>
-<section id="chat" class="screen"><div class="hero"><h2>Messages 💬</h2><p>No conversations yet.</p></div></section>
-<nav class="bottom"><button class="nav active" onclick="openScreen('home',this)"><b>⌂</b>Home</button><button class="nav" onclick="openScreen('dating',this)"><b>♥</b>Dating</button><button class="nav" onclick="openScreen('wallet',this)"><b>▣</b>Wallet</button><button class="nav" onclick="openScreen('shop',this)"><b>♧</b>Shop</button><button class="nav" onclick="openScreen('profile',this)"><b>●</b>Profile</button></nav>
-</div><div id="toast" class="toast"></div>
+
+<header class="top">
+
+  <div class="logo">
+    🌈 Pride Connect
+  </div>
+
+  <div class="icons">
+
+    <button
+      class="icon"
+      type="button"
+      onclick="toast('Notifications')"
+    >
+      🔔
+    </button>
+
+    <button
+      class="icon"
+      type="button"
+      onclick="openScreen('chat')"
+    >
+      💬
+    </button>
+
+    <button
+      class="icon"
+      type="button"
+      onclick="openScreen('profile')"
+    >
+      👤
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- HOME -->
+<section id="home" class="screen active">
+
+  <div class="card composer">
+
+    <img
+      id="homeAvatar"
+      class="avatar"
+      src=""
+      alt="Profile"
+    >
+
+    <div class="compose">
+
+      <div class="hint">
+        What's on your mind?
+      </div>
+
+      <textarea
+        id="postText"
+        placeholder="Write a post..."
+      ></textarea>
+
+      <div class="tools">
+
+        <button
+          type="button"
+          onclick="toast('Photo upload can be added next')"
+        >
+          🖼️
+        </button>
+
+        <button
+          type="button"
+          onclick="toast('Emoji')"
+        >
+          😊
+        </button>
+
+        <button
+          class="post"
+          type="button"
+          onclick="publish()"
+        >
+          Post
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="feed" class="feed"></div>
+
+</section>
+
+
+<!-- DATING -->
+<section id="dating" class="screen">
+
+  <div class="hero">
+
+    <h2>Dating 💜</h2>
+
+    <p>
+      Discover people and make connections.
+    </p>
+
+  </div>
+
+  <div
+    class="card"
+    style="padding:16px"
+  >
+
+    <button
+      class="big"
+      type="button"
+      onclick="toast('Dating module ready')"
+    >
+      Discover people
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- WALLET -->
+<section id="wallet" class="screen">
+
+  <div class="hero">
+
+    <h2>Wallet 💰</h2>
+
+    <p>Your balance</p>
+
+    <h1>₱0.00</h1>
+
+  </div>
+
+</section>
+
+
+<!-- SHOP -->
+<section id="shop" class="screen">
+
+  <div class="hero">
+
+    <h2>Shop 🛍️</h2>
+
+    <p>
+      Shop module is ready for the next module.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="screen">
+
+  <div class="card">
+
+    <div class="profile-banner"></div>
+
+    <div class="profile-body">
+
+      <div class="phead">
+
+        <div class="profile-wrap">
+
+          <img
+            id="profileImage"
+            class="avatar"
+            src=""
+            alt="Profile"
+          >
+
+          <label
+            for="profileUpload"
+            class="camera"
+          >
+            📷
+          </label>
+
+        </div>
+
+        <div>
+
+          <div
+            id="profileName"
+            style="font-size:24px;font-weight:800"
+          >
+            User
+          </div>
+
+          <div
+            id="profileUsername"
+            style="color:#5e17da;font-weight:bold"
+          >
+            @user
+          </div>
+
+          <div class="meta">
+            Pride Connect member 🌈
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <label
+        for="profileUpload"
+        class="upload"
+      >
+        📷 Upload Profile Picture
+      </label>
+
+      <input
+        id="profileUpload"
+        type="file"
+        accept="image/*"
+        hidden
+      >
+
+
+      <button
+        class="secondary"
+        type="button"
+        onclick="logout()"
+      >
+        Log out
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CHAT -->
+<section id="chat" class="screen">
+
+  <div class="hero">
+
+    <h2>Messages 💬</h2>
+
+    <p>No conversations yet.</p>
+
+  </div>
+
+</section>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom">
+
+  <button
+    class="nav active"
+    type="button"
+    onclick="openScreen('home',this)"
+  >
+    <b>⌂</b>
+    Home
+  </button>
+
+  <button
+    class="nav"
+    type="button"
+    onclick="openScreen('dating',this)"
+  >
+    <b>♥</b>
+    Dating
+  </button>
+
+  <button
+    class="nav"
+    type="button"
+    onclick="openScreen('wallet',this)"
+  >
+    <b>▣</b>
+    Wallet
+  </button>
+
+  <button
+    class="nav"
+    type="button"
+    onclick="openScreen('shop',this)"
+  >
+    <b>♧</b>
+    Shop
+  </button>
+
+  <button
+    class="nav"
+    type="button"
+    onclick="openScreen('profile',this)"
+  >
+    <b>●</b>
+    Profile
+  </button>
+
+</nav>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+
 <script>
-const SUPABASE_URL='https://uupofonanisdjmmawlml.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY='sb_publishable_DpZ1Fzh9A6GjblSnRHrAPw__OFGaML_';
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:false,autoRefreshToken:true,detectSessionInUrl:true}});
-const FALLBACK='https://placehold.co/160x160/png?text=YU';let toastTimer;
-function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('show'),1700)}
-function openScreen(id,btn){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');window.scrollTo(0,0)}
-function setAvatars(url){['homeAvatar','profileImage'].forEach(id=>{const e=document.getElementById(id);if(e)e.src=url||FALLBACK})}
-async function currentUser(){return (await db.auth.getUser()).data.user}
-async function loadProfile(){const u=await currentUser();if(!u)return;let {data}=await db.from('profiles').select('display_name,username,avatar_url').eq('id',u.id).maybeSingle();if(!data){const name=(u.user_metadata?.display_name||u.email?.split('@')[0]||'User');const username=('u'+u.id.replace(/-/g,'').slice(0,10)).toLowerCase();await db.from('profiles').insert({id:u.id,display_name:name,username});data={display_name:name,username,avatar_url:null}}document.getElementById('profileName').textContent=data.display_name||'User';document.getElementById('profileUsername').textContent='@'+(data.username||'user');setAvatars(data.avatar_url||FALLBACK);loadFeed()}
-async function loadFeed(){const u=await currentUser();if(!u)return;const box=document.getElementById('feed');const r=await db.from('posts').select('id,body,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(30);if(r.error||!r.data?.length){box.innerHTML='<div class="empty card">Wala ka pang post. ✨<br>Gumawa ng first post mo sa taas.</div>';return}box.innerHTML=r.data.map(p=>`<article class="card"><div class="head"><img class="avatar" src="${document.getElementById('homeAvatar').src}"><div><div class="name">${esc(document.getElementById('profileName').textContent)} 🌈</div><div class="time">Just now · 🌐</div></div></div><div class="msg">${esc(p.body)}</div><div class="actions"><button onclick="like(this)">☘ Nice</button><button onclick="toast('Comments coming next')">💬 Comment</button><button onclick="toast('Share coming next')">↗ Share</button></div></article>`).join('')}
-function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-async function publish(){const t=document.getElementById('postText').value.trim();if(!t){toast('Write something first');return}const u=await currentUser();if(!u){toast('Please login');return}const r=await db.from('posts').insert({user_id:u.id,body:t});if(r.error){toast(r.error.message);return}document.getElementById('postText').value='';toast('Posted!');loadFeed()}
-function like(b){b.classList.toggle('liked');toast(b.classList.contains('liked')?'Nice added!':'Nice removed!')}
-async function login(){const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value;document.getElementById('authMsg').textContent='';if(!email||!password){document.getElementById('authMsg').textContent='Ilagay ang email at password.';return}const r=await db.auth.signInWithPassword({email,password});if(r.error){document.getElementById('authMsg').textContent=r.error.message;return}showApp()}
-async function signup(){const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value,name=document.getElementById('displayName').value.trim()||'User';document.getElementById('authMsg').textContent='';if(!email||!password){document.getElementById('authMsg').textContent='Ilagay ang email at password.';return}if(password.length<6){document.getElementById('authMsg').textContent='Password must be at least 6 characters.';return}const r=await db.auth.signUp({email,password,options:{data:{display_name:name}}});if(r.error){document.getElementById('authMsg').textContent=r.error.message;return}if(r.data.session)showApp();else document.getElementById('authMsg').textContent='Account created. Check your email if confirmation is enabled.'}
-async function logout(){await db.auth.signOut();document.getElementById('app').classList.add('hide');document.getElementById('auth').classList.remove('hide');document.getElementById('password').value='';toast('Logged out')}
-function showApp(){document.getElementById('auth').classList.add('hide');document.getElementById('app').classList.remove('hide');loadProfile()}
-document.getElementById('login').onclick=login;document.getElementById('signup').onclick=signup;document.getElementById('profileUpload').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;const u=await currentUser();if(!u)return;if(!f.type.startsWith('image/')||f.size>5*1024*1024){toast('Image must be under 5MB');return}const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');const path=`${u.id}/profile-${Date.now()}.${ext}`;toast('Uploading...');const up=await db.storage.from('avatars').upload(path,f,{contentType:f.type,upsert:false,cacheControl:'3600'});if(up.error){toast('Upload failed: '+up.error.message);return}const {data}=db.storage.from('avatars').getPublicUrl(path);const upd=await db.from('profiles').update({avatar_url:data.publicUrl}).eq('id',u.id);if(upd.error){toast('Profile update failed: '+upd.error.message);return}setAvatars(data.publicUrl);toast('Profile picture updated!')});
-(async()=>{const {data}=await db.auth.getSession();if(data.session){await db.auth.signOut()}document.getElementById('auth').classList.remove('hide');document.getElementById('app').classList.add('hide')})();
-</script></body></html>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+  'https://uupofonanisdjmmawlml.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_DpZ1Fzh9A6GjblSnRHrAPw__OFGaML_';
+
+
+/*
+  IMPORTANT:
+  persistSession MUST be true.
+
+  Huwag na nating i-signOut ang user kapag nag-load
+  ang page.
+*/
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY,
+  {
+    auth:{
+      persistSession:true,
+      autoRefreshToken:true,
+      detectSessionInUrl:true
+    }
+  }
+);
+
+
+const FALLBACK =
+  'https://placehold.co/160x160/png?text=YU';
+
+let toastTimer = null;
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+  const e =
+    document.getElementById('toast');
+
+  e.textContent = message;
+
+  e.classList.add('show');
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(
+      ()=>{
+        e.classList.remove('show');
+      },
+      1800
+    );
+}
+
+
+/* =========================================================
+   AUTH MESSAGE
+========================================================= */
+
+function authMessage(message,success=false){
+
+  const e =
+    document.getElementById('authMsg');
+
+  e.textContent =
+    message || '';
+
+  e.classList.toggle(
+    'ok',
+    success
+  );
+}
+
+
+/* =========================================================
+   SCREEN
+========================================================= */
+
+function openScreen(id,btn){
+
+  document
+    .querySelectorAll('.screen')
+    .forEach(x=>{
+      x.classList.remove('active');
+    });
+
+  const screen =
+    document.getElementById(id);
+
+  if(screen){
+    screen.classList.add('active');
+  }
+
+  document
+    .querySelectorAll('.nav')
+    .forEach(x=>{
+      x.classList.remove('active');
+    });
+
+  if(btn){
+    btn.classList.add('active');
+  }
+
+  window.scrollTo(0,0);
+}
+
+
+/* =========================================================
+   AVATARS
+========================================================= */
+
+function setAvatars(url){
+
+  const finalUrl =
+    url || FALLBACK;
+
+  [
+    'homeAvatar',
+    'profileImage'
+  ].forEach(id=>{
+
+    const e =
+      document.getElementById(id);
+
+    if(e){
+      e.src = finalUrl;
+    }
+
+  });
+}
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+async function currentUser(){
+
+  try{
+
+    const result =
+      await db.auth.getUser();
+
+    return result?.data?.user || null;
+
+  }catch(error){
+
+    console.error(
+      'currentUser error:',
+      error
+    );
+
+    return null;
+  }
+}
+
+
+/* =========================================================
+   LOAD PROFILE
+========================================================= */
+
+async function loadProfile(){
+
+  const u =
+    await currentUser();
+
+  if(!u){
+    return;
+  }
+
+
+  let data = null;
+
+
+  try{
+
+    const result =
+      await db
+        .from('profiles')
+        .select(
+          'display_name,username,avatar_url'
+        )
+        .eq('id',u.id)
+        .maybeSingle();
+
+    data =
+      result.data || null;
+
+  }catch(error){
+
+    console.error(
+      'Profile select error:',
+      error
+    );
+
+  }
+
+
+  /*
+    If profile doesn't exist,
+    create it.
+  */
+
+  if(!data){
+
+    const name =
+      u.user_metadata?.display_name ||
+      u.email?.split('@')[0] ||
+      'User';
+
+    const username =
+      (
+        'u' +
+        u.id
+          .replace(/-/g,'')
+          .slice(0,10)
+      ).toLowerCase();
+
+
+    try{
+
+      await db
+        .from('profiles')
+        .insert({
+          id:u.id,
+          display_name:name,
+          username:username
+        });
+
+    }catch(error){
+
+      console.log(
+        'Profile insert:',
+        error
+      );
+
+    }
+
+
+    data = {
+      display_name:name,
+      username:username,
+      avatar_url:null
+    };
+
+  }
+
+
+  document.getElementById(
+    'profileName'
+  ).textContent =
+    data.display_name || 'User';
+
+
+  document.getElementById(
+    'profileUsername'
+  ).textContent =
+    '@' +
+    (data.username || 'user');
+
+
+  setAvatars(
+    data.avatar_url || FALLBACK
+  );
+
+
+  await loadFeed();
+}
+
+
+/* =========================================================
+   LOAD FEED
+========================================================= */
+
+async function loadFeed(){
+
+  const u =
+    await currentUser();
+
+  if(!u){
+    return;
+  }
+
+
+  const box =
+    document.getElementById('feed');
+
+
+  const result =
+    await db
+      .from('posts')
+      .select(
+        'id,body,created_at'
+      )
+      .eq(
+        'user_id',
+        u.id
+      )
+      .order(
+        'created_at',
+        {ascending:false}
+      )
+      .limit(30);
+
+
+  if(
+    result.error ||
+    !result.data ||
+    !result.data.length
+  ){
+
+    box.innerHTML = `
+      <div class="empty card">
+        Wala ka pang post. ✨<br>
+        Gumawa ng first post mo sa taas.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const avatar =
+    document.getElementById(
+      'homeAvatar'
+    ).src;
+
+
+  const name =
+    document.getElementById(
+      'profileName'
+    ).textContent;
+
+
+  box.innerHTML =
+    result.data.map(p=>`
+
+      <article class="card">
+
+        <div class="head">
+
+          <img
+            class="avatar"
+            src="${esc(avatar)}"
+            alt="Profile"
+          >
+
+          <div>
+
+            <div class="name">
+              ${esc(name)} 🌈
+            </div>
+
+            <div class="time">
+              ${formatDate(p.created_at)} · 🌐
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="msg">
+          ${esc(p.body)}
+        </div>
+
+        <div class="actions">
+
+          <button
+            type="button"
+            onclick="like(this)"
+          >
+            ☘ Nice
+          </button>
+
+          <button
+            type="button"
+            onclick="toast('Comments coming next')"
+          >
+            💬 Comment
+          </button>
+
+          <button
+            type="button"
+            onclick="toast('Share coming next')"
+          >
+            ↗ Share
+          </button>
+
+        </div>
+
+      </article>
+
+    `).join('');
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(value){
+
+  if(!value){
+    return 'Just now';
+  }
+
+  const d =
+    new Date(value);
+
+  if(
+    Number.isNaN(
+      d.getTime()
+    )
+  ){
+    return 'Just now';
+  }
+
+  const diff =
+    Date.now() -
+    d.getTime();
+
+  const minutes =
+    Math.floor(
+      diff / 60000
+    );
+
+  if(minutes < 1){
+    return 'Just now';
+  }
+
+  if(minutes < 60){
+    return minutes + 'm ago';
+  }
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+  if(hours < 24){
+    return hours + 'h ago';
+  }
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+  return days + 'd ago';
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function esc(s){
+
+  return String(
+    s ?? ''
+  ).replace(
+    /[&<>'"]/g,
+    c=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      "'":'&#39;',
+      '"':'&quot;'
+    }[c])
+  );
+}
+
+
+/* =========================================================
+   PUBLISH
+========================================================= */
+
+async function publish(){
+
+  const text =
+    document
+      .getElementById('postText')
+      .value
+      .trim();
+
+
+  if(!text){
+
+    toast(
+      'Write something first'
+    );
+
+    return;
+  }
+
+
+  const u =
+    await currentUser();
+
+
+  if(!u){
+
+    toast(
+      'Please login'
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.querySelector(
+      '.post'
+    );
+
+
+  if(button){
+    button.disabled = true;
+    button.textContent = 'Posting...';
+  }
+
+
+  try{
+
+    const result =
+      await db
+        .from('posts')
+        .insert({
+          user_id:u.id,
+          body:text
+        });
+
+
+    if(result.error){
+
+      console.error(
+        'Post error:',
+        result.error
+      );
+
+      toast(
+        result.error.message
+      );
+
+      return;
+    }
+
+
+    document.getElementById(
+      'postText'
+    ).value = '';
+
+
+    toast('Posted!');
+
+
+    await loadFeed();
+
+  }finally{
+
+    if(button){
+
+      button.disabled = false;
+      button.textContent = 'Post';
+
+    }
+
+  }
+}
+
+
+/* =========================================================
+   LIKE
+========================================================= */
+
+function like(button){
+
+  button.classList.toggle(
+    'liked'
+  );
+
+  toast(
+    button.classList.contains('liked')
+      ? 'Nice added!'
+      : 'Nice removed!'
+  );
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function login(){
+
+  const email =
+    document
+      .getElementById('email')
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const password =
+    document.getElementById(
+      'password'
+    ).value;
+
+
+  authMessage('');
+
+
+  if(!email || !password){
+
+    authMessage(
+      'Ilagay ang email at password.'
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElemen
