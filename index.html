@@ -37,129 +37,331 @@ padding:10px 10px 90px
 .screen.active{display:block}
 
 .card{
-background:#fff;border:1px solid #e8e8ef;border-radius:15px;
-box-shadow:0 2px 8px #0000000a
+background:#fff;border:1px solid #e8e8ef;
+border-radius:15px;box-shadow:0 2px 8px #0000000a
 }
 
-.composer{padding:12px;display:flex;gap:10px}
+.composer{
+padding:12px;display:flex;gap:10px
+}
+
 .avatar{
 width:52px;height:52px;border-radius:50%;
 object-fit:cover;background:#ddd
 }
+
 .compose{
 flex:1;border:2px solid #e7e7ed;
 border-radius:11px;padding:12px
 }
-.hint{color:#65697a;font-size:17px;margin-bottom:12px}
+
+.hint{
+color:#65697a;font-size:17px;margin-bottom:12px
+}
+
 .compose textarea{
-width:100%;border:0;outline:0;resize:none;min-height:45px
+width:100%;border:0;outline:0;
+resize:none;min-height:45px
 }
-.tools{display:flex;align-items:center;gap:10px}
+
+.tools{
+display:flex;align-items:center;gap:10px
+}
+
 .tools button{
-border:0;background:none;font-size:22px;cursor:pointer
+border:0;background:none;font-size:22px;
+cursor:pointer
 }
+
 .post{
-margin-left:auto;background:#5d13dc!important;color:#fff;
-border-radius:9px!important;padding:9px 18px;font-weight:700
+margin-left:auto;background:#5d13dc!important;
+color:#fff;border-radius:9px!important;
+padding:9px 18px;font-weight:700
 }
+
+/* PHOTO PREVIEW */
+
+.photo-preview{
+margin-top:10px;
+position:relative;
+border-radius:12px;
+overflow:hidden;
+background:#f0f0f4;
+display:none
+}
+
+.photo-preview.show{
+display:block
+}
+
+.photo-preview img{
+display:block;
+width:100%;
+max-height:300px;
+object-fit:cover
+}
+
+.remove-photo{
+position:absolute;
+top:8px;
+right:8px;
+width:34px;
+height:34px;
+border:0;
+border-radius:50%;
+background:#222c;
+color:#fff;
+font-size:20px;
+cursor:pointer
+}
+
+/* FEED */
 
 .feed{margin-top:10px}
-.feed .card{padding:14px;margin-bottom:10px}
-.head{display:flex;align-items:center;gap:10px}
-.name{font-size:18px;font-weight:800}
-.time{color:#666;font-size:13px;margin-top:4px}
-.more{margin-left:auto;font-size:25px;background:transparent}
-.msg{font-size:17px;line-height:1.45;margin:20px 0}
+
+.feed .card{
+padding:14px;
+margin-bottom:10px
+}
+
+.head{
+display:flex;
+align-items:center;
+gap:10px
+}
+
+.name{
+font-size:18px;
+font-weight:800
+}
+
+.time{
+color:#666;
+font-size:13px;
+margin-top:4px
+}
+
+.more{
+margin-left:auto;
+font-size:25px;
+background:transparent
+}
+
+.msg{
+font-size:17px;
+line-height:1.45;
+margin:20px 0
+}
+
+.post-photo{
+width:100%;
+max-height:420px;
+object-fit:cover;
+border-radius:12px;
+margin-top:5px;
+display:block
+}
+
 .actions{
-border-top:1px solid #eee;padding-top:10px;
-display:grid;grid-template-columns:repeat(3,1fr)
+border-top:1px solid #eee;
+padding-top:10px;
+display:grid;
+grid-template-columns:repeat(3,1fr)
 }
+
 .actions button{
-border:0;background:none;min-height:42px;cursor:pointer
+border:0;background:none;
+min-height:42px;cursor:pointer
 }
-.nice.liked{color:#6420dc;font-weight:700}
-.empty{text-align:center;padding:35px 15px;color:#686b7b}
+
+.nice.liked{
+color:#6420dc;
+font-weight:700
+}
+
+.empty{
+text-align:center;
+padding:35px 15px;
+color:#686b7b
+}
+
+/* OTHER SCREENS */
 
 .hero{
-padding:18px;margin-bottom:10px;
+padding:18px;
+margin-bottom:10px;
 background:linear-gradient(135deg,#5d13dc,#8e21e8);
 color:#fff;border-radius:15px
 }
+
 .big{
-width:100%;height:48px;border:0;border-radius:10px;
-background:#5d13dc;color:#fff;font-weight:700;cursor:pointer
+width:100%;height:48px;
+border:0;border-radius:10px;
+background:#5d13dc;color:#fff;
+font-weight:700;cursor:pointer
 }
+
+/* PROFILE */
 
 .profile-banner{
 height:72px;
 background:linear-gradient(110deg,#4d00e8,#9400e3,#ff7900);
 border-radius:15px 15px 0 0
 }
+
 .profile-body{padding:18px}
 .phead{display:flex;gap:14px}
 .profile-wrap{position:relative}
-.profile-wrap .avatar{width:82px;height:82px}
-.camera{
-position:absolute;right:-3px;bottom:-3px;width:31px;height:31px;
-border-radius:50%;background:#6420dc;color:#fff;
-border:3px solid #fff;display:flex;align-items:center;
-justify-content:center;cursor:pointer
+.profile-wrap .avatar{
+width:82px;height:82px
 }
-.upload{
-width:100%;height:50px;margin-top:17px;
-border:2px solid #6c18df;background:#fff;color:#5c13d6;
-border-radius:9px;font-weight:bold;
-display:flex;align-items:center;justify-content:center;
+
+.camera{
+position:absolute;
+right:-3px;
+bottom:-3px;
+width:31px;
+height:31px;
+border-radius:50%;
+background:#6420dc;
+color:#fff;
+border:3px solid #fff;
+display:flex;
+align-items:center;
+justify-content:center;
 cursor:pointer
 }
 
+.upload{
+width:100%;
+height:50px;
+margin-top:17px;
+border:2px solid #6c18df;
+background:#fff;
+color:#5c13d6;
+border-radius:9px;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer
+}
+
+/* NAV */
+
 .bottom{
-position:fixed;left:0;right:0;bottom:0;height:68px;
-background:#fff;border-top:1px solid #ddd;
-display:grid;grid-template-columns:repeat(5,1fr);
-z-index:30;max-width:430px;margin:auto
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+height:68px;
+background:#fff;
+border-top:1px solid #ddd;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+z-index:30;
+max-width:430px;
+margin:auto
 }
+
 .nav{
-font-size:11px;color:#151722;
-display:flex;flex-direction:column;
-align-items:center;justify-content:center;cursor:pointer
+font-size:11px;
+color:#151722;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+cursor:pointer
 }
-.nav b{font-size:23px;line-height:24px}
-.nav.active{color:#5d12d8}
+
+.nav b{
+font-size:23px;
+line-height:24px
+}
+
+.nav.active{
+color:#5d12d8
+}
+
+/* AUTH */
 
 .auth{
-min-height:100vh;display:flex;align-items:center;
-justify-content:center;padding:20px;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
 background:linear-gradient(135deg,#faf0ff,#fff)
 }
+
 .authbox{
-width:100%;max-width:390px;background:#fff;padding:24px;
-border-radius:20px;box-shadow:0 8px 30px #0001
+width:100%;
+max-width:390px;
+background:#fff;
+padding:24px;
+border-radius:20px;
+box-shadow:0 8px 30px #0001
 }
+
 .authbox h1{margin-top:0}
+
 .authbox input{
-width:100%;height:50px;margin:7px 0;padding:0 14px;
-border:1px solid #ddd;border-radius:10px
+width:100%;
+height:50px;
+margin:7px 0;
+padding:0 14px;
+border:1px solid #ddd;
+border-radius:10px
 }
+
 .primary,.secondary{
-width:100%;height:50px;margin-top:10px;
-border-radius:10px;font-weight:700;cursor:pointer
+width:100%;
+height:50px;
+margin-top:10px;
+border-radius:10px;
+font-weight:700;
+cursor:pointer
 }
-.primary{border:0;background:#6415df;color:#fff}
+
+.primary{
+border:0;
+background:#6415df;
+color:#fff
+}
+
 .secondary{
-border:2px solid #6415df;background:#fff;color:#6415df
+border:2px solid #6415df;
+background:#fff;
+color:#6415df
 }
-.msgbox{min-height:20px;color:#c33;font-size:13px;margin:6px 0}
+
+.msgbox{
+min-height:20px;
+color:#c33;
+font-size:13px;
+margin:6px 0
+}
+
+/* TOAST */
 
 .toast{
-position:fixed;left:50%;bottom:88px;
+position:fixed;
+left:50%;
+bottom:88px;
 transform:translate(-50%,10px);
-background:#222;color:#fff;padding:11px 15px;
-border-radius:9px;opacity:0;pointer-events:none;
-transition:.2s;z-index:50
+background:#222;
+color:#fff;
+padding:11px 15px;
+border-radius:9px;
+opacity:0;
+pointer-events:none;
+transition:.2s;
+z-index:50
 }
+
 .toast.show{
-opacity:1;transform:translate(-50%,0)
+opacity:1;
+transform:translate(-50%,0)
 }
 </style>
 </head>
@@ -167,64 +369,155 @@ opacity:1;transform:translate(-50%,0)
 <body>
 
 <!-- AUTH -->
+
 <div id="auth" class="auth">
+
 <div class="authbox">
 
-<h1>🌈 <span style="color:#6415df">Pride Connect</span></h1>
+<h1>
+🌈 <span style="color:#6415df">Pride Connect</span>
+</h1>
+
 <p>Login or create your account.</p>
 
 <div id="authMsg" class="msgbox"></div>
 
-<input id="email" type="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
-<input id="displayName" placeholder="Display name (for sign up)">
+<input
+id="email"
+type="email"
+placeholder="Email"
+>
 
-<button id="login" class="primary">Login</button>
-<button id="signup" class="secondary">Create Account</button>
+<input
+id="password"
+type="password"
+placeholder="Password"
+>
+
+<input
+id="displayName"
+placeholder="Display name (for sign up)"
+>
+
+<button id="login" class="primary">
+Login
+</button>
+
+<button id="signup" class="secondary">
+Create Account
+</button>
 
 </div>
 </div>
 
 
 <!-- APP -->
+
 <div id="app" class="app hide">
 
 <header class="top">
-<div class="logo">🌈 Pride Connect</div>
+
+<div class="logo">
+🌈 Pride Connect
+</div>
 
 <div class="icons">
-<button class="icon" onclick="toast('Notifications')">🔔</button>
-<button class="icon" onclick="openScreen('chat')">💬</button>
-<button class="icon" onclick="openScreen('profile')">👤</button>
+
+<button
+class="icon"
+onclick="toast('Notifications')"
+>
+🔔
+</button>
+
+<button
+class="icon"
+onclick="openScreen('chat')"
+>
+💬
+</button>
+
+<button
+class="icon"
+onclick="openScreen('profile')"
+>
+👤
+</button>
+
 </div>
 </header>
 
 
 <!-- HOME -->
+
 <section id="home" class="screen active">
 
 <div class="card composer">
 
-<img id="homeAvatar" class="avatar">
+<img
+id="homeAvatar"
+class="avatar"
+>
 
 <div class="compose">
 
-<div class="hint">What's on your mind?</div>
+<div class="hint">
+What's on your mind?
+</div>
 
-<textarea id="postText" placeholder="Write a post..."></textarea>
+<textarea
+id="postText"
+placeholder="Write a post..."
+></textarea>
+
+
+<!-- PHOTO PREVIEW -->
+
+<div
+id="photoPreview"
+class="photo-preview"
+>
+
+<img id="previewImage">
+
+<button
+class="remove-photo"
+onclick="removePostPhoto()"
+>
+×
+</button>
+
+</div>
+
 
 <div class="tools">
 
-<button onclick="openPostPhoto()">🖼️</button>
+<button
+onclick="openPostPhoto()"
+>
+🖼️
+</button>
 
-<button onclick="toast('Emoji')">😊</button>
+<button
+onclick="toast('Emoji')"
+>
+😊
+</button>
 
-<button class="post" onclick="publish()">Post</button>
+<button
+class="post"
+onclick="publish()"
+>
+Post
+</button>
 
 </div>
 
 </div>
 </div>
+
+
+<!-- HIDDEN PHOTO INPUT -->
 
 <input
 id="postPhoto"
@@ -233,52 +526,76 @@ accept="image/*"
 hidden
 >
 
+
 <div id="feed" class="feed"></div>
 
 </section>
 
 
 <!-- DATING -->
+
 <section id="dating" class="screen">
 
 <div class="hero">
+
 <h2>Dating 💜</h2>
-<p>Discover people and make connections.</p>
+
+<p>
+Discover people and make connections.
+</p>
+
 </div>
 
 <div class="card" style="padding:16px">
-<button class="big" onclick="toast('Dating module ready')">
+
+<button
+class="big"
+onclick="toast('Dating module ready')"
+>
 Discover people
 </button>
+
 </div>
 
 </section>
 
 
 <!-- WALLET -->
+
 <section id="wallet" class="screen">
 
 <div class="hero">
+
 <h2>Wallet 💰</h2>
+
 <p>Your balance</p>
+
 <h1>₱0.00</h1>
+
 </div>
 
 </section>
 
 
 <!-- SHOP -->
+
 <section id="shop" class="screen">
 
 <div class="hero">
+
 <h2>Shop 🛍️</h2>
-<p>Shop module is ready for the next module.</p>
+
+<p>
+Shop module is ready for the next module.
+</p>
+
 </div>
 
 </section>
 
 
 <!-- PROFILE -->
+
 <section id="profile" class="screen">
 
 <div class="card">
@@ -291,9 +608,15 @@ Discover people
 
 <div class="profile-wrap">
 
-<img id="profileImage" class="avatar">
+<img
+id="profileImage"
+class="avatar"
+>
 
-<label for="profileUpload" class="camera">
+<label
+for="profileUpload"
+class="camera"
+>
 📷
 </label>
 
@@ -301,13 +624,17 @@ Discover people
 
 <div>
 
-<div id="profileName"
-style="font-size:24px;font-weight:800">
+<div
+id="profileName"
+style="font-size:24px;font-weight:800"
+>
 User
 </div>
 
-<div id="profileUsername"
-style="color:#5e17da;font-weight:bold">
+<div
+id="profileUsername"
+style="color:#5e17da;font-weight:bold"
+>
 @user
 </div>
 
@@ -320,7 +647,10 @@ Pride Connect member 🌈
 </div>
 
 
-<label for="profileUpload" class="upload">
+<label
+for="profileUpload"
+class="upload"
+>
 📷 Upload Profile Picture
 </label>
 
@@ -331,7 +661,10 @@ accept="image/*"
 hidden
 >
 
-<button class="secondary" onclick="logout()">
+<button
+class="secondary"
+onclick="logout()"
+>
 Log out
 </button>
 
@@ -342,37 +675,64 @@ Log out
 
 
 <!-- CHAT -->
+
 <section id="chat" class="screen">
 
 <div class="hero">
+
 <h2>Messages 💬</h2>
-<p>No conversations yet.</p>
+
+<p>
+No conversations yet.
+</p>
+
 </div>
 
 </section>
 
 
-<!-- NAV -->
+<!-- NAVIGATION -->
+
 <nav class="bottom">
 
-<button class="nav active" onclick="openScreen('home',this)">
-<b>⌂</b>Home
+<button
+class="nav active"
+onclick="openScreen('home',this)"
+>
+<b>⌂</b>
+Home
 </button>
 
-<button class="nav" onclick="openScreen('dating',this)">
-<b>♥</b>Dating
+<button
+class="nav"
+onclick="openScreen('dating',this)"
+>
+<b>♥</b>
+Dating
 </button>
 
-<button class="nav" onclick="openScreen('wallet',this)">
-<b>▣</b>Wallet
+<button
+class="nav"
+onclick="openScreen('wallet',this)"
+>
+<b>▣</b>
+Wallet
 </button>
 
-<button class="nav" onclick="openScreen('shop',this)">
-<b>♧</b>Shop
+<button
+class="nav"
+onclick="openScreen('shop',this)"
+>
+<b>♧</b>
+Shop
 </button>
 
-<button class="nav" onclick="openScreen('profile',this)">
-<b>●</b>Profile
+<button
+class="nav"
+onclick="openScreen('profile',this)"
+>
+<b>●</b>
+Profile
 </button>
 
 </nav>
@@ -384,20 +744,18 @@ Log out
 
 <script>
 
+/* =========================
+   SUPABASE
+========================= */
+
 const SUPABASE_URL =
 'https://uupofonanisdjmmawlml.supabase.co';
 
 const SUPABASE_PUBLISHABLE_KEY =
 'sb_publishable_DpZ1Fzh9A6GjblSnRHrAPw__OFGaML_';
 
-
-/*
-IMPORTANT:
-persistSession:true
-para hindi nawawala ang login kapag nag-refresh
-*/
-
-const db = window.supabase.createClient(
+const db =
+window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY,
 {
@@ -409,18 +767,27 @@ detectSessionInUrl:true
 }
 );
 
-
 const FALLBACK =
 'https://placehold.co/160x160/png?text=YU';
 
 let toastTimer;
 
+/* Current selected photo */
+
+let selectedPostPhoto=null;
+
+
+/* =========================
+   TOAST
+========================= */
 
 function toast(m){
 
-const e=document.getElementById('toast');
+const e=
+document.getElementById('toast');
 
 e.textContent=m;
+
 e.classList.add('show');
 
 clearTimeout(toastTimer);
@@ -433,46 +800,70 @@ toastTimer=setTimeout(
 }
 
 
+/* =========================
+   SCREEN
+========================= */
+
 function openScreen(id,btn){
 
-document.querySelectorAll('.screen')
+document
+.querySelectorAll('.screen')
 .forEach(x=>x.classList.remove('active'));
 
-const target=document.getElementById(id);
+const target=
+document.getElementById(id);
 
-if(target)target.classList.add('active');
+if(target)
+target.classList.add('active');
 
-document.querySelectorAll('.nav')
+document
+.querySelectorAll('.nav')
 .forEach(x=>x.classList.remove('active'));
 
-if(btn)btn.classList.add('active');
+if(btn)
+btn.classList.add('active');
 
 window.scrollTo(0,0);
 
 }
 
 
+/* =========================
+   AVATAR
+========================= */
+
 function setAvatars(url){
 
-['homeAvatar','profileImage'].forEach(id=>{
+['homeAvatar','profileImage']
+.forEach(id=>{
 
 const e=document.getElementById(id);
 
-if(e)e.src=url||FALLBACK;
+if(e)
+e.src=url||FALLBACK;
 
 });
 
 }
 
 
+/* =========================
+   CURRENT USER
+========================= */
+
 async function currentUser(){
 
-const r=await db.auth.getUser();
+const r=
+await db.auth.getUser();
 
 return r.data.user;
 
 }
 
+
+/* =========================
+   PROFILE
+========================= */
 
 async function loadProfile(){
 
@@ -480,10 +871,11 @@ const u=await currentUser();
 
 if(!u)return;
 
-
-let {data,error}=await db
+let {data}=await db
 .from('profiles')
-.select('display_name,username,avatar_url')
+.select(
+'display_name,username,avatar_url'
+)
 .eq('id',u.id)
 .maybeSingle();
 
@@ -499,8 +891,7 @@ const username=
 ('u'+u.id.replace(/-/g,'').slice(0,10))
 .toLowerCase();
 
-
-const insertResult=await db
+await db
 .from('profiles')
 .insert({
 id:u.id,
@@ -508,17 +899,6 @@ display_name:name,
 username
 });
 
-
-if(!insertResult.error){
-
-data={
-display_name:name,
-username,
-avatar_url:null
-};
-
-}else{
-
 data={
 display_name:name,
 username,
@@ -527,21 +907,29 @@ avatar_url:null
 
 }
 
-}
 
+document
+.getElementById('profileName')
+.textContent=
+data.display_name||'User';
 
-document.getElementById('profileName')
-.textContent=data.display_name||'User';
+document
+.getElementById('profileUsername')
+.textContent=
+'@'+(data.username||'user');
 
-document.getElementById('profileUsername')
-.textContent='@'+(data.username||'user');
-
-setAvatars(data.avatar_url||FALLBACK);
+setAvatars(
+data.avatar_url||FALLBACK
+);
 
 loadFeed();
 
 }
 
+
+/* =========================
+   FEED
+========================= */
 
 async function loadFeed(){
 
@@ -549,31 +937,95 @@ const u=await currentUser();
 
 if(!u)return;
 
-
-const box=document.getElementById('feed');
+const box=
+document.getElementById('feed');
 
 const r=await db
 .from('posts')
-.select('id,body,created_at')
+.select(
+'id,body,created_at'
+)
 .eq('user_id',u.id)
-.order('created_at',{ascending:false})
+.order(
+'created_at',
+{ascending:false}
+)
 .limit(30);
 
 
 if(r.error||!r.data?.length){
 
 box.innerHTML=
-'<div class="empty card">'+
-'Wala ka pang post. ✨<br>'+
-'Gumawa ng first post mo sa taas.'+
-'</div>';
+`
+<div class="empty card">
+Wala ka pang post. ✨
+<br>
+Gumawa ng first post mo sa taas.
+</div>
+`;
 
 return;
 
 }
 
 
-box.innerHTML=r.data.map(p=>`
+box.innerHTML=
+r.data.map(p=>{
+
+/*
+PHOTO POSTS ARE SAVED INSIDE BODY
+USING THIS FORMAT:
+
+[PCPHOTO]photo_url[/PCPHOTO]
+caption
+
+This means we do NOT need to
+change the existing posts table.
+*/
+
+let body=String(p.body||'');
+
+let photoUrl='';
+
+const match=
+body.match(
+/^\[PCPHOTO\]([\s\S]*?)\[\/PCPHOTO\]\n?/
+);
+
+if(match){
+
+photoUrl=match[1];
+
+body=
+body.replace(match[0],'');
+}
+
+
+const photoHTML=
+photoUrl
+?
+`
+<img
+class="post-photo"
+src="${escAttr(photoUrl)}"
+onclick="viewPhoto(this.src)"
+>
+`
+:'';
+
+
+const captionHTML=
+body.trim()
+?
+`
+<div class="msg">
+${esc(body)}
+</div>
+`
+:'';
+
+
+return `
 
 <article class="card">
 
@@ -581,27 +1033,35 @@ box.innerHTML=r.data.map(p=>`
 
 <img
 class="avatar"
-src="${document.getElementById('homeAvatar').src}"
+src="${escAttr(
+document.getElementById(
+'homeAvatar'
+).src
+)}"
 >
 
 <div>
 
 <div class="name">
-${esc(document.getElementById('profileName').textContent)}
+${esc(
+document.getElementById(
+'profileName'
+).textContent
+)}
 🌈
 </div>
 
 <div class="time">
-Just now · 🌐
+${formatTime(p.created_at)}
 </div>
 
 </div>
 
 </div>
 
-<div class="msg">
-${esc(p.body)}
-</div>
+${photoHTML}
+
+${captionHTML}
 
 <div class="actions">
 
@@ -621,44 +1081,215 @@ ${esc(p.body)}
 
 </article>
 
-`).join('');
+`;
+
+}).join('');
 
 }
 
 
+/* =========================
+   SAFE TEXT
+========================= */
+
 function esc(s){
 
 return String(s??'')
-.replace(/[&<>'"]/g,c=>({
-
+.replace(
+/[&<>'"]/g,
+c=>({
 '&':'&amp;',
 '<':'&lt;',
 '>':'&gt;',
 "'":'&#39;',
 '"':'&quot;'
-
-}[c]));
+}[c])
+);
 
 }
 
 
-async function publish(){
+function escAttr(s){
 
-const t=document
-.getElementById('postText')
-.value
-.trim();
+return esc(s)
+.replace(/`/g,'&#96;');
 
-if(!t){
+}
 
-toast('Write something first');
+
+/* =========================
+   TIME
+========================= */
+
+function formatTime(date){
+
+if(!date)
+return 'Just now · 🌐';
+
+const d=
+new Date(date);
+
+const diff=
+Math.floor(
+(Date.now()-d.getTime())/1000
+);
+
+if(diff<60)
+return 'Just now · 🌐';
+
+if(diff<3600)
+return Math.floor(diff/60)+'m ago · 🌐';
+
+if(diff<86400)
+return Math.floor(diff/3600)+'h ago · 🌐';
+
+return d.toLocaleDateString();
+
+}
+
+
+/* =========================
+   LIKE
+========================= */
+
+function like(b){
+
+b.classList.toggle('liked');
+
+toast(
+b.classList.contains('liked')
+?
+'Nice added!'
+:
+'Nice removed!'
+);
+
+}
+
+
+/* =========================
+   PHOTO SELECT
+========================= */
+
+function openPostPhoto(){
+
+document
+.getElementById('postPhoto')
+.click();
+
+}
+
+
+document
+.getElementById('postPhoto')
+.addEventListener(
+'change',
+e=>{
+
+const f=
+e.target.files?.[0];
+
+if(!f)
+return;
+
+
+if(!f.type.startsWith('image/')){
+
+toast('Please select an image');
+
+e.target.value='';
 
 return;
 
 }
 
 
-const u=await currentUser();
+if(f.size>5*1024*1024){
+
+toast('Image must be under 5MB');
+
+e.target.value='';
+
+return;
+
+}
+
+
+selectedPostPhoto=f;
+
+
+const reader=
+new FileReader();
+
+reader.onload=function(){
+
+document
+.getElementById('previewImage')
+.src=
+reader.result;
+
+document
+.getElementById('photoPreview')
+.classList.add('show');
+
+};
+
+reader.readAsDataURL(f);
+
+}
+);
+
+
+/* =========================
+   REMOVE PHOTO
+========================= */
+
+function removePostPhoto(){
+
+selectedPostPhoto=null;
+
+document
+.getElementById('photoPreview')
+.classList.remove('show');
+
+document
+.getElementById('previewImage')
+.src='';
+
+document
+.getElementById('postPhoto')
+.value='';
+
+}
+
+
+/* =========================
+   PUBLISH
+========================= */
+
+async function publish(){
+
+const text=
+document
+.getElementById('postText')
+.value
+.trim();
+
+const hasPhoto=
+!!selectedPostPhoto;
+
+
+if(!text&&!hasPhoto){
+
+toast('Write something or add a photo');
+
+return;
+
+}
+
+
+const u=
+await currentUser();
 
 if(!u){
 
@@ -669,63 +1300,168 @@ return;
 }
 
 
-const r=await db
-.from('posts')
-.insert({
-user_id:u.id,
-body:t
-});
+let finalBody=text;
 
 
-if(r.error){
+/* =========================
+   UPLOAD PHOTO
+========================= */
 
-toast(r.error.message);
+if(hasPhoto){
+
+toast('Uploading photo...');
+
+
+const f=
+selectedPostPhoto;
+
+const ext=
+(f.name.split('.').pop()||'jpg')
+.toLowerCase()
+.replace(/[^a-z0-9]/g,'');
+
+
+const path=
+`${u.id}/post-${Date.now()}.${ext}`;
+
+
+const up=
+await db.storage
+.from('avatars')
+.upload(
+path,
+f,
+{
+contentType:f.type,
+upsert:false,
+cacheControl:'3600'
+}
+);
+
+
+if(up.error){
+
+toast(
+'Photo upload failed: '+
+up.error.message
+);
 
 return;
 
 }
 
 
-document.getElementById('postText').value='';
+const {data}=
+db.storage
+.from('avatars')
+.getPublicUrl(path);
 
-toast('Posted!');
 
-loadFeed();
+if(!data?.publicUrl){
+
+toast('Could not create photo URL');
+
+return;
 
 }
 
 
-function like(b){
+/*
+Store photo URL in existing BODY column.
+No database schema change required.
+*/
 
-b.classList.toggle('liked');
-
-toast(
-b.classList.contains('liked')
-?'Nice added!'
-:'Nice removed!'
-);
+finalBody=
+`[PCPHOTO]${data.publicUrl}[/PCPHOTO]`+
+(text?'\n'+text:'');
 
 }
 
 
 /* =========================
-   FIXED LOGIN
+   CREATE POST
+========================= */
+
+const r=
+await db
+.from('posts')
+.insert({
+user_id:u.id,
+body:finalBody
+});
+
+
+if(r.error){
+
+toast(
+'Post failed: '+
+r.error.message
+);
+
+return;
+
+}
+
+
+/* CLEAR */
+
+document
+.getElementById('postText')
+.value='';
+
+removePostPhoto();
+
+toast(
+hasPhoto
+?
+'Photo posted! 📸'
+:
+'Posted!'
+);
+
+await loadFeed();
+
+}
+
+
+/* =========================
+   VIEW PHOTO
+========================= */
+
+function viewPhoto(url){
+
+if(!url)
+return;
+
+window.open(url,'_blank');
+
+}
+
+
+/* =========================
+   LOGIN
 ========================= */
 
 async function login(){
 
-const email=document
+const email=
+document
 .getElementById('email')
 .value
 .trim();
 
-const password=document
+const password=
+document
 .getElementById('password')
 .value;
 
-const msg=document.getElementById('authMsg');
+const msg=
+document.getElementById(
+'authMsg'
+);
 
 msg.textContent='';
+
 
 if(!email||!password){
 
@@ -737,7 +1473,8 @@ return;
 }
 
 
-const r=await db.auth.signInWithPassword({
+const r=
+await db.auth.signInWithPassword({
 email,
 password
 });
@@ -745,14 +1482,13 @@ password
 
 if(r.error){
 
-msg.textContent=r.error.message;
+msg.textContent=
+r.error.message;
 
 return;
 
 }
 
-
-toast('Login successful!');
 
 await showApp();
 
@@ -760,26 +1496,32 @@ await showApp();
 
 
 /* =========================
-   SIGN UP
+   SIGNUP
 ========================= */
 
 async function signup(){
 
-const email=document
+const email=
+document
 .getElementById('email')
 .value
 .trim();
 
-const password=document
+const password=
+document
 .getElementById('password')
 .value;
 
-const name=document
+const name=
+document
 .getElementById('displayName')
 .value
 .trim()||'User';
 
-const msg=document.getElementById('authMsg');
+const msg=
+document.getElementById(
+'authMsg'
+);
 
 msg.textContent='';
 
@@ -804,7 +1546,8 @@ return;
 }
 
 
-const r=await db.auth.signUp({
+const r=
+await db.auth.signUp({
 
 email,
 password,
@@ -820,7 +1563,8 @@ display_name:name
 
 if(r.error){
 
-msg.textContent=r.error.message;
+msg.textContent=
+r.error.message;
 
 return;
 
@@ -829,14 +1573,12 @@ return;
 
 if(r.data.session){
 
-toast('Account created!');
-
 await showApp();
 
 }else{
 
 msg.textContent=
-'Account created. Check your email to confirm your account before logging in.';
+'Account created. Check your email if confirmation is enabled.';
 
 }
 
@@ -862,10 +1604,6 @@ document
 document
 .getElementById('password')
 .value='';
-
-document
-.getElementById('authMsg')
-.textContent='';
 
 toast('Logged out');
 
@@ -897,14 +1635,19 @@ await loadProfile();
 
 document
 .getElementById('profileUpload')
-.addEventListener('change',async e=>{
+.addEventListener(
+'change',
+async e=>{
 
-const f=e.target.files?.[0];
+const f=
+e.target.files?.[0];
 
-if(!f)return;
+if(!f)
+return;
 
 
-const u=await currentUser();
+const u=
+await currentUser();
 
 if(!u){
 
@@ -916,11 +1659,13 @@ return;
 
 
 if(
-!f.type.startsWith('image/') ||
+!f.type.startsWith('image/')||
 f.size>5*1024*1024
 ){
 
-toast('Image must be under 5MB');
+toast(
+'Image must be under 5MB'
+);
 
 return;
 
@@ -940,7 +1685,8 @@ const path=
 toast('Uploading...');
 
 
-const up=await db.storage
+const up=
+await db.storage
 .from('avatars')
 .upload(
 path,
@@ -965,12 +1711,14 @@ return;
 }
 
 
-const {data}=db.storage
+const {data}=
+db.storage
 .from('avatars')
 .getPublicUrl(path);
 
 
-const upd=await db
+const upd=
+await db
 .from('profiles')
 .update({
 avatar_url:data.publicUrl
@@ -990,156 +1738,20 @@ return;
 }
 
 
-setAvatars(data.publicUrl);
+setAvatars(
+data.publicUrl
+);
 
-toast('Profile picture updated!');
+toast(
+'Profile picture updated!'
+);
 
-});
+}
+);
 
 
 /* =========================
-   PHOTO POST BUTTON
+   AUTH STARTUP
 ========================= */
 
-function openPostPhoto(){
-
-document
-.getElementById('postPhoto')
-.click();
-
-}
-
-
-document
-.getElementById('postPhoto')
-.addEventListener('change',async e=>{
-
-const f=e.target.files?.[0];
-
-if(!f)return;
-
-if(
-!f.type.startsWith('image/') ||
-f.size>5*1024*1024
-){
-
-toast('Image must be under 5MB');
-
-return;
-
-}
-
-
-/*
-Hindi muna binabago ang working
-text post system.
-Pinapakita muna na selected ang photo.
-*/
-
-toast('Photo added');
-
-e.target.value='';
-
-});
-
-
-/* =========================
-   IMPORTANT:
-   DO NOT SIGN OUT ON LOAD
-========================= */
-
-(async()=>{
-
-try{
-
-const {data,error}=await db.auth.getSession();
-
-if(error){
-
-console.error(error);
-
-document
-.getElementById('authMsg')
-.textContent=error.message;
-
-return;
-
-}
-
-
-if(data.session){
-
-await showApp();
-
-}else{
-
-document
-.getElementById('auth')
-.classList.remove('hide');
-
-document
-.getElementById('app')
-.classList.add('hide');
-
-}
-
-}catch(err){
-
-console.error(err);
-
-}
-
-})();
-
-
-/* Keep app in sync with Supabase auth */
-
-db.auth.onAuthStateChange(
-async(event,session)=>{
-
-if(event==='SIGNED_IN' && session){
-
-await showApp();
-
-}
-
-if(event==='SIGNED_OUT'){
-
-document
-.getElementById('app')
-.classList.add('hide');
-
-document
-.getElementById('auth')
-.classList.remove('hide');
-
-}
-
-});
-
-
-/* BUTTON EVENTS */
-
-document.getElementById('login').onclick=login;
-
-document.getElementById('signup').onclick=signup;
-
-
-/* ENTER KEY LOGIN */
-
-document
-.getElementById('password')
-.addEventListener('keydown',e=>{
-
-if(e.key==='Enter'){
-
-login();
-
-}
-
-});
-
-</script>
-
-</body>
-</html>
+(asyn
