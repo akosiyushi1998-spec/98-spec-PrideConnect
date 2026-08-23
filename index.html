@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Pride Connect</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -35,6 +36,7 @@ button,input,textarea{font:inherit}
   top:0;
   z-index:20
 }
+
 .logo{
   font-size:21px;
   font-weight:800;
@@ -42,12 +44,18 @@ button,input,textarea{font:inherit}
   color:transparent;
   background-clip:text
 }
-.icons{display:flex;gap:5px}
+
+.icons{
+  display:flex;
+  gap:5px
+}
+
 .icon,.nav,.more{
   border:0;
   background:#fff;
   cursor:pointer
 }
+
 .icon{
   width:43px;
   height:42px;
@@ -61,6 +69,7 @@ button,input,textarea{font:inherit}
   min-height:calc(100vh - 136px);
   padding:10px 10px 90px
 }
+
 .screen.active{display:block}
 
 .card{
@@ -127,37 +136,9 @@ button,input,textarea{font:inherit}
   font-weight:700
 }
 
-.photo-preview{
-  position:relative;
-  margin:8px 0 12px;
-  display:none
+.feed{
+  margin-top:10px
 }
-
-.photo-preview.show{display:block}
-
-.photo-preview img{
-  width:100%;
-  max-height:280px;
-  object-fit:cover;
-  border-radius:12px;
-  border:1px solid #ddd
-}
-
-.remove-photo{
-  position:absolute;
-  right:8px;
-  top:8px;
-  width:34px;
-  height:34px;
-  border:0;
-  border-radius:50%;
-  background:#000b;
-  color:#fff;
-  font-size:20px;
-  cursor:pointer
-}
-
-.feed{margin-top:10px}
 
 .feed .card{
   padding:14px;
@@ -195,11 +176,10 @@ button,input,textarea{font:inherit}
 
 .post-photo{
   width:100%;
-  max-height:420px;
+  max-height:430px;
   object-fit:cover;
   border-radius:12px;
-  margin:4px 0 15px;
-  display:block
+  margin-top:8px
 }
 
 .actions{
@@ -252,14 +232,18 @@ button,input,textarea{font:inherit}
   border-radius:15px 15px 0 0
 }
 
-.profile-body{padding:18px}
+.profile-body{
+  padding:18px
+}
 
 .phead{
   display:flex;
   gap:14px
 }
 
-.profile-wrap{position:relative}
+.profile-wrap{
+  position:relative
+}
 
 .profile-wrap .avatar{
   width:82px;
@@ -327,7 +311,9 @@ button,input,textarea{font:inherit}
   line-height:24px
 }
 
-.nav.active{color:#5d12d8}
+.nav.active{
+  color:#5d12d8
+}
 
 .auth{
   min-height:100vh;
@@ -347,7 +333,9 @@ button,input,textarea{font:inherit}
   box-shadow:0 8px 30px #0001
 }
 
-.authbox h1{margin-top:0}
+.authbox h1{
+  margin-top:0
+}
 
 .authbox input{
   width:100%;
@@ -398,152 +386,231 @@ button,input,textarea{font:inherit}
   opacity:0;
   pointer-events:none;
   transition:.2s;
-  z-index:50
+  z-index:50;
+  max-width:90%;
+  text-align:center
 }
 
 .toast.show{
   opacity:1;
   transform:translate(-50%,0)
 }
+
+.photo-preview{
+  position:relative;
+  margin-top:10px
+}
+
+.photo-preview img{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:10px
+}
+
+.remove-photo{
+  position:absolute;
+  right:7px;
+  top:7px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#222c;
+  color:#fff;
+  font-size:18px;
+  cursor:pointer
+}
 </style>
 </head>
 
 <body>
 
+<!-- AUTH -->
 <div id="auth" class="auth">
   <div class="authbox">
-    <h1>🌈 <span style="color:#6415df">Pride Connect</span></h1>
+
+    <h1>
+      🌈
+      <span style="color:#6415df">Pride Connect</span>
+    </h1>
+
     <p>Login or create your account.</p>
 
     <div id="authMsg" class="msgbox"></div>
 
     <input id="email" type="email" placeholder="Email">
-    <input id="password" type="password" placeholder="Password">
-    <input id="displayName" placeholder="Display name (for sign up)">
 
-    <button id="login" class="primary">Login</button>
-    <button id="signup" class="secondary">Create Account</button>
+    <input id="password"
+           type="password"
+           placeholder="Password">
+
+    <input id="displayName"
+           placeholder="Display name (for sign up)">
+
+    <button id="login" class="primary">
+      Login
+    </button>
+
+    <button id="signup" class="secondary">
+      Create Account
+    </button>
+
   </div>
 </div>
 
 
+<!-- APP -->
 <div id="app" class="app hide">
 
 <header class="top">
-  <div class="logo">🌈 Pride Connect</div>
+
+  <div class="logo">
+    🌈 Pride Connect
+  </div>
 
   <div class="icons">
-    <button class="icon" onclick="toast('Notifications')">🔔</button>
-    <button class="icon" onclick="openScreen('chat')">💬</button>
-    <button class="icon" onclick="openScreen('profile')">👤</button>
+
+    <button class="icon"
+            onclick="toast('Notifications')">
+      🔔
+    </button>
+
+    <button class="icon"
+            onclick="openScreen('chat')">
+      💬
+    </button>
+
+    <button class="icon"
+            onclick="openScreen('profile')">
+      👤
+    </button>
+
   </div>
+
 </header>
 
 
+<!-- HOME -->
 <section id="home" class="screen active">
 
   <div class="card composer">
 
-    <img id="homeAvatar" class="avatar">
+    <img id="homeAvatar"
+         class="avatar"
+         src="">
 
     <div class="compose">
 
-      <div class="hint">What's on your mind?</div>
+      <div class="hint">
+        What's on your mind?
+      </div>
 
-      <textarea
-        id="postText"
-        placeholder="Write a post..."
-      ></textarea>
+      <textarea id="postText"
+                placeholder="Write a post..."></textarea>
 
-      <!-- PHOTO PREVIEW -->
-      <div id="photoPreview" class="photo-preview">
+      <div id="photoPreview"
+           class="photo-preview hide">
 
         <img id="previewImage">
 
-        <button
-          class="remove-photo"
-          onclick="removePostPhoto()"
-          type="button"
-        >×</button>
+        <button class="remove-photo"
+                onclick="removeSelectedPhoto()">
+          ×
+        </button>
 
       </div>
 
       <div class="tools">
 
-        <!-- PHOTO BUTTON -->
-        <button
-          type="button"
-          onclick="document.getElementById('postPhoto').click()"
-          title="Add photo"
-        >🖼️</button>
+        <button onclick="document.getElementById('postPhoto').click()">
+          🖼️
+        </button>
 
-        <button
-          type="button"
-          onclick="toast('Emoji')"
-        >😊</button>
+        <button onclick="toast('Emoji')">
+          😊
+        </button>
 
-        <button
-          class="post"
-          type="button"
-          onclick="publish()"
-        >Post</button>
+        <button class="post"
+                onclick="publish()">
+          Post
+        </button>
 
       </div>
 
-      <!-- HIDDEN PHOTO INPUT -->
-      <input
-        id="postPhoto"
-        type="file"
-        accept="image/*"
-        hidden
-      >
+      <input id="postPhoto"
+             type="file"
+             accept="image/*"
+             hidden>
 
     </div>
+
   </div>
+
 
   <div id="feed" class="feed"></div>
 
 </section>
 
 
+<!-- DATING -->
 <section id="dating" class="screen">
 
   <div class="hero">
+
     <h2>Dating 💜</h2>
-    <p>Discover people and make connections.</p>
+
+    <p>
+      Discover people and make connections.
+    </p>
+
   </div>
 
   <div class="card" style="padding:16px">
-    <button
-      class="big"
-      onclick="toast('Dating module ready')"
-    >Discover people</button>
+
+    <button class="big"
+            onclick="toast('Dating module ready')">
+      Discover people
+    </button>
+
   </div>
 
 </section>
 
 
+<!-- WALLET -->
 <section id="wallet" class="screen">
 
   <div class="hero">
+
     <h2>Wallet 💰</h2>
+
     <p>Your balance</p>
+
     <h1>₱0.00</h1>
+
   </div>
 
 </section>
 
 
+<!-- SHOP -->
 <section id="shop" class="screen">
 
   <div class="hero">
+
     <h2>Shop 🛍️</h2>
-    <p>Shop module is ready for the next module.</p>
+
+    <p>
+      Shop module is ready for the next module.
+    </p>
+
   </div>
 
 </section>
 
 
+<!-- PROFILE -->
 <section id="profile" class="screen">
 
   <div class="card">
@@ -556,26 +623,27 @@ button,input,textarea{font:inherit}
 
         <div class="profile-wrap">
 
-          <img id="profileImage" class="avatar">
+          <img id="profileImage"
+               class="avatar">
 
-          <label
-            for="profileUpload"
-            class="camera"
-          >📷</label>
+          <label for="profileUpload"
+                 class="camera">
+            📷
+          </label>
 
         </div>
 
         <div>
 
-          <div
-            id="profileName"
-            style="font-size:24px;font-weight:800"
-          >User</div>
+          <div id="profileName"
+               style="font-size:24px;font-weight:800">
+            User
+          </div>
 
-          <div
-            id="profileUsername"
-            style="color:#5e17da;font-weight:bold"
-          >@user</div>
+          <div id="profileUsername"
+               style="color:#5e17da;font-weight:bold">
+            @user
+          </div>
 
           <div class="meta">
             Pride Connect member 🌈
@@ -585,22 +653,20 @@ button,input,textarea{font:inherit}
 
       </div>
 
-      <label
-        for="profileUpload"
-        class="upload"
-      >📷 Upload Profile Picture</label>
+      <label for="profileUpload"
+             class="upload">
+        📷 Upload Profile Picture
+      </label>
 
-      <input
-        id="profileUpload"
-        type="file"
-        accept="image/*"
-        hidden
-      >
+      <input id="profileUpload"
+             type="file"
+             accept="image/*"
+             hidden>
 
-      <button
-        class="secondary"
-        onclick="logout()"
-      >Log out</button>
+      <button class="secondary"
+              onclick="logout()">
+        Log out
+      </button>
 
     </div>
 
@@ -609,54 +675,49 @@ button,input,textarea{font:inherit}
 </section>
 
 
+<!-- CHAT -->
 <section id="chat" class="screen">
 
   <div class="hero">
+
     <h2>Messages 💬</h2>
+
     <p>No conversations yet.</p>
+
   </div>
 
 </section>
 
 
+<!-- NAV -->
 <nav class="bottom">
 
-  <button
-    class="nav active"
-    onclick="openScreen('home',this)"
-  >
+  <button class="nav active"
+          onclick="openScreen('home',this)">
     <b>⌂</b>
     Home
   </button>
 
-  <button
-    class="nav"
-    onclick="openScreen('dating',this)"
-  >
+  <button class="nav"
+          onclick="openScreen('dating',this)">
     <b>♥</b>
     Dating
   </button>
 
-  <button
-    class="nav"
-    onclick="openScreen('wallet',this)"
-  >
+  <button class="nav"
+          onclick="openScreen('wallet',this)">
     <b>▣</b>
     Wallet
   </button>
 
-  <button
-    class="nav"
-    onclick="openScreen('shop',this)"
-  >
+  <button class="nav"
+          onclick="openScreen('shop',this)">
     <b>♧</b>
     Shop
   </button>
 
-  <button
-    class="nav"
-    onclick="openScreen('profile',this)"
-  >
+  <button class="nav"
+          onclick="openScreen('profile',this)">
     <b>●</b>
     Profile
   </button>
@@ -665,10 +726,15 @@ button,input,textarea{font:inherit}
 
 </div>
 
+
 <div id="toast" class="toast"></div>
 
 
 <script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
 'https://uupofonanisdjmmawlml.supabase.co';
@@ -676,56 +742,68 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
 'sb_publishable_DpZ1Fzh9A6GjblSnRHrAPw__OFGaML_';
 
+
+/*
+ IMPORTANT:
+ persistSession:true
+ para hindi automatic logout kapag nag-refresh.
+*/
+
 const db =
 window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY,
   {
     auth:{
-      persistSession:false,
+      persistSession:true,
       autoRefreshToken:true,
       detectSessionInUrl:true
     }
   }
 );
 
+
 const FALLBACK =
 'https://placehold.co/160x160/png?text=YU';
 
+
 let toastTimer;
+let selectedPhoto = null;
 
 
-/* =========================
+/* =========================================================
    TOAST
-========================= */
+========================================================= */
 
-function toast(m){
+function toast(message){
 
   const e =
     document.getElementById('toast');
 
-  e.textContent=m;
+  e.textContent = message;
 
   e.classList.add('show');
 
   clearTimeout(toastTimer);
 
-  toastTimer=setTimeout(
-    ()=>e.classList.remove('show'),
-    1700
-  );
+  toastTimer =
+    setTimeout(()=>{
+      e.classList.remove('show');
+    },1700);
 }
 
 
-/* =========================
+/* =========================================================
    NAVIGATION
-========================= */
+========================================================= */
 
 function openScreen(id,btn){
 
   document
     .querySelectorAll('.screen')
-    .forEach(x=>x.classList.remove('active'));
+    .forEach(x =>
+      x.classList.remove('active')
+    );
 
   const screen =
     document.getElementById(id);
@@ -736,7 +814,9 @@ function openScreen(id,btn){
 
   document
     .querySelectorAll('.nav')
-    .forEach(x=>x.classList.remove('active'));
+    .forEach(x =>
+      x.classList.remove('active')
+    );
 
   if(btn){
     btn.classList.add('active');
@@ -746,174 +826,207 @@ function openScreen(id,btn){
 }
 
 
-/* =========================
-   AVATARS
-========================= */
+/* =========================================================
+   AVATAR
+========================================================= */
 
 function setAvatars(url){
 
-  ['homeAvatar','profileImage']
-  .forEach(id=>{
+  const finalUrl =
+    url || FALLBACK;
+
+  [
+    'homeAvatar',
+    'profileImage'
+  ].forEach(id=>{
 
     const e =
       document.getElementById(id);
 
     if(e){
-      e.src=url||FALLBACK;
+      e.src = finalUrl;
     }
 
   });
-
 }
 
 
-/* =========================
+/* =========================================================
    CURRENT USER
-========================= */
+========================================================= */
 
 async function currentUser(){
 
-  return (
-    await db.auth.getUser()
-  ).data.user;
+  const result =
+    await db.auth.getUser();
 
+  return result.data.user || null;
 }
 
 
-/* =========================
-   PROFILE
-========================= */
+/* =========================================================
+   LOAD PROFILE
+========================================================= */
 
 async function loadProfile(){
 
   const u =
     await currentUser();
 
-  if(!u)return;
+  if(!u) return;
 
-  let {data}=await db
-    .from('profiles')
-    .select(
-      'display_name,username,avatar_url'
-    )
-    .eq('id',u.id)
-    .maybeSingle();
+
+  let result =
+    await db
+      .from('profiles')
+      .select(
+        'display_name,username,avatar_url'
+      )
+      .eq('id',u.id)
+      .maybeSingle();
+
+
+  let data =
+    result.data;
+
 
   if(!data){
 
     const name =
-      (
-        u.user_metadata?.display_name ||
-        u.email?.split('@')[0] ||
-        'User'
-      );
+      u.user_metadata?.display_name ||
+      u.email?.split('@')[0] ||
+      'User';
 
     const username =
       (
-        'u'+
+        'u' +
         u.id
           .replace(/-/g,'')
           .slice(0,10)
       ).toLowerCase();
+
 
     await db
       .from('profiles')
       .insert({
         id:u.id,
         display_name:name,
-        username
+        username:username
       });
 
-    data={
+
+    data = {
       display_name:name,
-      username,
+      username:username,
       avatar_url:null
     };
 
   }
 
+
   document
     .getElementById('profileName')
     .textContent =
-      data.display_name||'User';
+      data.display_name || 'User';
+
 
   document
     .getElementById('profileUsername')
     .textContent =
-      '@'+(data.username||'user');
+      '@' +
+      (data.username || 'user');
+
 
   setAvatars(
-    data.avatar_url||FALLBACK
+    data.avatar_url || FALLBACK
   );
 
-  loadFeed();
 
+  await loadFeed();
 }
 
 
-/* =========================
-   POST DATA PARSER
-========================= */
+/* =========================================================
+   SAFE HTML
+========================================================= */
+
+function esc(s){
+
+  return String(s ?? '')
+    .replace(
+      /[&<>'"]/g,
+      c=>({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        "'":'&#39;',
+        '"':'&quot;'
+      }[c])
+    );
+}
+
+
+/* =========================================================
+   POST DATA COMPATIBILITY
+========================================================= */
+
+/*
+ Old posts:
+ "Hello world"
+
+ New posts:
+ JSON:
+ {
+   text:"Hello",
+   image_url:"..."
+ }
+
+ Kaya hindi masisira ang old posts.
+*/
 
 function parsePostBody(body){
 
-  const marker='[[PC_PHOTO]]';
+  try{
 
-  if(
-    typeof body==='string' &&
-    body.startsWith(marker)
-  ){
+    const parsed =
+      JSON.parse(body);
 
-    const rest =
-      body.slice(marker.length);
-
-    const firstBreak =
-      rest.indexOf('\n');
-
-    if(firstBreak===-1){
+    if(
+      parsed &&
+      typeof parsed === 'object'
+    ){
 
       return {
-        image:rest.trim(),
-        caption:''
+        text:parsed.text || '',
+        image_url:parsed.image_url || ''
       };
 
     }
 
-    return {
-      image:
-        rest
-          .slice(0,firstBreak)
-          .trim(),
-
-      caption:
-        rest
-          .slice(firstBreak+1)
-          .trim()
-    };
-
-  }
+  }catch(e){}
 
   return {
-    image:null,
-    caption:body
+    text:body || '',
+    image_url:''
   };
-
 }
 
 
-/* =========================
+/* =========================================================
    LOAD FEED
-========================= */
+========================================================= */
 
 async function loadFeed(){
 
   const u =
     await currentUser();
 
-  if(!u)return;
+  if(!u) return;
+
 
   const box =
     document.getElementById('feed');
+
 
   const r =
     await db
@@ -921,29 +1034,43 @@ async function loadFeed(){
       .select(
         'id,body,created_at'
       )
-      .eq('user_id',u.id)
+      .eq(
+        'user_id',
+        u.id
+      )
       .order(
         'created_at',
         {ascending:false}
       )
       .limit(30);
 
+
   if(
     r.error ||
-    !r.data?.length
+    !r.data ||
+    !r.data.length
   ){
 
-    box.innerHTML=
-      '<div class="empty card">'+
-      'Wala ka pang post. ✨<br>'+
-      'Gumawa ng first post mo sa taas.'+
-      '</div>';
+    box.innerHTML =
+      `
+      <div class="empty card">
+        Wala ka pang post. ✨
+        <br>
+        Gumawa ng first post mo sa taas.
+      </div>
+      `;
 
     return;
   }
 
 
-  const profileName =
+  const avatar =
+    document
+      .getElementById('homeAvatar')
+      .src;
+
+
+  const name =
     document
       .getElementById('profileName')
       .textContent;
@@ -955,128 +1082,100 @@ async function loadFeed(){
       const post =
         parsePostBody(p.body);
 
-      const imageHTML =
-        post.image
-        ?
-        `<img
-          class="post-photo"
-          src="${esc(post.image)}"
-          alt="Post photo"
-          loading="lazy"
-        >`
-        :
-        '';
+
+      const photo =
+        post.image_url
+          ?
+          `
+          <img
+            class="post-photo"
+            src="${esc(post.image_url)}"
+            loading="lazy"
+          >
+          `
+          :
+          '';
 
 
-      const captionHTML =
-        post.caption
-        ?
-        `<div class="msg">
-          ${esc(post.caption)}
-        </div>`
-        :
-        '';
+      const text =
+        post.text
+          ?
+          `
+          <div class="msg">
+            ${esc(post.text)}
+          </div>
+          `
+          :
+          '';
 
 
-      const date =
-        p.created_at
-        ?
+      const time =
         new Date(p.created_at)
-        :
-        new Date();
-
-
-      const timeText =
-        isNaN(date.getTime())
-        ?
-        'Just now'
-        :
-        date.toLocaleString();
+          .toLocaleString();
 
 
       return `
-
         <article class="card">
 
           <div class="head">
 
             <img
               class="avatar"
-              src="${esc(
-                document.getElementById('homeAvatar').src
-              )}"
+              src="${esc(avatar)}"
             >
 
             <div>
 
               <div class="name">
-                ${esc(profileName)} 🌈
+                ${esc(name)} 🌈
               </div>
 
               <div class="time">
-                ${esc(timeText)} · 🌐
+                ${esc(time)} · 🌐
               </div>
 
             </div>
 
+            <button class="more"
+                    onclick="toast('Post menu')">
+              ⋮
+            </button>
+
           </div>
 
-          ${captionHTML}
+          ${text}
 
-          ${imageHTML}
+          ${photo}
 
           <div class="actions">
 
             <button
-              onclick="like(this)"
-            >☘ Nice</button>
+              onclick="like(this)">
+              ☘ Nice
+            </button>
 
             <button
-              onclick="toast('Comments coming next')"
-            >💬 Comment</button>
+              onclick="toast('Comments coming next')">
+              💬 Comment
+            </button>
 
             <button
-              onclick="toast('Share coming next')"
-            >↗ Share</button>
+              onclick="toast('Share coming next')">
+              ↗ Share
+            </button>
 
           </div>
 
         </article>
-
       `;
 
     }).join('');
-
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function esc(s){
-
-  return String(s??'')
-    .replace(
-      /[&<>'"]/g,
-      c=>({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        "'":'&#39;',
-        '"':'&quot;'
-      }[c])
-    );
-
-}
-
-
-/* =========================
-   PHOTO PREVIEW
-========================= */
-
-let selectedPostPhoto=null;
-
+/* =========================================================
+   SELECT PHOTO
+========================================================= */
 
 document
   .getElementById('postPhoto')
@@ -1084,260 +1183,153 @@ document
     'change',
     function(e){
 
-      const f =
+      const file =
         e.target.files?.[0];
 
-      if(!f)return;
+      if(!file) return;
 
 
       if(
-        !f.type.startsWith('image/')
+        !file.type.startsWith('image/')
       ){
 
-        toast('Please choose an image');
+        toast('Please select an image.');
 
         e.target.value='';
 
         return;
-
       }
 
 
       if(
-        f.size >
-        5*1024*1024
+        file.size >
+        5 * 1024 * 1024
       ){
 
         toast(
-          'Image must be under 5MB'
+          'Image must be under 5MB.'
         );
 
         e.target.value='';
 
         return;
-
       }
 
 
-      selectedPostPhoto=f;
+      selectedPhoto =
+        file;
 
 
       const reader =
         new FileReader();
 
 
-      reader.onload=function(){
+      reader.onload =
+        function(event){
 
-        document
-          .getElementById('previewImage')
-          .src=reader.result;
-
-        document
-          .getElementById('photoPreview')
-          .classList.add('show');
-
-      };
+          document
+            .getElementById('previewImage')
+            .src =
+              event.target.result;
 
 
-      reader.readAsDataURL(f);
+          document
+            .getElementById('photoPreview')
+            .classList
+            .remove('hide');
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+      toast('Photo added');
 
     }
   );
 
 
-/* =========================
-   REMOVE PHOTO
-========================= */
+/* =========================================================
+   REMOVE SELECTED PHOTO
+========================================================= */
 
-function removePostPhoto(){
+function removeSelectedPhoto(){
 
-  selectedPostPhoto=null;
+  selectedPhoto = null;
 
   document
     .getElementById('postPhoto')
-    .value='';
+    .value = '';
 
-  document
-    .getElementById('previewImage')
-    .src='';
 
   document
     .getElementById('photoPreview')
-    .classList.remove('show');
+    .classList
+    .add('hide');
 
+
+  document
+    .getElementById('previewImage')
+    .src = '';
 }
 
 
-/* =========================
-   PUBLISH POST
-========================= */
+/* =========================================================
+   UPLOAD POST PHOTO
+========================================================= */
 
-async function publish(){
+async function uploadPostPhoto(file,user){
 
-  const textarea =
-    document.getElementById('postText');
-
-  const t =
-    textarea.value.trim();
-
-  const photo =
-    selectedPostPhoto;
+  if(!file) return null;
 
 
-  if(!t && !photo){
-
-    toast(
-      'Write something or add a photo first'
+  const ext =
+    (
+      file.name
+        .split('.')
+        .pop() ||
+      'jpg'
+    )
+    .toLowerCase()
+    .replace(
+      /[^a-z0-9]/g,
+      ''
     );
 
-    return;
 
-  }
+  /*
+   Existing "avatars" bucket ang ginagamit natin
+   para hindi na kailangan gumawa ng bagong bucket.
+  */
 
-
-  const u =
-    await currentUser();
-
-  if(!u){
-
-    toast('Please login');
-
-    return;
-
-  }
+  const path =
+    `${user.id}/posts/post-${Date.now()}.${ext}`;
 
 
-  let finalBody=t;
-
-
-  /* =========================
-     UPLOAD PHOTO
-  ========================= */
-
-  if(photo){
-
-    toast('Uploading photo...');
-
-
-    const ext =
-      (
-        photo.name
-          .split('.')
-          .pop() ||
-        'jpg'
-      )
-      .toLowerCase()
-      .replace(
-        /[^a-z0-9]/g,
-        ''
-      ) || 'jpg';
-
-
-    /*
-      IMPORTANT:
-
-      Same existing "avatars" bucket.
-      We keep the first folder as the
-      user's ID so the existing storage
-      permission can continue working.
-    */
-
-    const path =
-      `${u.id}/post-${Date.now()}.${ext}`;
-
-
-    const up =
-      await db
-        .storage
-        .from('avatars')
-        .upload(
-          path,
-          photo,
-          {
-            contentType:photo.type,
-            upsert:false,
-            cacheControl:'3600'
-          }
-        );
-
-
-    if(up.error){
-
-      toast(
-        'Photo upload failed: '+
-        up.error.message
-      );
-
-      return;
-
-    }
-
-
-    const {data:urlData} =
-      db
-        .storage
-        .from('avatars')
-        .getPublicUrl(path);
-
-
-    const publicUrl =
-      urlData?.publicUrl;
-
-
-    if(!publicUrl){
-
-      toast(
-        'Could not get photo URL'
-      );
-
-      return;
-
-    }
-
-
-    /*
-      Your existing posts table only
-      needs "body", so we store the
-      photo URL together with the
-      caption using our own marker.
-
-      No database column changes needed.
-    */
-
-    finalBody =
-      '[[PC_PHOTO]]'+
-      publicUrl+
-      '\n'+
-      t;
-
-  }
-
-
-  /* =========================
-     SAVE POST
-  ========================= */
-
-  const r =
+  const upload =
     await db
-      .from('posts')
-      .insert({
-        user_id:u.id,
-        body:finalBody
-      });
+      .storage
+      .from('avatars')
+      .upload(
+        path,
+        file,
+        {
+          contentType:file.type,
+          upsert:false,
+          cacheControl:'3600'
+        }
+      );
 
 
-  if(r.error){
+  if(upload.error){
 
-    toast(
-      'Post failed: '+
-      r.error.message
-    );
-
-    return;
+    throw upload.error;
 
   }
 
 
-  /* =========================
-     RESET
-  ======
+  const publicUrl =
+    db
+      .storage
+      .from('avatars')
+     
