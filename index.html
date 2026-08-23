@@ -18,13 +18,16 @@ height:68px;background:#fff;border-bottom:1px solid #ddd;
 display:flex;align-items:center;justify-content:space-between;
 padding:0 10px;position:sticky;top:0;z-index:20
 }
+
 .logo{
 font-size:21px;font-weight:800;
 background:linear-gradient(90deg,#ef1680,#6420dc);
 color:transparent;background-clip:text
 }
+
 .icons{display:flex;gap:5px}
 .icon,.nav,.more{border:0;background:#fff;cursor:pointer}
+
 .icon{
 width:43px;height:42px;border-radius:11px;
 background:#f5f5f8;font-size:20px
@@ -34,59 +37,77 @@ background:#f5f5f8;font-size:20px
 display:none;min-height:calc(100vh - 136px);
 padding:10px 10px 90px
 }
+
 .screen.active{display:block}
 
 .card{
-background:#fff;border:1px solid #e8e8ef;
-border-radius:15px;box-shadow:0 2px 8px #0000000a
+background:#fff;border:1px solid #e8e8ef;border-radius:15px;
+box-shadow:0 2px 8px #0000000a
 }
 
 .composer{
-padding:12px;display:flex;gap:10px
+padding:12px;
+display:flex;
+gap:10px
 }
 
 .avatar{
-width:52px;height:52px;border-radius:50%;
-object-fit:cover;background:#ddd
+width:52px;
+height:52px;
+border-radius:50%;
+object-fit:cover;
+background:#ddd
 }
 
 .compose{
-flex:1;border:2px solid #e7e7ed;
-border-radius:11px;padding:12px
+flex:1;
+border:2px solid #e7e7ed;
+border-radius:11px;
+padding:12px
 }
 
 .hint{
-color:#65697a;font-size:17px;margin-bottom:12px
+color:#65697a;
+font-size:17px;
+margin-bottom:12px
 }
 
 .compose textarea{
-width:100%;border:0;outline:0;
-resize:none;min-height:45px
+width:100%;
+border:0;
+outline:0;
+resize:none;
+min-height:45px
 }
 
 .tools{
-display:flex;align-items:center;gap:10px
+display:flex;
+align-items:center;
+gap:10px
 }
 
 .tools button{
-border:0;background:none;font-size:22px;
+border:0;
+background:none;
+font-size:22px;
 cursor:pointer
 }
 
 .post{
-margin-left:auto;background:#5d13dc!important;
-color:#fff;border-radius:9px!important;
-padding:9px 18px;font-weight:700
+margin-left:auto;
+background:#5d13dc!important;
+color:#fff;
+border-radius:9px!important;
+padding:9px 18px;
+font-weight:700
 }
 
-/* PHOTO PREVIEW */
-
 .photo-preview{
-margin-top:10px;
 position:relative;
+margin-top:10px;
 border-radius:12px;
 overflow:hidden;
-background:#f0f0f4;
+background:#f3f3f7;
 display:none
 }
 
@@ -95,10 +116,10 @@ display:block
 }
 
 .photo-preview img{
-display:block;
 width:100%;
 max-height:300px;
-object-fit:cover
+object-fit:cover;
+display:block
 }
 
 .remove-photo{
@@ -109,13 +130,11 @@ width:34px;
 height:34px;
 border:0;
 border-radius:50%;
-background:#222c;
+background:#000b;
 color:#fff;
 font-size:20px;
 cursor:pointer
 }
-
-/* FEED */
 
 .feed{margin-top:10px}
 
@@ -153,12 +172,12 @@ line-height:1.45;
 margin:20px 0
 }
 
-.post-photo{
+.post-image{
 width:100%;
 max-height:420px;
 object-fit:cover;
 border-radius:12px;
-margin-top:5px;
+margin-top:10px;
 display:block
 }
 
@@ -170,8 +189,10 @@ grid-template-columns:repeat(3,1fr)
 }
 
 .actions button{
-border:0;background:none;
-min-height:42px;cursor:pointer
+border:0;
+background:none;
+min-height:42px;
+cursor:pointer
 }
 
 .nice.liked{
@@ -185,23 +206,24 @@ padding:35px 15px;
 color:#686b7b
 }
 
-/* OTHER SCREENS */
-
 .hero{
 padding:18px;
 margin-bottom:10px;
 background:linear-gradient(135deg,#5d13dc,#8e21e8);
-color:#fff;border-radius:15px
+color:#fff;
+border-radius:15px
 }
 
 .big{
-width:100%;height:48px;
-border:0;border-radius:10px;
-background:#5d13dc;color:#fff;
-font-weight:700;cursor:pointer
+width:100%;
+height:48px;
+border:0;
+border-radius:10px;
+background:#5d13dc;
+color:#fff;
+font-weight:700;
+cursor:pointer
 }
-
-/* PROFILE */
 
 .profile-banner{
 height:72px;
@@ -210,10 +232,19 @@ border-radius:15px 15px 0 0
 }
 
 .profile-body{padding:18px}
-.phead{display:flex;gap:14px}
-.profile-wrap{position:relative}
+
+.phead{
+display:flex;
+gap:14px
+}
+
+.profile-wrap{
+position:relative
+}
+
 .profile-wrap .avatar{
-width:82px;height:82px
+width:82px;
+height:82px
 }
 
 .camera{
@@ -246,8 +277,6 @@ align-items:center;
 justify-content:center;
 cursor:pointer
 }
-
-/* NAV */
 
 .bottom{
 position:fixed;
@@ -282,8 +311,6 @@ line-height:24px
 .nav.active{
 color:#5d12d8
 }
-
-/* AUTH */
 
 .auth{
 min-height:100vh;
@@ -342,8 +369,6 @@ font-size:13px;
 margin:6px 0
 }
 
-/* TOAST */
-
 .toast{
 position:fixed;
 left:50%;
@@ -367,8 +392,6 @@ transform:translate(-50%,0)
 </head>
 
 <body>
-
-<!-- AUTH -->
 
 <div id="auth" class="auth">
 
@@ -411,8 +434,6 @@ Create Account
 </div>
 
 
-<!-- APP -->
-
 <div id="app" class="app hide">
 
 <header class="top">
@@ -425,30 +446,26 @@ Create Account
 
 <button
 class="icon"
-onclick="toast('Notifications')"
->
+onclick="toast('Notifications')">
 🔔
 </button>
 
 <button
 class="icon"
-onclick="openScreen('chat')"
->
+onclick="openScreen('chat')">
 💬
 </button>
 
 <button
 class="icon"
-onclick="openScreen('profile')"
->
+onclick="openScreen('profile')">
 👤
 </button>
 
 </div>
+
 </header>
 
-
-<!-- HOME -->
 
 <section id="home" class="screen active">
 
@@ -470,15 +487,14 @@ id="postText"
 placeholder="Write a post..."
 ></textarea>
 
-
-<!-- PHOTO PREVIEW -->
-
 <div
 id="photoPreview"
 class="photo-preview"
 >
 
-<img id="previewImage">
+<img
+id="photoPreviewImage"
+>
 
 <button
 class="remove-photo"
@@ -489,35 +505,30 @@ onclick="removePostPhoto()"
 
 </div>
 
-
 <div class="tools">
 
 <button
-onclick="openPostPhoto()"
->
+onclick="openPostPhoto()">
 🖼️
 </button>
 
 <button
-onclick="toast('Emoji')"
->
+onclick="toast('Emoji')">
 😊
 </button>
 
 <button
 class="post"
-onclick="publish()"
->
+onclick="publish()">
 Post
 </button>
 
 </div>
 
 </div>
+
 </div>
 
-
-<!-- HIDDEN PHOTO INPUT -->
 
 <input
 id="postPhoto"
@@ -526,13 +537,13 @@ accept="image/*"
 hidden
 >
 
-
-<div id="feed" class="feed"></div>
+<div
+id="feed"
+class="feed">
+</div>
 
 </section>
 
-
-<!-- DATING -->
 
 <section id="dating" class="screen">
 
@@ -546,12 +557,14 @@ Discover people and make connections.
 
 </div>
 
-<div class="card" style="padding:16px">
+<div
+class="card"
+style="padding:16px"
+>
 
 <button
 class="big"
-onclick="toast('Dating module ready')"
->
+onclick="toast('Dating module ready')">
 Discover people
 </button>
 
@@ -559,8 +572,6 @@ Discover people
 
 </section>
 
-
-<!-- WALLET -->
 
 <section id="wallet" class="screen">
 
@@ -577,8 +588,6 @@ Discover people
 </section>
 
 
-<!-- SHOP -->
-
 <section id="shop" class="screen">
 
 <div class="hero">
@@ -593,8 +602,6 @@ Shop module is ready for the next module.
 
 </section>
 
-
-<!-- PROFILE -->
 
 <section id="profile" class="screen">
 
@@ -615,8 +622,7 @@ class="avatar"
 
 <label
 for="profileUpload"
-class="camera"
->
+class="camera">
 📷
 </label>
 
@@ -626,15 +632,13 @@ class="camera"
 
 <div
 id="profileName"
-style="font-size:24px;font-weight:800"
->
+style="font-size:24px;font-weight:800">
 User
 </div>
 
 <div
 id="profileUsername"
-style="color:#5e17da;font-weight:bold"
->
+style="color:#5e17da;font-weight:bold">
 @user
 </div>
 
@@ -649,8 +653,7 @@ Pride Connect member 🌈
 
 <label
 for="profileUpload"
-class="upload"
->
+class="upload">
 📷 Upload Profile Picture
 </label>
 
@@ -663,18 +666,16 @@ hidden
 
 <button
 class="secondary"
-onclick="logout()"
->
+onclick="logout()">
 Log out
 </button>
 
 </div>
+
 </div>
 
 </section>
 
-
-<!-- CHAT -->
 
 <section id="chat" class="screen">
 
@@ -691,46 +692,39 @@ No conversations yet.
 </section>
 
 
-<!-- NAVIGATION -->
-
 <nav class="bottom">
 
 <button
 class="nav active"
-onclick="openScreen('home',this)"
->
+onclick="openScreen('home',this)">
 <b>⌂</b>
 Home
 </button>
 
 <button
 class="nav"
-onclick="openScreen('dating',this)"
->
+onclick="openScreen('dating',this)">
 <b>♥</b>
 Dating
 </button>
 
 <button
 class="nav"
-onclick="openScreen('wallet',this)"
->
+onclick="openScreen('wallet',this)">
 <b>▣</b>
 Wallet
 </button>
 
 <button
 class="nav"
-onclick="openScreen('shop',this)"
->
+onclick="openScreen('shop',this)">
 <b>♧</b>
 Shop
 </button>
 
 <button
 class="nav"
-onclick="openScreen('profile',this)"
->
+onclick="openScreen('profile',this)">
 <b>●</b>
 Profile
 </button>
@@ -739,20 +733,21 @@ Profile
 
 </div>
 
-<div id="toast" class="toast"></div>
+
+<div
+id="toast"
+class="toast">
+</div>
 
 
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 'https://uupofonanisdjmmawlml.supabase.co';
 
 const SUPABASE_PUBLISHABLE_KEY =
 'sb_publishable_DpZ1Fzh9A6GjblSnRHrAPw__OFGaML_';
+
 
 const db =
 window.supabase.createClient(
@@ -767,14 +762,11 @@ detectSessionInUrl:true
 }
 );
 
+
 const FALLBACK =
 'https://placehold.co/160x160/png?text=YU';
 
 let toastTimer;
-
-/* Current selected photo */
-
-let selectedPostPhoto=null;
 
 
 /* =========================
@@ -783,7 +775,7 @@ let selectedPostPhoto=null;
 
 function toast(m){
 
-const e=
+const e =
 document.getElementById('toast');
 
 e.textContent=m;
@@ -801,7 +793,7 @@ toastTimer=setTimeout(
 
 
 /* =========================
-   SCREEN
+   NAVIGATION
 ========================= */
 
 function openScreen(id,btn){
@@ -810,7 +802,7 @@ document
 .querySelectorAll('.screen')
 .forEach(x=>x.classList.remove('active'));
 
-const target=
+const target =
 document.getElementById(id);
 
 if(target)
@@ -829,15 +821,19 @@ window.scrollTo(0,0);
 
 
 /* =========================
-   AVATAR
+   AVATARS
 ========================= */
 
 function setAvatars(url){
 
-['homeAvatar','profileImage']
+[
+'homeAvatar',
+'profileImage'
+]
 .forEach(id=>{
 
-const e=document.getElementById(id);
+const e =
+document.getElementById(id);
 
 if(e)
 e.src=url||FALLBACK;
@@ -853,7 +849,7 @@ e.src=url||FALLBACK;
 
 async function currentUser(){
 
-const r=
+const r =
 await db.auth.getUser();
 
 return r.data.user;
@@ -867,11 +863,14 @@ return r.data.user;
 
 async function loadProfile(){
 
-const u=await currentUser();
+const u =
+await currentUser();
 
 if(!u)return;
 
-let {data}=await db
+
+let {data} =
+await db
 .from('profiles')
 .select(
 'display_name,username,avatar_url'
@@ -882,15 +881,22 @@ let {data}=await db
 
 if(!data){
 
-const name=
+const name =
 u.user_metadata?.display_name ||
 u.email?.split('@')[0] ||
 'User';
 
-const username=
-('u'+u.id.replace(/-/g,'').slice(0,10))
+const username =
+(
+'u'+
+u.id
+.replace(/-/g,'')
+.slice(0,10)
+)
 .toLowerCase();
 
+
+const insertResult =
 await db
 .from('profiles')
 .insert({
@@ -898,6 +904,7 @@ id:u.id,
 display_name:name,
 username
 });
+
 
 data={
 display_name:name,
@@ -910,13 +917,16 @@ avatar_url:null
 
 document
 .getElementById('profileName')
-.textContent=
+.textContent =
 data.display_name||'User';
+
 
 document
 .getElementById('profileUsername')
-.textContent=
-'@'+(data.username||'user');
+.textContent =
+'@'+
+(data.username||'user');
+
 
 setAvatars(
 data.avatar_url||FALLBACK
@@ -933,14 +943,18 @@ loadFeed();
 
 async function loadFeed(){
 
-const u=await currentUser();
+const u =
+await currentUser();
 
 if(!u)return;
 
-const box=
+
+const box =
 document.getElementById('feed');
 
-const r=await db
+
+const r =
+await db
 .from('posts')
 .select(
 'id,body,created_at'
@@ -953,76 +967,64 @@ const r=await db
 .limit(30);
 
 
-if(r.error||!r.data?.length){
+if(
+r.error ||
+!r.data?.length
+){
 
-box.innerHTML=
-`
-<div class="empty card">
-Wala ka pang post. ✨
-<br>
-Gumawa ng first post mo sa taas.
-</div>
-`;
+box.innerHTML =
+'<div class="empty card">'+
+'Wala ka pang post. ✨<br>'+
+'Gumawa ng first post mo sa taas.'+
+'</div>';
 
 return;
 
 }
 
 
-box.innerHTML=
+const avatar =
+document
+.getElementById('homeAvatar')
+.src;
+
+const name =
+document
+.getElementById('profileName')
+.textContent;
+
+
+box.innerHTML =
 r.data.map(p=>{
 
-/*
-PHOTO POSTS ARE SAVED INSIDE BODY
-USING THIS FORMAT:
+const parsed =
+parsePost(p.body);
 
-[PCPHOTO]photo_url[/PCPHOTO]
-caption
-
-This means we do NOT need to
-change the existing posts table.
-*/
-
-let body=String(p.body||'');
-
-let photoUrl='';
-
-const match=
-body.match(
-/^\[PCPHOTO\]([\s\S]*?)\[\/PCPHOTO\]\n?/
-);
-
-if(match){
-
-photoUrl=match[1];
-
-body=
-body.replace(match[0],'');
-}
-
-
-const photoHTML=
-photoUrl
+const photo =
+parsed.photo
 ?
 `
 <img
-class="post-photo"
-src="${escAttr(photoUrl)}"
-onclick="viewPhoto(this.src)"
+class="post-image"
+src="${escAttr(parsed.photo)}"
+alt="Post photo"
+onclick="viewPhoto('${escAttr(parsed.photo)}')"
 >
 `
-:'';
+:
+'';
 
 
-const captionHTML=
-body.trim()
+const text =
+parsed.text
 ?
 `
 <div class="msg">
-${esc(body)}
+${esc(parsed.text)}
 </div>
 `
-:'';
+:
+'';
 
 
 return `
@@ -1033,21 +1035,13 @@ return `
 
 <img
 class="avatar"
-src="${escAttr(
-document.getElementById(
-'homeAvatar'
-).src
-)}"
+src="${escAttr(avatar)}"
 >
 
 <div>
 
 <div class="name">
-${esc(
-document.getElementById(
-'profileName'
-).textContent
-)}
+${esc(name)}
 🌈
 </div>
 
@@ -1059,9 +1053,9 @@ ${formatTime(p.created_at)}
 
 </div>
 
-${photoHTML}
+${text}
 
-${captionHTML}
+${photo}
 
 <div class="actions">
 
@@ -1069,11 +1063,13 @@ ${captionHTML}
 ☘ Nice
 </button>
 
-<button onclick="toast('Comments coming next')">
+<button
+onclick="toast('Comments coming next')">
 💬 Comment
 </button>
 
-<button onclick="toast('Share coming next')">
+<button
+onclick="toast('Share coming next')">
 ↗ Share
 </button>
 
@@ -1089,7 +1085,67 @@ ${captionHTML}
 
 
 /* =========================
-   SAFE TEXT
+   POST FORMAT
+========================= */
+
+/*
+Photo URL is stored inside the existing
+posts.body column.
+
+This means:
+NO new database column needed.
+*/
+
+function makePostBody(text,photo){
+
+return JSON.stringify({
+text:text||'',
+photo:photo||''
+});
+
+}
+
+
+function parsePost(body){
+
+try{
+
+const obj =
+JSON.parse(body);
+
+if(
+obj &&
+typeof obj==='object' &&
+(
+'text' in obj ||
+'photo' in obj
+)
+){
+
+return {
+text:obj.text||'',
+photo:obj.photo||''
+};
+
+}
+
+}catch(e){}
+
+
+/*
+Old text-only posts continue working.
+*/
+
+return {
+text:body||'',
+photo:''
+};
+
+}
+
+
+/* =========================
+   ESCAPE
 ========================= */
 
 function esc(s){
@@ -1098,11 +1154,13 @@ return String(s??'')
 .replace(
 /[&<>'"]/g,
 c=>({
+
 '&':'&amp;',
 '<':'&lt;',
 '>':'&gt;',
 "'":'&#39;',
 '"':'&quot;'
+
 }[c])
 );
 
@@ -1111,8 +1169,19 @@ c=>({
 
 function escAttr(s){
 
-return esc(s)
-.replace(/`/g,'&#96;');
+return String(s??'')
+.replace(
+/[&<>"']/g,
+c=>({
+
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+
+}[c])
+);
 
 }
 
@@ -1126,10 +1195,10 @@ function formatTime(date){
 if(!date)
 return 'Just now · 🌐';
 
-const d=
+const d =
 new Date(date);
 
-const diff=
+const diff =
 Math.floor(
 (Date.now()-d.getTime())/1000
 );
@@ -1149,27 +1218,13 @@ return d.toLocaleDateString();
 
 
 /* =========================
-   LIKE
+   PHOTO POST
 ========================= */
 
-function like(b){
-
-b.classList.toggle('liked');
-
-toast(
-b.classList.contains('liked')
-?
-'Nice added!'
-:
-'Nice removed!'
-);
-
-}
+let selectedPostPhoto=null;
 
 
-/* =========================
-   PHOTO SELECT
-========================= */
+/* Open file picker */
 
 function openPostPhoto(){
 
@@ -1180,33 +1235,49 @@ document
 }
 
 
+/* Remove selected photo */
+
+function removePostPhoto(){
+
+selectedPostPhoto=null;
+
+document
+.getElementById('photoPreviewImage')
+.src='';
+
+document
+.getElementById('photoPreview')
+.classList.remove('show');
+
 document
 .getElementById('postPhoto')
-.addEventListener(
-'change',
-e=>{
-
-const f=
-e.target.files?.[0];
-
-if(!f)
-return;
-
-
-if(!f.type.startsWith('image/')){
-
-toast('Please select an image');
-
-e.target.value='';
-
-return;
+.value='';
 
 }
 
 
-if(f.size>5*1024*1024){
+/* Select photo */
 
-toast('Image must be under 5MB');
+document
+.getElementById('postPhoto')
+.addEventListener(
+'change',
+async e=>{
+
+const f =
+e.target.files?.[0];
+
+if(!f)return;
+
+
+if(
+!f.type.startsWith('image/') ||
+f.size>5*1024*1024
+){
+
+toast(
+'Image must be under 5MB'
+);
 
 e.target.value='';
 
@@ -1218,49 +1289,24 @@ return;
 selectedPostPhoto=f;
 
 
-const reader=
-new FileReader();
-
-reader.onload=function(){
-
+const preview =
 document
-.getElementById('previewImage')
-.src=
-reader.result;
+.getElementById('photoPreviewImage');
+
+
+preview.src =
+URL.createObjectURL(f);
+
 
 document
 .getElementById('photoPreview')
 .classList.add('show');
 
-};
 
-reader.readAsDataURL(f);
+toast('Photo selected');
 
 }
 );
-
-
-/* =========================
-   REMOVE PHOTO
-========================= */
-
-function removePostPhoto(){
-
-selectedPostPhoto=null;
-
-document
-.getElementById('photoPreview')
-.classList.remove('show');
-
-document
-.getElementById('previewImage')
-.src='';
-
-document
-.getElementById('postPhoto')
-.value='';
-
-}
 
 
 /* =========================
@@ -1269,26 +1315,25 @@ document
 
 async function publish(){
 
-const text=
+const text =
 document
 .getElementById('postText')
 .value
 .trim();
 
-const hasPhoto=
-!!selectedPostPhoto;
 
+if(!text && !selectedPostPhoto){
 
-if(!text&&!hasPhoto){
-
-toast('Write something or add a photo');
+toast(
+'Write something or choose a photo first'
+);
 
 return;
 
 }
 
 
-const u=
+const u =
 await currentUser();
 
 if(!u){
@@ -1300,32 +1345,40 @@ return;
 }
 
 
-let finalBody=text;
+let photoUrl='';
 
 
-/* =========================
-   UPLOAD PHOTO
-========================= */
+/*
+Upload photo first.
+Uses the EXISTING avatars bucket.
+*/
 
-if(hasPhoto){
+if(selectedPostPhoto){
 
 toast('Uploading photo...');
 
 
-const f=
+const f =
 selectedPostPhoto;
 
-const ext=
-(f.name.split('.').pop()||'jpg')
+
+const ext =
+(
+f.name.split('.').pop() ||
+'jpg'
+)
 .toLowerCase()
-.replace(/[^a-z0-9]/g,'');
+.replace(
+/[^a-z0-9]/g,
+''
+);
 
 
-const path=
+const path =
 `${u.id}/post-${Date.now()}.${ext}`;
 
 
-const up=
+const up =
 await db.storage
 .from('avatars')
 .upload(
@@ -1351,43 +1404,36 @@ return;
 }
 
 
-const {data}=
+const publicResult =
 db.storage
 .from('avatars')
 .getPublicUrl(path);
 
 
-if(!data?.publicUrl){
-
-toast('Could not create photo URL');
-
-return;
+photoUrl =
+publicResult.data.publicUrl;
 
 }
 
 
 /*
-Store photo URL in existing BODY column.
-No database schema change required.
+Save text + photo URL
+inside existing body column.
 */
 
-finalBody=
-`[PCPHOTO]${data.publicUrl}[/PCPHOTO]`+
-(text?'\n'+text:'');
+const body =
+makePostBody(
+text,
+photoUrl
+);
 
-}
 
-
-/* =========================
-   CREATE POST
-========================= */
-
-const r=
+const r =
 await db
 .from('posts')
 .insert({
 user_id:u.id,
-body:finalBody
+body
 });
 
 
@@ -1403,21 +1449,16 @@ return;
 }
 
 
-/* CLEAR */
+/* Clear composer */
 
 document
 .getElementById('postText')
 .value='';
 
+
 removePostPhoto();
 
-toast(
-hasPhoto
-?
-'Photo posted! 📸'
-:
-'Posted!'
-);
+toast('Posted!');
 
 await loadFeed();
 
@@ -1425,15 +1466,73 @@ await loadFeed();
 
 
 /* =========================
-   VIEW PHOTO
+   PHOTO VIEW
 ========================= */
 
 function viewPhoto(url){
 
-if(!url)
+if(!url)return;
+
+const win =
+window.open(
+'',
+'_blank'
+);
+
+if(!win){
+
+toast('Tap image again to open');
+
 return;
 
-window.open(url,'_blank');
+}
+
+win.document.write(`
+<!doctype html>
+<html>
+<head>
+<title>Pride Connect Photo</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{
+margin:0;
+background:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:100vh
+}
+img{
+max-width:100%;
+max-height:100vh;
+object-fit:contain
+}
+</style>
+</head>
+<body>
+<img src="${escAttr(url)}">
+</body>
+</html>
+`);
+
+}
+
+
+/* =========================
+   LIKE
+========================= */
+
+function like(b){
+
+b.classList.toggle('liked');
+
+toast(
+b.classList.contains('liked')
+?
+'Nice added!'
+:
+'Nice removed!'
+);
 
 }
 
@@ -1444,28 +1543,27 @@ window.open(url,'_blank');
 
 async function login(){
 
-const email=
+const email =
 document
 .getElementById('email')
 .value
 .trim();
 
-const password=
+const password =
 document
 .getElementById('password')
 .value;
 
-const msg=
-document.getElementById(
-'authMsg'
-);
+const msg =
+document
+.getElementById('authMsg');
 
 msg.textContent='';
 
 
 if(!email||!password){
 
-msg.textContent=
+msg.textContent =
 'Ilagay ang email at password.';
 
 return;
@@ -1473,7 +1571,7 @@ return;
 }
 
 
-const r=
+const r =
 await db.auth.signInWithPassword({
 email,
 password
@@ -1482,7 +1580,7 @@ password
 
 if(r.error){
 
-msg.textContent=
+msg.textContent =
 r.error.message;
 
 return;
@@ -1490,45 +1588,47 @@ return;
 }
 
 
+toast('Login successful!');
+
 await showApp();
 
 }
 
 
 /* =========================
-   SIGNUP
+   SIGN UP
 ========================= */
 
 async function signup(){
 
-const email=
+const email =
 document
 .getElementById('email')
 .value
 .trim();
 
-const password=
+const password =
 document
 .getElementById('password')
 .value;
 
-const name=
+const name =
 document
 .getElementById('displayName')
 .value
-.trim()||'User';
+.trim() ||
+'User';
 
-const msg=
-document.getElementById(
-'authMsg'
-);
+const msg =
+document
+.getElementById('authMsg');
 
 msg.textContent='';
 
 
 if(!email||!password){
 
-msg.textContent=
+msg.textContent =
 'Ilagay ang email at password.';
 
 return;
@@ -1538,7 +1638,7 @@ return;
 
 if(password.length<6){
 
-msg.textContent=
+msg.textContent =
 'Password must be at least 6 characters.';
 
 return;
@@ -1546,7 +1646,7 @@ return;
 }
 
 
-const r=
+const r =
 await db.auth.signUp({
 
 email,
@@ -1563,7 +1663,7 @@ display_name:name
 
 if(r.error){
 
-msg.textContent=
+msg.textContent =
 r.error.message;
 
 return;
@@ -1573,12 +1673,14 @@ return;
 
 if(r.data.session){
 
+toast('Account created!');
+
 await showApp();
 
 }else{
 
-msg.textContent=
-'Account created. Check your email if confirmation is enabled.';
+msg.textContent =
+'Account created. Check your email to confirm your account before logging in.';
 
 }
 
@@ -1593,17 +1695,26 @@ async function logout(){
 
 await db.auth.signOut();
 
+
 document
 .getElementById('app')
 .classList.add('hide');
+
 
 document
 .getElementById('auth')
 .classList.remove('hide');
 
+
 document
 .getElementById('password')
 .value='';
+
+
+document
+.getElementById('authMsg')
+.textContent='';
+
 
 toast('Logged out');
 
@@ -1620,9 +1731,11 @@ document
 .getElementById('auth')
 .classList.add('hide');
 
+
 document
 .getElementById('app')
 .classList.remove('hide');
+
 
 await loadProfile();
 
@@ -1631,6 +1744,7 @@ await loadProfile();
 
 /* =========================
    PROFILE PHOTO
+   EXISTING WORKING CODE
 ========================= */
 
 document
@@ -1639,14 +1753,13 @@ document
 'change',
 async e=>{
 
-const f=
+const f =
 e.target.files?.[0];
 
-if(!f)
-return;
+if(!f)return;
 
 
-const u=
+const u =
 await currentUser();
 
 if(!u){
@@ -1659,7 +1772,7 @@ return;
 
 
 if(
-!f.type.startsWith('image/')||
+!f.type.startsWith('image/') ||
 f.size>5*1024*1024
 ){
 
@@ -1672,20 +1785,26 @@ return;
 }
 
 
-const ext=
-(f.name.split('.').pop()||'jpg')
+const ext =
+(
+f.name.split('.').pop() ||
+'jpg'
+)
 .toLowerCase()
-.replace(/[^a-z0-9]/g,'');
+.replace(
+/[^a-z0-9]/g,
+''
+);
 
 
-const path=
+const path =
 `${u.id}/profile-${Date.now()}.${ext}`;
 
 
 toast('Uploading...');
 
 
-const up=
+const up =
 await db.storage
 .from('avatars')
 .upload(
@@ -1693,65 +1812,4 @@ path,
 f,
 {
 contentType:f.type,
-upsert:false,
-cacheControl:'3600'
-}
-);
-
-
-if(up.error){
-
-toast(
-'Upload failed: '+
-up.error.message
-);
-
-return;
-
-}
-
-
-const {data}=
-db.storage
-.from('avatars')
-.getPublicUrl(path);
-
-
-const upd=
-await db
-.from('profiles')
-.update({
-avatar_url:data.publicUrl
-})
-.eq('id',u.id);
-
-
-if(upd.error){
-
-toast(
-'Profile update failed: '+
-upd.error.message
-);
-
-return;
-
-}
-
-
-setAvatars(
-data.publicUrl
-);
-
-toast(
-'Profile picture updated!'
-);
-
-}
-);
-
-
-/* =========================
-   AUTH STARTUP
-========================= */
-
-(asyn
+ups
